@@ -4,9 +4,9 @@ import PageStructuredData from "../../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../../lib/seo";
 
 const PAGE_SEO = {
-  title: "Deposit and Withdrawal | ALS Trades",
+  title: "Deposit and Withdrawal | oceanaprofx",
   description:
-    "Learn ALS Trades deposit and withdrawal process, supported funding methods, verification flow and transaction handling standards.",
+    "Learn oceanaprofx deposit and withdrawal process, supported funding methods, verification flow and transaction handling standards.",
   path: "/trading/deposit-withdrawal",
   pageKeywords: [
     "deposit and withdrawal",
@@ -14,7 +14,7 @@ const PAGE_SEO = {
     "broker withdrawal process",
     "secure payment methods trading",
     "fund trading account online",
-    "als trades payment options",
+    "oceanaprofx payment options",
   ],
 } as const;
 

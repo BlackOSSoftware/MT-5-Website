@@ -22,21 +22,30 @@ export default function TwitterImage() {
           justifyContent: "center",
           padding: "84px",
           background:
-            "radial-gradient(circle at 18% 28%, rgba(30, 99, 181, 0.35), transparent 55%), radial-gradient(circle at 76% 28%, rgba(13, 148, 136, 0.28), transparent 54%), linear-gradient(135deg, #07121b 0%, #0b1d20 48%, #07121b 100%)",
+            "linear-gradient(135deg, #0b1220 0%, #121a2e 55%, #0b1220 100%)",
           color: "white",
-          fontFamily: "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
+          fontFamily:
+            "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
         }}
       >
-        <div style={{ fontSize: 66, fontWeight: 900, letterSpacing: -1.6 }}>{SITE_NAME}</div>
-        <div style={{ marginTop: 20, fontSize: 34, fontWeight: 700, opacity: 0.92 }}>
-          Multi-Asset Trading Platform
+        <div style={{ fontSize: 22, fontWeight: 600, letterSpacing: 4, opacity: 0.55 }}>
+          {SITE_NAME}
         </div>
-        <div style={{ marginTop: 18, fontSize: 22, opacity: 0.82, maxWidth: 900 }}>
-          Forex • Crypto • Indexes • Metals — built for confidence, control, and consistency.
+        <div
+          style={{
+            marginTop: 24,
+            fontSize: 54,
+            fontWeight: 700,
+            letterSpacing: -1.2,
+            maxWidth: 900,
+            lineHeight: 1.1,
+          }}
+        >
+          Trade with clarity across global markets
         </div>
+        <div style={{ marginTop: 40, width: 72, height: 4, background: "#e11d48" }} />
       </div>
     ),
-    size,
+    { ...size }
   );
 }
-

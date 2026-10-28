@@ -4,19 +4,17 @@ import PageStructuredData from "../../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../../lib/seo";
 
 const PAGE_SEO = {
-  title: "Indexes Market Trading | ALS Trades",
+  title: "Indexes | Global benchmarks on oceanaprofx",
   description:
-    "Trade global index markets with ALS Trades and capture macro trends across US, Europe and Asia benchmark indices.",
+    "Trade major US, European, and Asian equity indexes on oceanaprofx — broad market exposure without stock-by-stock complexity.",
   path: "/markets/indexes",
   pageKeywords: [
-    "indexes market",
-    "index market trading",
-    "trade us30",
-    "trade nas100",
-    "trade spx500",
-    "global index broker",
-    "equity index cfd trading",
-    "macro trading indexes",
+    "indexes",
+    "US30",
+    "NAS100",
+    "SPX500",
+    "equity indexes",
+    "oceanaprofx indexes",
   ],
 } as const;
 
@@ -28,13 +26,13 @@ export default function Page() {
       <PageStructuredData title={PAGE_SEO.title} description={PAGE_SEO.description} path={PAGE_SEO.path} />
       <MarketShowcase
         variant="indexes"
-        badge="Global Index Arena"
-        title="Trade Index Trends Through A Macro-Focused Lens"
-        subtitle="Take directional exposure to major economies without stock-by-stock complexity."
-        intro="Index products compress broad market behavior into tradable instruments. ALS Trades enables you to capture regional momentum and macro sentiment with efficient execution and clear pricing visibility."
+        badge="Indexes"
+        title="Broad market views in a single instrument."
+        subtitle="Take directional exposure to major economies without building a stock-by-stock book."
+        intro="Index products compress regional equity behavior into tradable instruments. oceanaprofx covers key US, European, and Asian benchmarks so you can express macro views, hedge equity risk, or trade session momentum with clear pricing."
         heroImageSrc="https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?auto=format&fit=crop&w=2400&q=80"
         heroImageAlt="Newspaper on a table"
-        symbolsTitle="Benchmark Index Contracts"
+        symbolsTitle="Benchmark index contracts"
         symbols={[
           { symbol: "US30", name: "Dow Jones Industrial", note: "US blue-chip sentiment" },
           { symbol: "NAS100", name: "Nasdaq 100", note: "Technology-led growth benchmark" },
@@ -43,45 +41,45 @@ export default function Page() {
           { symbol: "UK100", name: "FTSE 100", note: "Large-cap UK index" },
           { symbol: "JPN225", name: "Nikkei 225", note: "Japan risk appetite gauge" },
         ]}
-        whatIsTitle="What Are Index Instruments?"
+        whatIsTitle="What are index instruments?"
         whatIsCode="IDX"
-        whatIsDescription="Index instruments track aggregated baskets of stocks and reflect the performance of key sectors or national markets. They allow traders to position around macro moves with less single-company event risk."
-        featureTitle="Why traders deploy index exposure"
+        whatIsDescription="Index instruments track aggregated baskets of stocks and reflect the performance of key sectors or national markets. They let traders position around macro moves with less single-company event risk than holding individual names."
+        featureTitle="Why traders use index exposure"
         features={[
-          "Trade broad economic sentiment with one instrument",
-          "Reduce single-stock shock risk in directional setups",
-          "Build tactical hedges for equity allocations",
-          "Align positions to global session momentum",
+          "Express broad economic sentiment with one instrument",
+          "Reduce single-stock event risk in directional setups",
+          "Build tactical hedges around equity allocations",
+          "Align positions with regional session opens and overlaps",
         ]}
-        pulseTitle="Index Pulse For Macro Timing"
-        pulseSubtitle="Read regional market rhythm quickly and align your entries with higher-probability trends."
+        pulseTitle="Index market snapshot"
+        pulseSubtitle="Coverage and session context for planning entries around macro rhythm."
         metrics={[
           { label: "Benchmarks", value: "20+", detail: "Global index coverage across regions" },
           { label: "Session Opportunities", value: "3", detail: "Asia, Europe, US directional windows" },
           { label: "Trade Styles", value: "Multi", detail: "Intraday, swing, and hedge use-cases" },
           { label: "Market Focus", value: "Macro", detail: "Economy-wide directional expression" },
         ]}
-        edgeTitle="Professional Index Trading Advantages"
+        edgeTitle="A practical approach to index trading"
         edgeCards={[
           {
-            title: "Macro Theme Alignment",
-            description: "Translate economic narratives into clear index positioning frameworks.",
+            title: "Macro theme clarity",
+            description: "Map economic narratives to a defined index rather than a scattered stock list.",
           },
           {
-            title: "Session-Based Opportunity",
-            description: "Use regional openings and overlaps to capture cleaner momentum shifts.",
+            title: "Session-based timing",
+            description: "Use regional openings and overlaps when liquidity and momentum are clearer.",
           },
           {
-            title: "Portfolio Overlay Utility",
-            description: "Use index contracts to hedge or rebalance broader equity exposure.",
+            title: "Portfolio overlay use",
+            description: "Hedge or rebalance broader equity exposure without unwinding every holding.",
           },
         ]}
-        journeyTitle="Build Your Index Plan In Four Steps"
+        journeyTitle="Four steps to an index plan"
         journeySteps={[
-          { title: "Open Trading Access", description: "Complete registration and activate platform permissions." },
-          { title: "Set Allocation", description: "Fund account and assign index risk budget." },
-          { title: "Choose Benchmark", description: "Select the market index matching your macro thesis." },
-          { title: "Execute Strategy", description: "Deploy and manage positions across key sessions." },
+          { title: "Open trading access", description: "Complete registration and activate platform permissions." },
+          { title: "Set allocation", description: "Fund the account and assign an index risk budget." },
+          { title: "Choose benchmark", description: "Select the index that matches your macro thesis." },
+          { title: "Execute strategy", description: "Deploy and manage positions across key sessions." },
         ]}
       />
     </>

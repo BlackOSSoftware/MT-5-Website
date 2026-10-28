@@ -4,12 +4,12 @@ import PageStructuredData from "../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../lib/seo";
 
 const PAGE_SEO = {
-  title: "Contact ALS Trades | Trading Support and Account Assistance",
+  title: "Contact oceanaprofx | Trading Support and Account Assistance",
   description:
-    "Contact ALS Trades for trading support, account setup help, platform guidance and brokerage service inquiries from our specialist team.",
+    "Contact oceanaprofx for trading support, account setup help, platform guidance and brokerage service inquiries from our specialist team.",
   path: "/contact",
   pageKeywords: [
-    "contact als trades",
+    "contact oceanaprofx",
     "trading support desk",
     "broker customer support",
     "account opening support",

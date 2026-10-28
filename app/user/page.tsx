@@ -3,11 +3,11 @@ import Overview from "./components/Dashboard/Overview";
 import { buildPageMetadata } from "../lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "User Dashboard | ALS Trades",
+  title: "User Dashboard | oceanaprofx",
   description: "Secure user dashboard for account monitoring and internal trading activity management.",
   path: "/user",
   pageKeywords: [
-    "als trades user dashboard",
+    "oceanaprofx user dashboard",
     "client dashboard access",
     "private trading dashboard",
     "account overview panel",

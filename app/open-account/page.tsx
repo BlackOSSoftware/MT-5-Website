@@ -4,17 +4,14 @@ import PageStructuredData from "../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../lib/seo";
 
 const PAGE_SEO = {
-  title: "Open Account | ALS Trades Signup",
+  title: "Open account | Start trading with oceanaprofx",
   description:
-    "Open your ALS Trades account to start trading forex, crypto, indexes and metals with a fast and secure onboarding process.",
+    "Create your oceanaprofx account to trade forex, crypto, indexes, and metals with a clear onboarding path.",
   path: "/open-account",
   pageKeywords: [
-    "open als trades account",
+    "open oceanaprofx account",
     "trading account signup",
-    "forex account registration",
     "broker account opening",
-    "create trading profile",
-    "start online trading account",
   ],
 } as const;
 
@@ -23,14 +20,18 @@ export const metadata: Metadata = buildPageMetadata(PAGE_SEO);
 export default function OpenAccountPage() {
   return (
     <>
-      <PageStructuredData title={PAGE_SEO.title} description={PAGE_SEO.description} path={PAGE_SEO.path} />
+      <PageStructuredData
+        title={PAGE_SEO.title}
+        description={PAGE_SEO.description}
+        path={PAGE_SEO.path}
+      />
       <SimplePage
-        title="Open Account"
-        description="Create your live trading profile, complete verification, and get platform access in minutes."
-        primaryLabel="Log in"
-        primaryHref="https://user.alstrades.com/login"
+        title="Open a live trading account"
+        description="Create your profile, complete verification, fund your account, and start trading across major markets."
+        primaryLabel="Create account"
+        primaryHref="https://user.oceanaprofx.com/signup"
         imageSrc="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1800&q=80"
-        imageAlt="Person standing near stairs"
+        imageAlt="Professional at work"
       />
     </>
   );

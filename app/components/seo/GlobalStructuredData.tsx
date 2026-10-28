@@ -12,7 +12,7 @@ export default function GlobalStructuredData() {
         "@id": organizationId,
         name: SITE_NAME,
         url: SITE_URL,
-        logo: `${SITE_URL}/favicon.ico`,
+        logo: `${SITE_URL}/logo.png`,
         contactPoint: [
           {
             "@type": "ContactPoint",

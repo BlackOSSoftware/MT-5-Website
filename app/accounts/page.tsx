@@ -4,17 +4,14 @@ import PageStructuredData from "../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../lib/seo";
 
 const PAGE_SEO = {
-  title: "Trading Accounts | ALS Trades",
+  title: "Accounts | Compare oceanaprofx trading accounts",
   description:
-    "Compare ALS Trades account types, features, leverage structures and execution options to choose the account that fits your trading style.",
+    "Review oceanaprofx account options and open the structure that fits your trading style and activity level.",
   path: "/accounts",
   pageKeywords: [
-    "als trades accounts",
-    "forex trading account types",
+    "oceanaprofx accounts",
+    "trading account types",
     "open online trading account",
-    "professional trading account",
-    "broker account comparison",
-    "multi asset account options",
   ],
 } as const;
 
@@ -23,14 +20,18 @@ export const metadata: Metadata = buildPageMetadata(PAGE_SEO);
 export default function AccountsPage() {
   return (
     <>
-      <PageStructuredData title={PAGE_SEO.title} description={PAGE_SEO.description} path={PAGE_SEO.path} />
+      <PageStructuredData
+        title={PAGE_SEO.title}
+        description={PAGE_SEO.description}
+        path={PAGE_SEO.path}
+      />
       <SimplePage
-        title="Accounts"
-        description="Compare account types, leverage options, execution models, and platform features for your strategy."
-        primaryLabel="Open Account"
-        primaryHref="https://user.alstrades.com/signup"
+        title="Trading accounts"
+        description="Compare Core, Prime, and Elite structures — then open the account that matches your frequency and risk posture."
+        primaryLabel="View account details"
+        primaryHref="/trading/account"
         imageSrc="https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1800&q=80"
-        imageAlt="Fan of US dollar banknotes"
+        imageAlt="Currency notes"
       />
     </>
   );

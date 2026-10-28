@@ -55,7 +55,7 @@ export default function AppDownloadPopup() {
 
   const startAndroidDownload = async () => {
     try {
-      const response = await fetch("/ALS%20Trades.apk");
+      const response = await fetch("/oceanaprofx.apk");
       if (!response.ok) {
         throw new Error("APK file is not reachable");
       }
@@ -64,7 +64,7 @@ export default function AppDownloadPopup() {
       const objectUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = objectUrl;
-      link.download = "ALS Trades.apk";
+      link.download = "oceanaprofx.apk";
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -72,8 +72,8 @@ export default function AppDownloadPopup() {
       setFeedback("Android APK download started.");
     } catch {
       const fallback = document.createElement("a");
-      fallback.href = "/ALS%20Trades.apk";
-      fallback.download = "ALS Trades.apk";
+      fallback.href = "/oceanaprofx.apk";
+      fallback.download = "oceanaprofx.apk";
       document.body.appendChild(fallback);
       fallback.click();
       fallback.remove();
@@ -163,7 +163,7 @@ export default function AppDownloadPopup() {
                   <h3 className="mt-3 text-2xl font-black leading-tight text-[var(--foreground)] sm:text-3xl">
                     Trade faster on
                     <span className="block bg-[linear-gradient(90deg,var(--secondary),var(--primary))] bg-clip-text text-transparent">
-                      ALS Mobile
+                      oceanaprofx Mobile
                     </span>
                   </h3>
                   <p className="mt-3 text-sm text-[var(--text-muted)] sm:text-base">

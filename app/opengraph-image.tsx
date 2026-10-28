@@ -22,46 +22,57 @@ export default function OpenGraphImage() {
           justifyContent: "center",
           padding: "84px",
           background:
-            "radial-gradient(circle at 18% 28%, rgba(30, 99, 181, 0.35), transparent 55%), radial-gradient(circle at 76% 28%, rgba(13, 148, 136, 0.28), transparent 54%), linear-gradient(135deg, #07121b 0%, #0b1d20 48%, #07121b 100%)",
+            "linear-gradient(135deg, #0b1220 0%, #121a2e 55%, #0b1220 100%)",
           color: "white",
-          fontFamily: "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
+          fontFamily:
+            "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
         }}
       >
-        <div style={{ fontSize: 66, fontWeight: 900, letterSpacing: -1.6 }}>{SITE_NAME}</div>
-        <div style={{ marginTop: 20, fontSize: 34, fontWeight: 700, opacity: 0.92 }}>
-          Trade Forex, Crypto, Indexes & Metals
-        </div>
-        <div style={{ marginTop: 18, fontSize: 22, opacity: 0.82, maxWidth: 900 }}>
-          Professional multi-asset access with transparent pricing and reliable execution.
+        <div
+          style={{
+            fontSize: 22,
+            fontWeight: 600,
+            letterSpacing: 4,
+            textTransform: "uppercase",
+            opacity: 0.55,
+          }}
+        >
+          {SITE_NAME}
         </div>
         <div
           style={{
-            marginTop: 34,
-            display: "flex",
-            gap: 10,
-            flexWrap: "wrap",
-            opacity: 0.92,
+            marginTop: 24,
+            fontSize: 58,
+            fontWeight: 700,
+            letterSpacing: -1.4,
+            maxWidth: 920,
+            lineHeight: 1.1,
           }}
         >
-          {["Institutional Precision", "Execution Discipline", "Market Confidence"].map((label) => (
-            <div
-              key={label}
-              style={{
-                padding: "10px 14px",
-                borderRadius: 999,
-                border: "1px solid rgba(255,255,255,0.22)",
-                background: "rgba(255,255,255,0.06)",
-                fontSize: 18,
-                fontWeight: 650,
-              }}
-            >
-              {label}
-            </div>
-          ))}
+          Multi-asset trading, built for clarity
         </div>
+        <div
+          style={{
+            marginTop: 22,
+            fontSize: 24,
+            opacity: 0.75,
+            maxWidth: 820,
+            lineHeight: 1.4,
+          }}
+        >
+          Forex, crypto, indexes, and metals — clear pricing and steady
+          execution.
+        </div>
+        <div
+          style={{
+            marginTop: 40,
+            width: 72,
+            height: 4,
+            background: "#1b4dff",
+          }}
+        />
       </div>
     ),
-    size,
+    { ...size }
   );
 }
-

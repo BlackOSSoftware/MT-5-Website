@@ -7,11 +7,11 @@ import AdminSidebar from "./components/Sidebar";
 import { buildPageMetadata } from "../lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "User Panel | ALS Trades",
-  description: "Private user panel for authenticated ALS Trades account management.",
+  title: "User Panel | oceanaprofx",
+  description: "Private user panel for authenticated oceanaprofx account management.",
   path: "/user",
   pageKeywords: [
-    "als trades user panel",
+    "oceanaprofx user panel",
     "account management panel",
     "private broker dashboard",
     "secure client area",

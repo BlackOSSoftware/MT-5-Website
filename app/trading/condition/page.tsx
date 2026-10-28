@@ -4,9 +4,9 @@ import PageStructuredData from "../../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../../lib/seo";
 
 const PAGE_SEO = {
-  title: "Trading Conditions | ALS Trades",
+  title: "Trading Conditions | oceanaprofx",
   description:
-    "Understand ALS Trades trading conditions including pricing behavior, execution model, cost clarity and instrument parameters.",
+    "Understand oceanaprofx trading conditions including pricing behavior, execution model, cost clarity and instrument parameters.",
   path: "/trading/condition",
   pageKeywords: [
     "trading conditions",
@@ -14,7 +14,7 @@ const PAGE_SEO = {
     "stp ecn execution model",
     "transparent pricing trading",
     "broker trading parameters",
-    "als trades pricing model",
+    "oceanaprofx pricing model",
   ],
 } as const;
 

@@ -4,21 +4,17 @@ import PageStructuredData from "./components/seo/PageStructuredData";
 import { buildPageMetadata } from "./lib/seo";
 
 const PAGE_SEO = {
-  title: "ALS Trades | Trade Forex, Crypto, Indexes and Metals",
+  title: "oceanaprofx | Multi-asset trading, built for clarity",
   description:
-    "Explore ALS Trades for forex, crypto, index and metal market access with professional-grade execution, transparent pricing and advanced trading tools.",
+    "Trade forex, crypto, indexes, and metals with oceanaprofx — clear pricing, disciplined execution, and a calmer trading stack.",
   path: "/",
   pageKeywords: [
-    "als trades home",
-    "trade forex online",
-    "trade crypto online",
-    "trade indexes online",
-    "trade metals online",
-    "forex market platform",
-    "crypto market platform",
-    "index market platform",
-    "metal market platform",
-    "online broker website",
+    "oceanaprofx",
+    "forex trading",
+    "crypto trading",
+    "index trading",
+    "metals trading",
+    "online trading platform",
   ],
 } as const;
 
@@ -27,7 +23,11 @@ export const metadata: Metadata = buildPageMetadata(PAGE_SEO);
 export default function Home() {
   return (
     <>
-      <PageStructuredData title={PAGE_SEO.title} description={PAGE_SEO.description} path={PAGE_SEO.path} />
+      <PageStructuredData
+        title={PAGE_SEO.title}
+        description={PAGE_SEO.description}
+        path={PAGE_SEO.path}
+      />
       <LandingPage />
     </>
   );

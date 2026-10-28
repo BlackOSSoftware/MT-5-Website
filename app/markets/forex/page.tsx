@@ -4,19 +4,17 @@ import PageStructuredData from "../../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../../lib/seo";
 
 const PAGE_SEO = {
-  title: "Forex Market Trading | ALS Trades",
+  title: "Forex | Currency pairs on oceanaprofx",
   description:
-    "Trade the forex market with ALS Trades across major and minor currency pairs, low-latency execution and transparent pricing tools.",
+    "Trade major, minor, and selected cross currency pairs on oceanaprofx with clear pricing and weekday session access.",
   path: "/markets/forex",
   pageKeywords: [
-    "forex market",
-    "forex market trading",
-    "trade forex pairs",
-    "eur usd trading",
-    "gbp usd trading",
-    "usd jpy trading",
-    "best forex trading platform",
-    "online forex broker",
+    "forex",
+    "currency pairs",
+    "EUR/USD",
+    "GBP/USD",
+    "USD/JPY",
+    "oceanaprofx forex",
   ],
 } as const;
 
@@ -28,13 +26,13 @@ export default function Page() {
       <PageStructuredData title={PAGE_SEO.title} description={PAGE_SEO.description} path={PAGE_SEO.path} />
       <MarketShowcase
         variant="forex"
-        badge="Forex Liquidity Hub"
-        title="Master Global FX Flow With Institutional Execution"
-        subtitle="Trade 45+ currency pairs with competitive pricing and reliable low-latency routing."
-        intro="FX never truly sleeps. ALS Trades connects your strategy to deep liquidity venues so you can execute across London, New York, and Asia with consistent speed, cleaner fills, and stronger control in fast sessions."
+        badge="Forex"
+        title="Currency markets, explained without the noise."
+        subtitle="Trade 45+ pairs across Asia, London, and New York with readable pricing and steady order handling."
+        intro="FX runs around the clock on weekdays. oceanaprofx gives you access to major, minor, and selected cross pairs so you can express macro views, manage currency exposure, and work within the session windows that match your strategy."
         heroImageSrc="https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=2400&q=80"
         heroImageAlt="Fan of US dollar banknotes"
-        symbolsTitle="Active Forex Universe"
+        symbolsTitle="Major and cross pairs"
         symbols={[
           { symbol: "EUR/USD", name: "Euro vs US Dollar", note: "Most liquid major pair" },
           { symbol: "GBP/USD", name: "British Pound vs US Dollar", note: "Volatility-rich trend pair" },
@@ -43,45 +41,45 @@ export default function Page() {
           { symbol: "USD/CAD", name: "US Dollar vs Canadian Dollar", note: "Energy-linked setup" },
           { symbol: "EUR/JPY", name: "Euro vs Japanese Yen", note: "Cross pair momentum favorite" },
         ]}
-        whatIsTitle="What Are Forex Currency Pairs?"
+        whatIsTitle="What are forex currency pairs?"
         whatIsCode="FCP"
-        whatIsDescription="Forex instruments are quoted in pairs, where one currency is priced against another. This relative valuation lets traders express macro, policy, and sentiment views while managing exposure with both directional and hedging strategies."
-        featureTitle="Core advantages for FX traders"
+        whatIsDescription="Forex instruments are quoted in pairs, where one currency is priced against another. That relative valuation lets traders express macro, policy, and sentiment views while managing exposure with directional or hedging strategies."
+        featureTitle="What FX access is useful for"
         features={[
-          "Trade long and short with tactical flexibility",
-          "Operate 24 hours a day, 5 trading days each week",
-          "Manage currency exposure across global portfolios",
-          "Access carry opportunities from rate differentials",
+          "Go long or short depending on your view",
+          "Trade across weekday sessions — Asia, London, New York",
+          "Manage currency exposure alongside other markets",
+          "Work rate-differential setups when conditions support them",
         ]}
-        pulseTitle="FX Market Pulse Built For Precision"
-        pulseSubtitle="Monitor critical benchmarks quickly and keep execution decisions aligned with real market structure."
+        pulseTitle="Forex market snapshot"
+        pulseSubtitle="A concise view of coverage and session structure — useful context before you size a trade."
         metrics={[
           { label: "Tradable Pairs", value: "45+", detail: "Major, minor, and selected cross pairs" },
           { label: "Sessions", value: "3", detail: "Asia, London, New York market cycle" },
           { label: "Trading Window", value: "24/5", detail: "Continuous weekday currency access" },
-          { label: "Order Routing", value: "Tier-1", detail: "Institutional liquidity stream" },
+          { label: "Order Routing", value: "Tier-1", detail: "Liquidity routed for consistent fills" },
         ]}
-        edgeTitle="Execution Edge For Serious Currency Traders"
+        edgeTitle="How we approach FX execution"
         edgeCards={[
           {
-            title: "Session-Aware Depth",
-            description: "Route orders where liquidity is strongest during each regional trading window.",
+            title: "Session-aware liquidity",
+            description: "Order handling respects when each regional window is deepest — and when it is thin.",
           },
           {
-            title: "Pricing Stability Logic",
-            description: "Pricing architecture tuned to stay competitive through normal volatility.",
+            title: "Readable pricing",
+            description: "Costs and spreads stay visible so you can judge setup quality before committing size.",
           },
           {
-            title: "Fast Risk Reaction",
-            description: "Manage stops, exposure, and scaling quickly when market momentum changes.",
+            title: "Practical risk tools",
+            description: "Stops, exposure checks, and position updates stay close at hand when momentum shifts.",
           },
         ]}
-        journeyTitle="From Setup To Execution In Four FX Steps"
+        journeyTitle="Four steps from account to first FX trade"
         journeySteps={[
-          { title: "Create Profile", description: "Open your account and define your base currency." },
-          { title: "Fund Wallet", description: "Add capital and configure your preferred risk profile." },
-          { title: "Select Pair", description: "Choose majors, minors, or crosses based on your setup." },
-          { title: "Execute & Manage", description: "Enter, monitor, and optimize positions in real time." },
+          { title: "Create profile", description: "Open your account and choose your base currency." },
+          { title: "Fund wallet", description: "Add capital and set a risk profile you can stick to." },
+          { title: "Select pair", description: "Pick majors, minors, or crosses that match your setup." },
+          { title: "Execute & manage", description: "Enter, monitor, and adjust positions in real time." },
         ]}
       />
     </>

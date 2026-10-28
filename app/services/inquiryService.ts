@@ -6,6 +6,10 @@ export type InquiryPayload = {
   description: string;
 };
 
+/** This marketing site is Oceana-only — inquiries must land on OCEANAPROFX admin. */
+const PORTAL_BROKER_CODE =
+  process.env.NEXT_PUBLIC_PORTAL_BROKER_CODE?.trim() || "OCEANAPROFX";
+
 export async function createInquiry(payload: InquiryPayload) {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -18,7 +22,10 @@ export async function createInquiry(payload: InquiryPayload) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      ...payload,
+      portalBrokerCode: PORTAL_BROKER_CODE,
+    }),
   });
 
   if (!response.ok) {

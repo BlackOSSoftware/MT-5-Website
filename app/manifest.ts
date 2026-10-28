@@ -10,11 +10,12 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: SITE_NAME,
     short_name: SITE_NAME,
-    description: "Multi-asset trading access across forex, crypto, indexes, and metals.",
+    description:
+      "Multi-asset trading across forex, crypto, indexes, and metals.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0b1623",
-    theme_color: "#1e63b5",
+    background_color: "#0b1220",
+    theme_color: "#1b4dff",
     icons: [
       {
         src: SITE_LOGO_PATH,
@@ -44,4 +45,3 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
   };
 }
-

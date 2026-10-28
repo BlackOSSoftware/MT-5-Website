@@ -4,12 +4,12 @@ import PageStructuredData from "../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../lib/seo";
 
 const PAGE_SEO = {
-  title: "Regulation and Compliance | ALS Trades",
+  title: "Regulation and Compliance | oceanaprofx",
   description:
-    "Review ALS Trades compliance framework, governance standards and operational controls designed to protect client trust and transparency.",
+    "Review oceanaprofx compliance framework, governance standards and operational controls designed to protect client trust and transparency.",
   path: "/regulation",
   pageKeywords: [
-    "als trades regulation",
+    "oceanaprofx regulation",
     "broker compliance policy",
     "trading governance standards",
     "client protection framework",

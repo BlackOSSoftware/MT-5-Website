@@ -30,8 +30,8 @@ export default function OpenAccountPage() {
         description="Create your profile, complete verification, fund your account, and start trading across major markets."
         primaryLabel="Create account"
         primaryHref="https://user.oceanaprofx.com/signup"
-        imageSrc="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1800&q=80"
-        imageAlt="Professional at work"
+        eyebrow="Open account"
+        points={["Create your profile", "Complete verification", "Fund your account", "Start trading live"]}
       />
     </>
   );

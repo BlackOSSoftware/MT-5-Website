@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Source_Sans_3, Space_Grotesk } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import NavbarFooterWrapper from "./layout/NavbarFooterWrapper";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
@@ -21,11 +21,10 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "600", "700"],
 });
 
-const sourceSans = Source_Sans_3({
-  variable: "--font-source-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
+// Source Sans 3 is loaded via a stylesheet <link>: next/font/google under Turbopack
+// (Next 16.0.x) fails on its "/l/font?kit=…&skey=…" file URLs. --font-source-sans is set in globals.css.
+const SOURCE_SANS_HREF =
+  "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -90,9 +89,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${spaceGrotesk.variable} ${sourceSans.variable} antialiased site-shell`}
-      >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={SOURCE_SANS_HREF} />
+      </head>
+      <body className={`${spaceGrotesk.variable} antialiased site-shell`}>
         <script
           dangerouslySetInnerHTML={{
             __html:

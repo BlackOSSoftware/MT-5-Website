@@ -1,76 +1,151 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import {
+  ArrowUpRight,
+  BadgeCheck,
+  CandlestickChart,
+  Check,
   Clock3,
+  Compass,
+  Eye,
+  FileCheck2,
+  Gauge,
+  Globe2,
+  Headphones,
+  Layers,
   Mail,
   MessageSquareText,
+  MonitorSmartphone,
+  Receipt,
+  Scale,
   Shield,
+  ShieldCheck,
+  SlidersHorizontal,
+  Smartphone,
+  Sparkles,
   Wallet,
+  type LucideIcon,
 } from "lucide-react";
 import { useCreateInquiry } from "../../../hooks/useCreateInquiry";
 import PageHero from "../../ui/PageHero";
+import Reveal from "../../ui/Reveal";
+import { Section, SectionHeader } from "../../ui/Section";
+import CtaBand, { LOGIN_URL, SIGNUP_URL } from "../../ui/CtaBand";
 
-const fadeIn = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: "easeOut" as const },
-  viewport: { once: true, amount: 0.2 },
-};
+type IconCard = { icon: LucideIcon; title: string; body: string };
 
-const IMAGES = {
-  account:
-    "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=2400&q=80",
-  platform:
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2400&q=80",
-  conditions:
-    "https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=2400&q=80",
-  marketTime:
-    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=2400&q=80",
-  payments:
-    "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=2400&q=80",
-  about:
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2400&q=80",
-  why:
-    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=80",
-  reviews:
-    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2400&q=80",
-  regulation:
-    "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=2400&q=80",
-  contact:
-    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2400&q=80",
-} as const;
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function IconCardGrid({ items, cols = 3 }: { items: IconCard[]; cols?: 2 | 3 | 4 }) {
+  const grid = cols === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : cols === 2 ? "md:grid-cols-2" : "md:grid-cols-3";
   return (
-    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-      {children}
-    </p>
+    <div className={`mt-12 grid gap-5 ${grid}`}>
+      {items.map((item, i) => {
+        const Icon = item.icon;
+        return (
+          <Reveal key={item.title} delay={i * 0.07}>
+            <article className="card card-hover h-full p-6 sm:p-7">
+              <span className="icon-tile">
+                <Icon size={20} />
+              </span>
+              <h3 className="mt-6 font-display text-xl font-semibold text-[var(--foreground)]">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{item.body}</p>
+            </article>
+          </Reveal>
+        );
+      })}
+    </div>
   );
 }
 
+function CheckList({ items, dark = false }: { items: string[]; dark?: boolean }) {
+  return (
+    <ul className="grid gap-4">
+      {items.map((item, i) => (
+        <Reveal as="li" key={item} from="left" delay={i * 0.06} className="flex items-start gap-3">
+          <span
+            className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-white"
+            style={{ background: "var(--brand-gradient)" }}
+          >
+            <Check size={12} strokeWidth={3} />
+          </span>
+          <span className={`leading-relaxed ${dark ? "text-white/75" : "text-[var(--text-muted)]"}`}>{item}</span>
+        </Reveal>
+      ))}
+    </ul>
+  );
+}
+
+function NumberedSteps({ steps }: { steps: string[] }) {
+  return (
+    <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {steps.map((step, idx) => (
+        <Reveal as="li" key={step} delay={idx * 0.07}>
+          <div className="card h-full p-5">
+            <span
+              className="grid h-10 w-10 place-items-center rounded-xl font-display text-sm font-semibold text-white"
+              style={{ background: "var(--brand-gradient)" }}
+            >
+              {String(idx + 1).padStart(2, "0")}
+            </span>
+            <p className="mt-4 font-display font-semibold text-[var(--foreground)]">{step}</p>
+          </div>
+        </Reveal>
+      ))}
+    </ol>
+  );
+}
+
+function InfoTable({ head, rows }: { head: string[]; rows: string[][] }) {
+  return (
+    <Reveal className="card mt-12 overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[560px] text-left text-sm">
+          <thead>
+            <tr className="bg-[var(--background-deep)] text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
+              {head.map((h) => (
+                <th key={h} className="px-6 py-4 font-semibold">
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row[0]} className="border-t border-[var(--card-border)] transition-colors hover:bg-[var(--hover-bg)]">
+                {row.map((cell, i) => (
+                  <td
+                    key={cell}
+                    className={`px-6 py-5 ${i === 0 ? "font-semibold text-[var(--foreground)]" : "text-[var(--text-muted)]"}`}
+                  >
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Reveal>
+  );
+}
+
+function SplitPanel({ children, aside }: { children: ReactNode; aside: ReactNode }) {
+  return (
+    <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
+      <div>{children}</div>
+      <Reveal from="right">{aside}</Reveal>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
 export function TradingAccountPageView() {
   const plans = [
-    {
-      name: "Core",
-      pricing: "Standard pricing",
-      lev: "Up to 1:200",
-      focus: "Balanced entry for new and steady strategies",
-    },
-    {
-      name: "Prime",
-      pricing: "Active pricing",
-      lev: "Up to 1:300",
-      focus: "Higher activity and tighter workflow needs",
-    },
-    {
-      name: "Elite",
-      pricing: "Institutional pricing",
-      lev: "Tailored",
-      focus: "Custom structure for larger flow",
-    },
+    { name: "Core", pricing: "Standard pricing", lev: "Up to 1:200", focus: "Balanced entry for new and steady strategies" },
+    { name: "Prime", pricing: "Active pricing", lev: "Up to 1:300", focus: "Higher activity and tighter workflow needs", featured: true },
+    { name: "Elite", pricing: "Institutional pricing", lev: "Tailored", focus: "Custom structure for larger flow" },
   ];
 
   return (
@@ -79,88 +154,77 @@ export function TradingAccountPageView() {
         eyebrow="Trading accounts"
         title="Account structures that match how you actually trade."
         description="Pick a tier aligned with your frequency, size, and risk posture — then fund and go live."
-        imageSrc={IMAGES.account}
         ctas={[
-          {
-            label: "Open account",
-            href: "https://user.oceanaprofx.com/signup",
-            variant: "accent",
-          },
+          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
           { label: "View conditions", href: "/trading/condition", variant: "ghost" },
         ]}
       />
 
-      <section className="border-b border-[var(--card-border)] bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <SectionLabel>Plans</SectionLabel>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--foreground)]">
-            Choose the structure that fits your desk.
-          </h2>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-md border border-[var(--card-border)] bg-[var(--card-border)] md:grid-cols-3">
-            {plans.map((plan) => (
-              <article key={plan.name} className="bg-[var(--card-bg)] p-6 sm:p-8">
-                <p className="font-display text-2xl font-bold text-[var(--foreground)]">
+      <Section>
+        <SectionHeader eyebrow="Plans" title="Choose the structure that fits your desk." align="center" />
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
+          {plans.map((plan, i) => (
+            <Reveal key={plan.name} delay={i * 0.08}>
+              <article
+                className={`relative flex h-full flex-col p-7 sm:p-8 ${
+                  plan.featured ? "ink-surface rounded-[var(--radius-lg)] shadow-[0_30px_60px_-30px_rgba(47,91,255,0.6)]" : "card card-hover"
+                }`}
+              >
+                {plan.featured ? (
+                  <span
+                    className="absolute right-6 top-6 rounded-full px-3 py-1 text-[11px] font-semibold text-white"
+                    style={{ background: "var(--brand-gradient)" }}
+                  >
+                    Popular
+                  </span>
+                ) : null}
+                <p className={`font-display text-3xl font-semibold ${plan.featured ? "text-white" : "text-[var(--foreground)]"}`}>
                   {plan.name}
                 </p>
-                <p className="mt-4 text-sm text-[var(--text-muted)]">{plan.focus}</p>
-                <dl className="mt-6 space-y-2 text-sm">
-                  <div className="flex justify-between gap-4 border-t border-[var(--card-border)] pt-3">
-                    <dt className="text-[var(--text-muted)]">Pricing</dt>
-                    <dd className="font-semibold text-[var(--foreground)]">{plan.pricing}</dd>
-                  </div>
-                  <div className="flex justify-between gap-4 border-t border-[var(--card-border)] pt-3">
-                    <dt className="text-[var(--text-muted)]">Leverage</dt>
-                    <dd className="font-semibold text-[var(--foreground)]">{plan.lev}</dd>
-                  </div>
+                <p className={`mt-3 text-sm ${plan.featured ? "text-white/65" : "text-[var(--text-muted)]"}`}>{plan.focus}</p>
+                <dl className="mt-8 flex-1 space-y-0 text-sm">
+                  {[
+                    ["Pricing", plan.pricing],
+                    ["Leverage", plan.lev],
+                  ].map(([k, v]) => (
+                    <div
+                      key={k}
+                      className={`flex justify-between gap-4 border-t py-4 ${plan.featured ? "border-white/10" : "border-[var(--card-border)]"}`}
+                    >
+                      <dt className={plan.featured ? "text-white/55" : "text-[var(--text-muted)]"}>{k}</dt>
+                      <dd className={`font-semibold ${plan.featured ? "text-white" : "text-[var(--foreground)]"}`}>{v}</dd>
+                    </div>
+                  ))}
                 </dl>
+                <Link
+                  href={SIGNUP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`mt-6 w-full ${plan.featured ? "btn-primary" : "btn-ghost"}`}
+                >
+                  Open {plan.name}
+                </Link>
               </article>
-            ))}
-          </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      <section className="bg-[var(--background-deep)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <SectionLabel>Activation</SectionLabel>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--foreground)]">
-            From registration to live in a clear sequence.
-          </h2>
-          <ol className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              "Register",
-              "Verify identity",
-              "Map risk profile",
-              "Fund securely",
-              "Trade live",
-            ].map((step, idx) => (
-              <li key={step}>
-                <p className="font-display text-3xl font-bold text-[var(--primary)]/20">
-                  {String(idx + 1).padStart(2, "0")}
-                </p>
-                <p className="mt-2 font-semibold text-[var(--foreground)]">{step}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <Section tone="deep">
+        <SectionHeader eyebrow="Activation" title="From registration to live in a clear sequence." />
+        <NumberedSteps steps={["Register", "Verify identity", "Map risk profile", "Fund securely", "Trade live"]} />
+      </Section>
+
+      <CtaBand />
     </main>
   );
 }
 
 export function TradingPlatformPageView() {
-  const tools = [
-    {
-      title: "Web trading",
-      body: "Browser-based charts and tickets for focused desktop sessions.",
-    },
-    {
-      title: "Mobile access",
-      body: "Monitor positions and react when you are away from the desk.",
-    },
-    {
-      title: "Account controls",
-      body: "Funding, reporting, and access settings in one operational layer.",
-    },
+  const tools: IconCard[] = [
+    { icon: CandlestickChart, title: "Web trading", body: "Browser-based charts and tickets for focused desktop sessions." },
+    { icon: Smartphone, title: "Mobile access", body: "Monitor positions and react when you are away from the desk." },
+    { icon: SlidersHorizontal, title: "Account controls", body: "Funding, reporting, and access settings in one operational layer." },
   ];
 
   return (
@@ -169,37 +233,48 @@ export function TradingPlatformPageView() {
         eyebrow="Platform"
         title="A workspace that stays out of your way."
         description="Charts, tickets, balances, and funding stay aligned across web and mobile — so your attention stays on the market."
-        imageSrc={IMAGES.platform}
         ctas={[
-          {
-            label: "Open account",
-            href: "https://user.oceanaprofx.com/signup",
-            variant: "accent",
-          },
-          {
-            label: "Launch portal",
-            href: "https://user.oceanaprofx.com/login",
-            variant: "ghost",
-          },
+          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Launch portal", href: LOGIN_URL, variant: "ghost" },
         ]}
       />
 
-      <section className="bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <div className="grid gap-10 md:grid-cols-3">
-            {tools.map((t) => (
-              <motion.article key={t.title} {...fadeIn} className="border-l-2 border-[var(--primary)] pl-5">
-                <h3 className="font-display text-xl font-semibold text-[var(--foreground)]">
-                  {t.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
-                  {t.body}
-                </p>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Section>
+        <SectionHeader eyebrow="Tools" title="Everything you need, nothing you don't." />
+        <IconCardGrid items={tools} />
+      </Section>
+
+      <Section tone="ink">
+        <SplitPanel
+          aside={
+            <div className="glass-card p-7 sm:p-8">
+              <CheckList
+                dark
+                items={[
+                  "Live charts with order entry beside the chart",
+                  "Market and pending orders with stop loss and take profit",
+                  "Positions, pending orders, and history in one view",
+                  "Switch between your trading accounts without signing out",
+                ]}
+              />
+            </div>
+          }
+        >
+          <SectionHeader
+            dark
+            eyebrow="One workspace"
+            title="Desk and pocket, in sync."
+            description="Open the trading terminal from the client portal on desktop, or download the Android app to manage the same account on the move."
+          />
+          <Reveal delay={0.15} className="mt-8 flex flex-wrap gap-3">
+            <Link href={LOGIN_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
+              Launch portal
+            </Link>
+          </Reveal>
+        </SplitPanel>
+      </Section>
+
+      <CtaBand />
     </main>
   );
 }
@@ -218,66 +293,41 @@ export function TradingConditionPageView() {
         eyebrow="Trading conditions"
         title="Know the rules of the book before you size up."
         description="Pricing posture, access windows, and risk controls — written for clarity, not brochure gloss."
-        imageSrc={IMAGES.conditions}
         ctas={[
-          {
-            label: "Open account",
-            href: "https://user.oceanaprofx.com/signup",
-            variant: "accent",
-          },
+          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
           { label: "Contact desk", href: "/contact", variant: "ghost" },
         ]}
       />
 
-      <section className="border-b border-[var(--card-border)] bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <SectionLabel>Instrument overview</SectionLabel>
-          <div className="mt-8 overflow-x-auto">
-            <table className="w-full min-w-[560px] text-left text-sm">
-              <thead>
-                <tr className="border-b border-[var(--card-border)] text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                  <th className="pb-3 pr-4 font-medium">Market</th>
-                  <th className="pb-3 pr-4 font-medium">Pricing</th>
-                  <th className="pb-3 font-medium">Execution</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr key={row[0]} className="border-b border-[var(--card-border)]">
-                    <td className="py-4 pr-4 font-semibold text-[var(--foreground)]">{row[0]}</td>
-                    <td className="py-4 pr-4 text-[var(--text-muted)]">{row[1]}</td>
-                    <td className="py-4 text-[var(--text-muted)]">{row[2]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      <Section>
+        <SectionHeader eyebrow="Instrument overview" title="Pricing and execution by market." />
+        <InfoTable head={["Market", "Pricing", "Execution"]} rows={rows} />
+      </Section>
 
-      <section className="bg-[var(--background-deep)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <SectionLabel>Risk posture</SectionLabel>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--foreground)]">
-            Controls that stay visible.
-          </h2>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-            {[
-              "Configurable stop and limit placement beside the ticket",
-              "Clear margin visibility before you commit size",
-              "Session-aware instrument availability",
-              "Support path for account-critical questions",
-            ].map((item) => (
-              <li
-                key={item}
-                className="border border-[var(--card-border)] bg-[var(--card-bg)] px-5 py-4 text-sm text-[var(--text-muted)]"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <Section tone="deep">
+        <SplitPanel
+          aside={
+            <div className="card p-7 sm:p-8">
+              <CheckList
+                items={[
+                  "Configurable stop and limit placement beside the ticket",
+                  "Clear margin visibility before you commit size",
+                  "Session-aware instrument availability",
+                  "Support path for account-critical questions",
+                ]}
+              />
+            </div>
+          }
+        >
+          <SectionHeader
+            eyebrow="Risk posture"
+            title="Controls that stay visible."
+            description="Risk tools sit where decisions are made, so exposure is always a deliberate choice."
+          />
+        </SplitPanel>
+      </Section>
+
+      <CtaBand />
     </main>
   );
 }
@@ -296,293 +346,258 @@ export function TradingMarketTimePageView() {
         eyebrow="Market hours"
         title="Trade when your market is awake."
         description="Map sessions to your strategy — from Tokyo open through the New York close, plus continuous crypto."
-        imageSrc={IMAGES.marketTime}
         ctas={[
-          { label: "Economic calendar", href: "/economic-calendar", variant: "accent" },
-          {
-            label: "Open account",
-            href: "https://user.oceanaprofx.com/signup",
-            variant: "ghost",
-          },
+          { label: "Economic calendar", href: "/economic-calendar", variant: "primary" },
+          { label: "Open account", href: SIGNUP_URL, variant: "ghost" },
         ]}
       />
 
-      <section className="bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <div className="grid gap-px overflow-hidden rounded-md border border-[var(--card-border)] bg-[var(--card-border)] sm:grid-cols-2">
-            {sessions.map((s) => (
-              <article key={s.name} className="bg-[var(--card-bg)] p-6 sm:p-8">
-                <div className="flex items-center gap-2 text-[var(--primary)]">
-                  <Clock3 size={18} />
-                  <h3 className="font-display text-xl font-semibold text-[var(--foreground)]">
-                    {s.name}
-                  </h3>
+      <Section>
+        <SectionHeader eyebrow="Sessions" title="The trading day, session by session." />
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {sessions.map((s, i) => (
+            <Reveal key={s.name} delay={i * 0.07}>
+              <article className="card card-hover h-full p-6">
+                <div className="flex items-center justify-between">
+                  <span className="icon-tile">
+                    <Clock3 size={20} />
+                  </span>
+                  <span className="font-display text-xs font-semibold text-[var(--text-muted)]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                 </div>
-                <p className="mt-3 text-sm font-medium text-[var(--foreground)]">{s.window}</p>
+                <h3 className="mt-6 font-display text-xl font-semibold text-[var(--foreground)]">{s.name}</h3>
+                <p className="mt-2 text-sm font-medium text-[var(--primary)]">{s.window}</p>
                 <p className="mt-2 text-sm text-[var(--text-muted)]">{s.focus}</p>
               </article>
-            ))}
-          </div>
-          <p className="mt-8 text-sm text-[var(--text-muted)]">
-            Exact instrument hours can vary by symbol. Confirm availability on the platform before planning entries.
-          </p>
+            </Reveal>
+          ))}
         </div>
-      </section>
+        <Reveal className="mt-8 rounded-[var(--radius)] border border-dashed border-[var(--card-border)] bg-[var(--card-bg)] px-5 py-4 text-sm text-[var(--text-muted)]">
+          Exact instrument hours can vary by symbol. Confirm availability on the platform before planning entries.
+        </Reveal>
+      </Section>
+
+      <CtaBand />
     </main>
   );
 }
 
 export function TradingDepositWithdrawalPageView() {
-  return (
-    <main>
-      <PageHero
-        eyebrow="Funding"
-        title="Move money in and out with a clear process."
-        description="Deposit to trade. Withdraw when you are ready. Both paths are designed for verification, auditability, and straightforward status updates."
-        imageSrc={IMAGES.payments}
-        ctas={[
-          {
-            label: "Open account",
-            href: "https://user.oceanaprofx.com/signup",
-            variant: "accent",
-          },
-          { label: "Ask about funding", href: "/contact", variant: "ghost" },
-        ]}
-      />
-
-      <section className="bg-[var(--background)]">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:px-6 md:py-20">
-          <div>
-            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-md bg-[var(--hover-bg)] text-[var(--primary)]">
-              <Wallet size={18} />
-            </div>
-            <h2 className="font-display text-2xl font-bold text-[var(--foreground)]">Deposits</h2>
-            <ul className="mt-4 space-y-3 text-sm text-[var(--text-muted)]">
-              <li className="border-l-2 border-[var(--primary)] pl-4">
-                Supported methods shown in your portal after verification
-              </li>
-              <li className="border-l-2 border-[var(--primary)] pl-4">
-                Status updates while funds are processing
-              </li>
-              <li className="border-l-2 border-[var(--primary)] pl-4">
-                Balance reflection once the deposit clears
-              </li>
-            </ul>
-          </div>
-          <div>
-            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-md bg-[var(--hover-bg)] text-[var(--primary)]">
-              <Shield size={18} />
-            </div>
-            <h2 className="font-display text-2xl font-bold text-[var(--foreground)]">Withdrawals</h2>
-            <ul className="mt-4 space-y-3 text-sm text-[var(--text-muted)]">
-              <li className="border-l-2 border-[var(--accent)] pl-4">
-                Requests reviewed against account verification
-              </li>
-              <li className="border-l-2 border-[var(--accent)] pl-4">
-                Prefer returning funds via the original deposit path when required
-              </li>
-              <li className="border-l-2 border-[var(--accent)] pl-4">
-                Clear next steps if additional documents are needed
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
-
-export function AboutPageView() {
-  return (
-    <main>
-      <PageHero
-        eyebrow="About"
-        title="A trading company built around clarity, not clutter."
-        description="oceanaprofx exists to give multi-asset traders a calmer path from market idea to live order — with pricing you can read and support that routes to the right desk."
-        imageSrc={IMAGES.about}
-        ctas={[
-          { label: "Why choose us", href: "/why-choose-us", variant: "accent" },
-          { label: "Contact", href: "/contact", variant: "ghost" },
-        ]}
-      />
-
-      <section className="bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <div className="grid gap-10 md:grid-cols-3">
-            {[
-              {
-                title: "Focus",
-                body: "Forex, crypto, indexes, and metals in one account — without forcing you through noise.",
-              },
-              {
-                title: "Standard",
-                body: "Transparent cost language, steady execution priorities, and operational discipline.",
-              },
-              {
-                title: "Promise",
-                body: "We would rather under-claim than invent guarantees. Ask us directly when you need specifics.",
-              },
-            ].map((item) => (
-              <article key={item.title} className="border-l-2 border-[var(--primary)] pl-5">
-                <h3 className="font-display text-xl font-semibold text-[var(--foreground)]">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
-                  {item.body}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
-
-export function WhyChooseUsPageView() {
-  const items = [
+  const blocks = [
     {
-      title: "Readable pricing",
-      body: "Cost structure is explained before you commit size — not buried after the fact.",
+      icon: Wallet,
+      title: "Deposits",
+      items: [
+        "Supported methods shown in your portal after verification",
+        "Status updates while funds are processing",
+        "Balance reflection once the deposit clears",
+      ],
     },
     {
-      title: "Multi-asset access",
-      body: "Move between forex, crypto, indexes, and metals without changing platforms.",
-    },
-    {
-      title: "Session-aware design",
-      body: "Workflows respect when liquidity is deep and when it is thin.",
-    },
-    {
-      title: "Human support path",
-      body: "Inquiries route to the relevant desk instead of a generic queue.",
+      icon: Shield,
+      title: "Withdrawals",
+      items: [
+        "Requests reviewed against account verification",
+        "Prefer returning funds via the original deposit path when required",
+        "Clear next steps if additional documents are needed",
+      ],
     },
   ];
 
   return (
     <main>
       <PageHero
-        eyebrow="Why oceanaprofx"
+        eyebrow="Funding"
+        title="Move money in and out with a clear process."
+        description="Deposit to trade. Withdraw when you are ready. Both paths are designed for verification, auditability, and straightforward status updates."
+        ctas={[
+          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Ask about funding", href: "/contact", variant: "ghost" },
+        ]}
+      />
+
+      <Section>
+        <SectionHeader eyebrow="How it works" title="Two clear paths for your funds." />
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {blocks.map((b, i) => {
+            const Icon = b.icon;
+            return (
+              <Reveal key={b.title} from={i === 0 ? "left" : "right"}>
+                <article className="card h-full p-7 sm:p-8">
+                  <span className="icon-tile">
+                    <Icon size={20} />
+                  </span>
+                  <h3 className="mt-6 font-display text-2xl font-semibold text-[var(--foreground)]">{b.title}</h3>
+                  <div className="mt-6">
+                    <CheckList items={b.items} />
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
+      </Section>
+
+      <CtaBand />
+    </main>
+  );
+}
+
+export function AboutPageView() {
+  const pillars: IconCard[] = [
+    { icon: Compass, title: "Focus", body: "Forex, crypto, indexes, and metals in one account — without forcing you through noise." },
+    { icon: Scale, title: "Standard", body: "Transparent cost language, steady execution priorities, and operational discipline." },
+    { icon: BadgeCheck, title: "Promise", body: "We would rather under-claim than invent guarantees. Ask us directly when you need specifics." },
+  ];
+
+  return (
+    <main>
+      <PageHero
+        eyebrow="About"
+        title="A trading company built around clarity, not clutter."
+        description="Oceana exists to give multi-asset traders a calmer path from market idea to live order — with pricing you can read and support that routes to the right desk."
+        ctas={[
+          { label: "Why choose us", href: "/why-choose-us", variant: "primary" },
+          { label: "Contact", href: "/contact", variant: "ghost" },
+        ]}
+      />
+
+      <Section>
+        <SectionHeader eyebrow="What we stand for" title="Three principles behind every decision." />
+        <IconCardGrid items={pillars} />
+      </Section>
+
+      <Section tone="ink">
+        <SplitPanel
+          aside={
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                { icon: Layers, label: "Multi-asset", text: "Four asset classes, one account" },
+                { icon: MonitorSmartphone, label: "Platforms", text: "Web terminal and Android app" },
+                { icon: Headphones, label: "Support", text: "Requests routed to the right desk" },
+                { icon: ShieldCheck, label: "Verification", text: "KYC before withdrawals" },
+              ].map((s) => {
+                const Icon = s.icon;
+                return (
+                  <div key={s.label} className="glass-card p-5">
+                    <Icon size={20} className="text-[var(--accent-soft)]" />
+                    <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-white/50">{s.label}</p>
+                    <p className="mt-1 font-display font-semibold text-white">{s.text}</p>
+                  </div>
+                );
+              })}
+            </div>
+          }
+        >
+          <SectionHeader
+            dark
+            eyebrow="Our approach"
+            title="Built for traders who want fewer surprises."
+            description="We focus on the fundamentals — visible costs, steady execution, and a support path that leads somewhere."
+          />
+        </SplitPanel>
+      </Section>
+
+      <CtaBand />
+    </main>
+  );
+}
+
+export function WhyChooseUsPageView() {
+  const items: IconCard[] = [
+    { icon: Receipt, title: "Readable pricing", body: "Cost structure is explained before you commit size — not buried after the fact." },
+    { icon: Globe2, title: "Multi-asset access", body: "Move between forex, crypto, indexes, and metals without changing platforms." },
+    { icon: Gauge, title: "Session-aware design", body: "Workflows respect when liquidity is deep and when it is thin." },
+    { icon: Headphones, title: "Human support path", body: "Inquiries route to the relevant desk instead of a generic queue." },
+  ];
+
+  return (
+    <main>
+      <PageHero
+        eyebrow="Why Oceana"
         title="What we optimize for — and what we do not."
         description="We optimize for clarity, execution discipline, and usable risk controls. We do not optimize for hype, fake urgency, or invented awards."
-        imageSrc={IMAGES.why}
         ctas={[
-          {
-            label: "Open account",
-            href: "https://user.oceanaprofx.com/signup",
-            variant: "accent",
-          },
+          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
           { label: "About the company", href: "/about", variant: "ghost" },
         ]}
       />
 
-      <section className="bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <div className="space-y-10">
-            {items.map((item) => (
-              <article key={item.title} className="border-l-2 border-[var(--accent)] pl-5">
-                <h3 className="font-display text-xl font-semibold text-[var(--foreground)]">
-                  {item.title}
-                </h3>
-                <p className="mt-2 max-w-2xl leading-relaxed text-[var(--text-muted)]">
-                  {item.body}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Section>
+        <SectionHeader eyebrow="Our edge" title="Four reasons traders stay." />
+        <IconCardGrid items={items} cols={4} />
+      </Section>
+
+      <CtaBand />
     </main>
   );
 }
 
 export function ReviewsPageView() {
+  const asks: IconCard[] = [
+    { icon: CandlestickChart, title: "Your markets", body: "Which markets you trade most" },
+    { icon: Gauge, title: "Execution", body: "How execution felt in busy sessions" },
+    { icon: Sparkles, title: "Improvements", body: "Where onboarding or funding could improve" },
+  ];
+
   return (
     <main>
       <PageHero
         eyebrow="Reviews"
         title="Feedback from real traders — not invented quotes."
-        description="We do not publish fabricated testimonials. If you trade with oceanaprofx and want to share experience, contact support and tell us what worked and what did not."
-        imageSrc={IMAGES.reviews}
+        description="We do not publish fabricated testimonials. If you trade with Oceana and want to share experience, contact support and tell us what worked and what did not."
         ctas={[
-          { label: "Share feedback", href: "/contact", variant: "accent" },
-          {
-            label: "Open account",
-            href: "https://user.oceanaprofx.com/signup",
-            variant: "ghost",
-          },
+          { label: "Share feedback", href: "/contact", variant: "primary" },
+          { label: "Open account", href: SIGNUP_URL, variant: "ghost" },
         ]}
       />
 
-      <section className="bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <SectionLabel>What we ask for</SectionLabel>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--foreground)]">
-            Useful feedback looks like this.
-          </h2>
-          <ul className="mt-8 grid gap-4 md:grid-cols-3">
-            {[
-              "Which markets you trade most",
-              "How execution felt in busy sessions",
-              "Where onboarding or funding could improve",
-            ].map((item) => (
-              <li
-                key={item}
-                className="border border-[var(--card-border)] bg-[var(--card-bg)] px-5 py-6 text-sm text-[var(--text-muted)]"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <Section>
+        <SectionHeader eyebrow="What we ask for" title="Useful feedback looks like this." />
+        <IconCardGrid items={asks} />
+      </Section>
+
+      <CtaBand
+        title="Trading with us? Tell us how it went."
+        description="Your feedback goes straight to the team that can act on it."
+        primary={{ label: "Share feedback", href: "/contact" }}
+        secondary={{ label: "Open account", href: SIGNUP_URL }}
+      />
     </main>
   );
 }
 
 export function RegulationPageView() {
+  const items: IconCard[] = [
+    { icon: FileCheck2, title: "Verification", body: "Identity and account checks before higher limits and withdrawals." },
+    { icon: SlidersHorizontal, title: "Operational controls", body: "Internal review paths for funding, risk, and support escalations." },
+    { icon: Eye, title: "Transparency", body: "We state what we can substantiate. Regional licensing details are confirmed on request." },
+  ];
+
   return (
     <main>
       <PageHero
         eyebrow="Regulation & governance"
         title="Compliance is process — not a slogan."
         description="Account verification, fund handling, and internal controls exist to protect operational integrity. Ask us for the current regulatory and entity details that apply to your region."
-        imageSrc={IMAGES.regulation}
         ctas={[
-          { label: "Contact compliance", href: "/contact", variant: "accent" },
-          { label: "About oceanaprofx", href: "/about", variant: "ghost" },
+          { label: "Contact compliance", href: "/contact", variant: "primary" },
+          { label: "About Oceana", href: "/about", variant: "ghost" },
         ]}
       />
 
-      <section className="bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              {
-                title: "Verification",
-                body: "Identity and account checks before higher limits and withdrawals.",
-              },
-              {
-                title: "Operational controls",
-                body: "Internal review paths for funding, risk, and support escalations.",
-              },
-              {
-                title: "Transparency",
-                body: "We state what we can substantiate. Regional licensing details are confirmed on request.",
-              },
-            ].map((item) => (
-              <article key={item.title} className="border-l-2 border-[var(--primary)] pl-5">
-                <h3 className="font-display text-xl font-semibold text-[var(--foreground)]">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
-                  {item.body}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Section>
+        <SectionHeader eyebrow="Governance" title="How we protect operational integrity." />
+        <IconCardGrid items={items} />
+      </Section>
+
+      <CtaBand
+        title="Need entity or licensing details?"
+        description="Ask our compliance desk for the information that applies to your region."
+        primary={{ label: "Contact compliance", href: "/contact" }}
+        secondary={{ label: "Open account", href: SIGNUP_URL }}
+      />
     </main>
   );
 }
@@ -609,13 +624,7 @@ export function ContactPageView() {
       description: message.trim(),
     };
 
-    if (
-      !payload.name ||
-      !payload.email ||
-      !payload.phone ||
-      !payload.title ||
-      !payload.description
-    ) {
+    if (!payload.name || !payload.email || !payload.phone || !payload.title || !payload.description) {
       setFormError("Please fill all required fields.");
       return;
     }
@@ -639,169 +648,135 @@ export function ContactPageView() {
         eyebrow="Contact"
         title="Reach the desk that can actually help."
         description="Send a clear request. We route it to the relevant team and reply with next steps — not a generic autoresponder."
-        imageSrc={IMAGES.contact}
       />
 
-      <section className="border-b border-[var(--card-border)] bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
-          <a
-            href="mailto:support@oceanaprofx.com"
-            className="inline-flex items-center gap-3 text-[var(--foreground)] hover:text-[var(--primary)]"
-          >
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-[var(--hover-bg)] text-[var(--primary)]">
-              <Mail size={18} />
-            </span>
-            <span>
-              <span className="block text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                Email
-              </span>
-              <span className="font-semibold">support@oceanaprofx.com</span>
-            </span>
-          </a>
-        </div>
-      </section>
-
-      <section className="bg-[var(--background-deep)]">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-14 md:grid-cols-[1.15fr_0.85fr] md:px-6 md:py-20">
-          <form
-            className="border border-[var(--card-border)] bg-[var(--card-bg)] p-6 sm:p-8"
-            onSubmit={handleSubmit}
-            noValidate
-          >
-            <h2 className="font-display text-2xl font-bold text-[var(--foreground)]">
-              Send a request
-            </h2>
-            <p className="mt-2 text-sm text-[var(--text-muted)]">
-              All fields are required. We typically respond within one business day.
-            </p>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
-                Full name
-                <input
-                  className="field"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  autoComplete="name"
-                  required
-                />
-              </label>
-              <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
-                Email
-                <input
-                  type="email"
-                  className="field"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                  required
-                />
-              </label>
-              <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
-                Phone
-                <input
-                  className="field"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  autoComplete="tel"
-                  required
-                />
-              </label>
-              <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
-                Topic
-                <select
-                  className="field"
-                  value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
-                >
-                  <option>General Inquiry</option>
-                  <option>Account Opening</option>
-                  <option>Platform Support</option>
-                  <option>Deposit & Withdrawal</option>
-                  <option>Compliance Query</option>
-                </select>
-              </label>
-              <label className="grid gap-2 text-sm font-medium text-[var(--foreground)] sm:col-span-2">
-                Message
-                <textarea
-                  className="field min-h-[140px] resize-y"
-                  rows={5}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  required
-                />
-              </label>
-            </div>
-
-            {formError ? (
-              <p className="mt-4 text-sm text-[var(--danger)]" role="alert">
-                {formError}
-              </p>
-            ) : null}
-            {createInquiryMutation.isSuccess ? (
-              <p className="mt-4 text-sm text-[var(--success)]" role="status">
-                Inquiry submitted successfully. We will get back to you soon.
-              </p>
-            ) : null}
-            {createInquiryMutation.isError ? (
-              <p className="mt-4 text-sm text-[var(--danger)]" role="alert">
-                {createInquiryMutation.error instanceof Error
-                  ? createInquiryMutation.error.message
-                  : "Failed to submit inquiry."}
-              </p>
-            ) : null}
-
-            <button
-              type="submit"
-              disabled={createInquiryMutation.isPending}
-              className="btn-primary mt-6 disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {createInquiryMutation.isPending ? "Submitting…" : "Submit request"}
-            </button>
-          </form>
-
-          <aside className="space-y-4">
-            <article className="border border-[var(--card-border)] bg-[var(--card-bg)] p-5">
-              <h3 className="font-display text-lg font-semibold text-[var(--foreground)]">
-                How we respond
-              </h3>
-              <ul className="mt-4 space-y-3">
-                {[
-                  "Your request is triaged to the correct desk.",
-                  "Account-critical issues get priority handling.",
-                  "You receive clear next steps, not vague replies.",
-                ].map((tip) => (
-                  <li
-                    key={tip}
-                    className="flex items-start gap-2 text-sm text-[var(--text-muted)]"
-                  >
-                    <MessageSquareText
-                      size={14}
-                      className="mt-0.5 shrink-0 text-[var(--primary)]"
-                    />
-                    <span>{tip}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-            <article className="border border-[var(--card-border)] bg-[var(--card-bg)] p-5">
-              <h3 className="font-display text-lg font-semibold text-[var(--foreground)]">
-                Prefer email?
-              </h3>
+      <Section tone="deep" className="-mt-px">
+        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <Reveal from="left">
+            <form className="card p-6 sm:p-9" onSubmit={handleSubmit} noValidate>
+              <h2 className="font-display text-2xl font-semibold text-[var(--foreground)]">Send a request</h2>
               <p className="mt-2 text-sm text-[var(--text-muted)]">
-                Write to{" "}
-                <a
-                  href="mailto:support@oceanaprofx.com"
-                  className="font-semibold text-[var(--primary)] hover:underline"
-                >
-                  support@oceanaprofx.com
-                </a>{" "}
-                with your account email and a short description of the issue.
+                All fields are required. We typically respond within one business day.
               </p>
-            </article>
-          </aside>
+
+              <div className="mt-8 grid gap-5 sm:grid-cols-2">
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Full name
+                  <input
+                    className="field"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    autoComplete="name"
+                    required
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Email
+                  <input
+                    type="email"
+                    className="field"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    required
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Phone
+                  <input
+                    className="field"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    autoComplete="tel"
+                    required
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Topic
+                  <select className="field" value={topic} onChange={(e) => setTopic(e.target.value)}>
+                    <option>General Inquiry</option>
+                    <option>Account Opening</option>
+                    <option>Platform Support</option>
+                    <option>Deposit & Withdrawal</option>
+                    <option>Compliance Query</option>
+                  </select>
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)] sm:col-span-2">
+                  Message
+                  <textarea
+                    className="field min-h-[150px] resize-y"
+                    rows={5}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+
+              {formError ? (
+                <p className="mt-5 rounded-[var(--radius)] bg-[var(--danger)]/10 px-4 py-3 text-sm text-[var(--danger)]" role="alert">
+                  {formError}
+                </p>
+              ) : null}
+              {createInquiryMutation.isSuccess ? (
+                <p className="mt-5 rounded-[var(--radius)] bg-[var(--success)]/10 px-4 py-3 text-sm text-[var(--success)]" role="status">
+                  Inquiry submitted successfully. We will get back to you soon.
+                </p>
+              ) : null}
+              {createInquiryMutation.isError ? (
+                <p className="mt-5 rounded-[var(--radius)] bg-[var(--danger)]/10 px-4 py-3 text-sm text-[var(--danger)]" role="alert">
+                  {createInquiryMutation.error instanceof Error
+                    ? createInquiryMutation.error.message
+                    : "Failed to submit inquiry."}
+                </p>
+              ) : null}
+
+              <button
+                type="submit"
+                disabled={createInquiryMutation.isPending}
+                className="btn-primary mt-7 w-full disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+              >
+                {createInquiryMutation.isPending ? "Submitting…" : "Submit request"}
+              </button>
+            </form>
+          </Reveal>
+
+          <div className="grid content-start gap-5">
+            <Reveal from="right">
+              <a href="mailto:info@oceanaprofx.com" className="ink-surface group block rounded-[var(--radius-lg)] p-6 sm:p-7">
+                <span className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/[0.06] text-[var(--accent-soft)]">
+                  <Mail size={20} />
+                </span>
+                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.14em] text-white/50">Email us</p>
+                <p className="mt-1 flex items-center gap-2 font-display text-xl font-semibold text-white">
+                  info@oceanaprofx.com
+                  <ArrowUpRight size={18} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </p>
+                <p className="mt-3 text-sm text-white/60">
+                  Include your account email and a short description of the issue.
+                </p>
+              </a>
+            </Reveal>
+            <Reveal from="right" delay={0.08}>
+              <article className="card p-6 sm:p-7">
+                <h3 className="font-display text-lg font-semibold text-[var(--foreground)]">How we respond</h3>
+                <ul className="mt-5 space-y-4">
+                  {[
+                    "Your request is triaged to the correct desk.",
+                    "Account-critical issues get priority handling.",
+                    "You receive clear next steps, not vague replies.",
+                  ].map((tip) => (
+                    <li key={tip} className="flex items-start gap-3 text-sm text-[var(--text-muted)]">
+                      <MessageSquareText size={16} className="mt-0.5 shrink-0 text-[var(--primary)]" />
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </Reveal>
+          </div>
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

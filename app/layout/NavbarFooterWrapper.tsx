@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import AppDownloadPopup from "../components/marketing/AppDownloadPopup";
 
 export default function NavbarFooterWrapper({
   children,
@@ -17,6 +18,7 @@ export default function NavbarFooterWrapper({
       {!isUserRoute && <Navbar />}
       {children}
       {!isUserRoute && <Footer />}
+      {!isUserRoute && <AppDownloadPopup />}
     </>
   );
 }

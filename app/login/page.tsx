@@ -26,8 +26,12 @@ export default function LoginPage() {
         description="Access your dashboard, manage funds, and monitor open positions from one secure client area."
         primaryLabel="Go to login"
         primaryHref="https://user.oceanaprofx.com/login"
-        imageSrc="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1800&q=80"
-        imageAlt="Person working on a laptop"
+        eyebrow="Client portal"
+        points={[
+          "View balances, equity, and open positions",
+          "Deposit, withdraw, and transfer between accounts",
+          "Launch the trading terminal in one click",
+        ]}
       />
     </>
   );

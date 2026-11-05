@@ -26,12 +26,16 @@ export default function PartnersPage() {
         path={PAGE_SEO.path}
       />
       <SimplePage
-        title="Partner with oceanaprofx"
+        title="Partner with Oceana"
         description="Affiliate and introducing broker models are available. Reach out for current commercial terms — we do not publish unverified reward claims."
         primaryLabel="Talk to partnerships"
         primaryHref="/contact"
-        imageSrc="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1800&q=80"
-        imageAlt="Team collaboration"
+        eyebrow="Partners"
+        points={[
+          "Affiliate and introducing broker models",
+          "Commercial terms shared directly by our team",
+          "Track referrals and network from your portal",
+        ]}
       />
     </>
   );

@@ -11,22 +11,27 @@ const PORTAL_BROKER_CODE =
   process.env.NEXT_PUBLIC_PORTAL_BROKER_CODE?.trim() || "OCEANAPROFX";
 
 export async function createInquiry(payload: InquiryPayload) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.trim().replace(/\/+$/, "");
 
   if (!baseUrl) {
     throw new Error("Missing NEXT_PUBLIC_API_BASE_URL environment variable");
   }
 
-  const response = await fetch(`${baseUrl}/inquiry`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ...payload,
-      portalBrokerCode: PORTAL_BROKER_CODE,
-    }),
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${baseUrl}/inquiry`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...payload,
+        portalBrokerCode: PORTAL_BROKER_CODE,
+      }),
+    });
+  } catch {
+    throw new Error("Could not reach our servers. Please check your connection and try again.");
+  }
 
   if (!response.ok) {
     let message = "Failed to submit inquiry";

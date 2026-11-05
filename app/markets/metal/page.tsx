@@ -30,8 +30,6 @@ export default function Page() {
         title="Precious metals with clear pricing."
         subtitle="Position in gold, silver, and related instruments using a transparent execution framework."
         intro="Metal markets are often used for inflation positioning, risk balancing, and directional commodity views. oceanaprofx provides access to core precious instruments with readable costs and platform stability when policy or risk events move prices."
-        heroImageSrc="https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=2400&q=80"
-        heroImageAlt="Gold bar tooling and metal surfaces"
         symbolsTitle="Key metal instruments"
         symbols={[
           { symbol: "XAU/USD", name: "Gold vs US Dollar", note: "Global risk and inflation proxy" },

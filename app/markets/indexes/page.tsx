@@ -30,8 +30,6 @@ export default function Page() {
         title="Broad market views in a single instrument."
         subtitle="Take directional exposure to major economies without building a stock-by-stock book."
         intro="Index products compress regional equity behavior into tradable instruments. oceanaprofx covers key US, European, and Asian benchmarks so you can express macro views, hedge equity risk, or trade session momentum with clear pricing."
-        heroImageSrc="https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?auto=format&fit=crop&w=2400&q=80"
-        heroImageAlt="Newspaper on a table"
         symbolsTitle="Benchmark index contracts"
         symbols={[
           { symbol: "US30", name: "Dow Jones Industrial", note: "US blue-chip sentiment" },

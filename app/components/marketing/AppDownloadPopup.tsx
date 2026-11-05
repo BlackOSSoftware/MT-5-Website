@@ -1,258 +1,290 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
-import { Download, Smartphone, X } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Download, ShieldCheck, Smartphone, X, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const popupImage =
-  "https://plus.unsplash.com/premium_vector-1732296053749-4f94462c1933?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YXBwfGVufDB8MHwwfHx8MA%3D%3D";
+const API_BASE = String(process.env.NEXT_PUBLIC_API_BASE_URL || "").trim();
+/** Only shown as a live button when a real store listing URL is configured. */
+const PLAY_STORE_URL = String(process.env.NEXT_PUBLIC_PLAY_STORE_URL || "").trim();
 
-type DeviceType = "android" | "ios" | "other";
-type Platform = "android" | "ios";
-
-function detectDevice(): DeviceType {
-  if (typeof window === "undefined") return "other";
-
-  const ua = navigator.userAgent || navigator.vendor;
-  const isAndroid = /android/i.test(ua);
-  const isIOS =
-    /iPad|iPhone|iPod/.test(ua) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-
-  if (isAndroid) return "android";
-  if (isIOS) return "ios";
-  return "other";
+function apiOrigin(): string {
+  try {
+    return API_BASE ? new URL(API_BASE).origin : "";
+  } catch {
+    return "";
+  }
 }
 
-export default function AppDownloadPopup() {
-  const [open, setOpen] = useState(false);
-  const [deviceType, setDeviceType] = useState<DeviceType>("other");
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform>("android");
-  const [feedback, setFeedback] = useState("");
+/**
+ * Same APK the client portal ships: env override → backend /downloads/MetaTrader5.apk.
+ * The admin-managed release URL (if any) replaces this once /app-update/info loads.
+ */
+function fallbackApkUrl(): string {
+  const fromEnv = String(process.env.NEXT_PUBLIC_ANDROID_APK_URL || "").trim();
+  if (fromEnv) return fromEnv;
+  const origin = apiOrigin();
+  return origin ? `${origin}/downloads/MetaTrader5.apk` : "";
+}
+
+function absolutize(url: string): string {
+  if (!url) return "";
+  if (/^https?:\/\//i.test(url)) return url;
+  const origin = apiOrigin();
+  return origin ? `${origin}${url.startsWith("/") ? "" : "/"}${url}` : "";
+}
+
+type ReleaseInfo = { apkUrl: string; version: string };
+
+function useAndroidRelease(enabled: boolean): ReleaseInfo {
+  const [info, setInfo] = useState<ReleaseInfo>({ apkUrl: fallbackApkUrl(), version: "" });
 
   useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      const runtimeDevice = detectDevice();
-      setDeviceType(runtimeDevice);
-      if (runtimeDevice === "ios") {
-        setSelectedPlatform("ios");
-      }
-      if (runtimeDevice === "android") {
-        setSelectedPlatform("android");
-      }
-    });
-    const timer = window.setTimeout(() => setOpen(true), 11000);
+    if (!enabled || !API_BASE) return;
+    const controller = new AbortController();
+    fetch(`${API_BASE.replace(/\/$/, "")}/app-update/info?platform=android`, { signal: controller.signal })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((json) => {
+        const data = json?.data;
+        const apk = absolutize(String(data?.apkUrl || ""));
+        setInfo((prev) => ({
+          apkUrl: apk || prev.apkUrl,
+          version: String(data?.latestVersionName || ""),
+        }));
+      })
+      .catch(() => {
+        /* keep fallback */
+      });
+    return () => controller.abort();
+  }, [enabled]);
+
+  return info;
+}
+
+function PlayStoreGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden>
+      <path fill="#34d399" d="M3.6 2.3 13.4 12 3.6 21.7a1.6 1.6 0 0 1-.6-1.3V3.6c0-.5.2-1 .6-1.3Z" />
+      <path fill="#12c2e9" d="m16.6 8.8-3.2 3.2-9.8-9.7c.3-.2.8-.3 1.3-.1l11.7 6.6Z" />
+      <path fill="#fb7185" d="m16.6 15.2-11.7 6.6c-.5.2-1 .1-1.3-.1l9.8-9.7 3.2 3.2Z" />
+      <path fill="#fbbf24" d="m20.3 10.6-3.7-1.8-3.2 3.2 3.2 3.2 3.7-1.8c1-.6 1-2.2 0-2.8Z" />
+    </svg>
+  );
+}
+
+function PhonePreview() {
+  return (
+    <div className="relative mx-auto w-[210px]" aria-hidden>
+      <div className="absolute -inset-8 rounded-full bg-[radial-gradient(circle,rgba(47,91,255,0.45),transparent_65%)] blur-2xl" />
+      <div className="relative rounded-[34px] border border-white/15 bg-[#050914] p-2.5 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)]">
+        <div className="overflow-hidden rounded-[26px] bg-[linear-gradient(180deg,#0c142b,#070d1d)]">
+          <div className="mx-auto mt-2 h-1.5 w-16 rounded-full bg-white/10" />
+          <div className="px-4 pb-5 pt-4">
+            <div className="flex items-center justify-between">
+              <div className="rounded-md bg-white px-1.5 py-0.5">
+                <Image src="/oceana-logo.png" alt="" width={2172} height={724} className="h-3.5 w-auto" />
+              </div>
+              <span className="rounded-full bg-[#34d399]/15 px-2 py-0.5 text-[9px] font-semibold text-[#34d399]">
+                LIVE
+              </span>
+            </div>
+            <p className="mt-4 text-[9px] uppercase tracking-wider text-white/40">Portfolio</p>
+            <div className="mt-1 h-3 w-24 rounded bg-white/80" />
+            <svg viewBox="0 0 160 60" className="mt-3 w-full">
+              <defs>
+                <linearGradient id="pp-a" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stopColor="#3d7bff" stopOpacity="0.45" />
+                  <stop offset="100%" stopColor="#3d7bff" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M0,48 L20,40 L40,44 L60,30 L80,34 L100,20 L120,24 L140,10 L160,14 L160,60 L0,60 Z" fill="url(#pp-a)" />
+              <path d="M0,48 L20,40 L40,44 L60,30 L80,34 L100,20 L120,24 L140,10 L160,14" fill="none" stroke="#12c2e9" strokeWidth="2" />
+            </svg>
+            <div className="mt-3 space-y-1.5">
+              {["Forex", "Metals", "Crypto"].map((m, i) => (
+                <div key={m} className="flex items-center justify-between rounded-lg bg-white/[0.05] px-2.5 py-2">
+                  <span className="text-[10px] font-semibold text-white/80">{m}</span>
+                  <span className={`h-1.5 w-10 rounded-full ${i === 1 ? "bg-[#fb7185]/60" : "bg-[#34d399]/60"}`} />
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-1.5">
+              <div className="rounded-lg bg-[#e5484d] py-1.5 text-center text-[9px] font-bold text-white">SELL</div>
+              <div className="rounded-lg bg-[#2f5bff] py-1.5 text-center text-[9px] font-bold text-white">BUY</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Floating "Download app" button (bottom-right, all marketing pages) + premium modal. */
+export default function AppDownloadPopup() {
+  const [open, setOpen] = useState(false);
+  const reduce = useReducedMotion();
+  const release = useAndroidRelease(open);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     return () => {
-      window.cancelAnimationFrame(frame);
-      window.clearTimeout(timer);
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
     };
-  }, []);
-
-  const close = () => {
-    setOpen(false);
-  };
-
-  const startAndroidDownload = async () => {
-    try {
-      const response = await fetch("/oceanaprofx.apk");
-      if (!response.ok) {
-        throw new Error("APK file is not reachable");
-      }
-
-      const blob = await response.blob();
-      const objectUrl = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = objectUrl;
-      link.download = "oceanaprofx.apk";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      URL.revokeObjectURL(objectUrl);
-      setFeedback("Android APK download started.");
-    } catch {
-      const fallback = document.createElement("a");
-      fallback.href = "/oceanaprofx.apk";
-      fallback.download = "oceanaprofx.apk";
-      document.body.appendChild(fallback);
-      fallback.click();
-      fallback.remove();
-      setFeedback("Trying APK download. If blocked, allow downloads in browser.");
-    }
-  };
-
-  const handleDownload = async () => {
-    if (deviceType === "android") {
-      await startAndroidDownload();
-      return;
-    }
-
-    if (deviceType === "ios") {
-      setFeedback("iOS app download will be available soon.");
-      return;
-    }
-
-    if (selectedPlatform === "android") {
-      await startAndroidDownload();
-      return;
-    }
-
-    setFeedback("iOS app download is coming soon.");
-  };
+  }, [open]);
 
   return (
     <>
       <motion.button
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed bottom-5 right-5 z-[100] inline-flex h-14 w-14 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--secondary),var(--primary))] text-[var(--card-bg)] shadow-[0_18px_40px_-16px_var(--glow)]"
-        whileHover={{ scale: 1.07 }}
-        whileTap={{ scale: 0.95 }}
-        aria-label="Open app download popup"
+        initial={reduce ? false : { opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.97 }}
+        className="group fixed bottom-5 right-5 z-[90] inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-[rgba(7,13,29,0.92)] py-2 pl-2 pr-4 text-white shadow-[0_20px_45px_-18px_rgba(47,91,255,0.75)] backdrop-blur-xl sm:bottom-7 sm:right-7"
+        aria-label="Download the Oceana app"
       >
-        <span className="absolute inset-0 animate-ping rounded-full bg-[var(--primary)]/35" />
-        <Download size={22} className="relative z-10" />
+        <span className="relative grid h-10 w-10 place-items-center rounded-full" style={{ background: "var(--brand-gradient)" }}>
+          <span className="ring-pulse absolute inset-0 rounded-full" style={{ background: "var(--brand-gradient)" }} />
+          <Download size={18} className="relative" />
+        </span>
+        <span className="text-left leading-tight">
+          <span className="block text-[13px] font-semibold">Download app</span>
+          <span className="hidden text-[11px] text-white/55 sm:block">Trade on the go</span>
+        </span>
       </motion.button>
 
       <AnimatePresence>
         {open ? (
           <motion.div
-            className="fixed inset-0 z-[101] flex items-end justify-center p-4 sm:items-center"
+            className="fixed inset-0 z-[100] flex items-end justify-center p-3 sm:items-center sm:p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
             <button
               type="button"
-              aria-label="Close popup"
-              onClick={close}
-              className="absolute inset-0 bg-black/60"
+              aria-label="Close"
+              onClick={() => setOpen(false)}
+              className="absolute inset-0 bg-[rgba(3,6,14,0.72)] backdrop-blur-sm"
             />
 
             <motion.div
               role="dialog"
               aria-modal="true"
-              className="relative w-full max-w-3xl overflow-hidden rounded-[30px] border border-[var(--card-border)] bg-[var(--card-bg)] shadow-[0_40px_90px_-52px_rgba(0,0,0,0.78)]"
-              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              aria-labelledby="app-download-title"
+              initial={{ opacity: 0, y: 40, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 18, scale: 0.98 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
+              exit={{ opacity: 0, y: 30, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="ink-surface relative max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-[28px] border border-white/10 shadow-[0_50px_100px_-40px_rgba(0,0,0,0.9)]"
             >
-              <div className="relative h-36 sm:h-44">
-                <Image src={popupImage} alt="" fill sizes="100vw" className="object-cover" priority />
-                <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.25)_55%,rgba(0,0,0,0.5)_100%)]" />
-              </div>
-
               <button
                 type="button"
-                onClick={close}
-                aria-label="Dismiss"
-                className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white/90 backdrop-blur hover:bg-black/65"
+                onClick={() => setOpen(false)}
+                aria-label="Close"
+                className="absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-white/80 transition hover:bg-white/15 hover:text-white"
               >
                 <X size={16} />
               </button>
 
-              <div className="relative grid gap-5 p-5 sm:grid-cols-[1.2fr_1fr] sm:gap-6 sm:p-7">
-                <div className="absolute -left-12 -top-14 h-36 w-36 rounded-full bg-[var(--primary)]/12 blur-2xl" />
-                <div className="absolute -bottom-14 right-8 h-36 w-36 rounded-full bg-[var(--secondary)]/12 blur-2xl" />
-
-                <div className="relative">
-                  <p className="inline-flex items-center rounded-full border border-[var(--card-border)] bg-[var(--hover-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--secondary)]">
-                    App Download
-                  </p>
-                  <h3 className="mt-3 text-2xl font-black leading-tight text-[var(--foreground)] sm:text-3xl">
-                    Trade faster on
-                    <span className="block bg-[linear-gradient(90deg,var(--secondary),var(--primary))] bg-clip-text text-transparent">
-                      oceanaprofx Mobile
+              <div className="grid items-center gap-8 p-6 sm:p-10 md:grid-cols-[1.15fr_0.85fr]">
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-14 w-14 place-items-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-lg">
+                      <Image src="/oceana-icon.png" alt="Oceana app" width={512} height={512} className="h-full w-full object-contain" />
                     </span>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent-soft)]">Mobile app</p>
+                      <p className="font-display text-lg font-semibold text-white">
+                        Oceana{release.version ? <span className="ml-2 text-xs font-medium text-white/45">v{release.version}</span> : null}
+                      </p>
+                    </div>
+                  </div>
+
+                  <h3 id="app-download-title" className="mt-6 font-display text-3xl font-semibold leading-tight text-white sm:text-4xl">
+                    Your trading desk, <span className="text-gradient">in your pocket.</span>
                   </h3>
-                  <p className="mt-3 text-sm text-[var(--text-muted)] sm:text-base">
-                    Device based smart download. Android gets APK instantly, iOS gets release update status.
+                  <p className="mt-3 text-sm leading-relaxed text-white/65 sm:text-base">
+                    Monitor positions, place and manage orders, and fund your account from your phone — signed in with your
+                    Oceana account.
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <button
-                      type="button"
-                      onClick={handleDownload}
-                      className="rounded-xl bg-[linear-gradient(90deg,var(--secondary),var(--primary))] px-6 py-3 text-sm font-semibold text-[var(--card-bg)]"
-                    >
-                      {deviceType === "android"
-                        ? "Download for Android"
-                        : deviceType === "ios"
-                          ? "Download for iOS"
-                          : selectedPlatform === "android"
-                            ? "Download for Android"
-                            : "Download for iOS"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={close}
-                      className="rounded-xl border border-[var(--card-border)] px-6 py-3 text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--hover-bg)]"
-                    >
-                      Close
-                    </button>
+                  <ul className="mt-6 grid gap-2.5 text-sm text-white/75">
+                    <li className="flex items-center gap-2.5">
+                      <Zap size={15} className="text-[var(--accent-soft)]" /> Place and manage orders quickly on mobile
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <ShieldCheck size={15} className="text-[var(--accent-soft)]" /> Secure sign-in with your account credentials
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <Smartphone size={15} className="text-[var(--accent-soft)]" /> Android app available now
+                    </li>
+                  </ul>
+
+                  <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                    {PLAY_STORE_URL ? (
+                      <a
+                        href={PLAY_STORE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 rounded-2xl border border-white/15 bg-black px-4 py-3 text-white transition hover:border-white/40"
+                      >
+                        <PlayStoreGlyph />
+                        <span className="leading-tight">
+                          <span className="block text-[10px] uppercase tracking-wider text-white/60">Get it on</span>
+                          <span className="block text-base font-semibold">Google Play</span>
+                        </span>
+                      </a>
+                    ) : (
+                      <div
+                        aria-disabled
+                        className="flex cursor-not-allowed items-center gap-3 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white/50"
+                        title="Google Play listing coming soon"
+                      >
+                        <span className="opacity-60">
+                          <PlayStoreGlyph />
+                        </span>
+                        <span className="leading-tight">
+                          <span className="block text-[10px] uppercase tracking-wider">Google Play</span>
+                          <span className="block text-base font-semibold">Coming soon</span>
+                        </span>
+                      </div>
+                    )}
+
+                    {release.apkUrl ? (
+                      <a
+                        href={release.apkUrl}
+                        download
+                        className="flex items-center gap-3 rounded-2xl px-4 py-3 text-white shadow-[0_14px_30px_-14px_rgba(47,91,255,0.8)] transition hover:brightness-110"
+                        style={{ background: "var(--brand-gradient)" }}
+                      >
+                        <span className="grid h-6 w-6 place-items-center">
+                          <Download size={20} />
+                        </span>
+                        <span className="leading-tight">
+                          <span className="block text-[10px] uppercase tracking-wider text-white/75">Direct download</span>
+                          <span className="block text-base font-semibold">Android APK</span>
+                        </span>
+                      </a>
+                    ) : null}
                   </div>
-                </div>
-
-                <div className="relative rounded-2xl border border-[var(--card-border)] bg-[var(--hover-bg)] p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                    Platform
-                  </p>
-
-                  <div className="mt-3 space-y-2">
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPlatform("android")}
-                      disabled={deviceType !== "other"}
-                      className={[
-                        "flex w-full items-center justify-between rounded-xl border px-3 py-3 text-left text-sm transition",
-                        (deviceType === "android" || (deviceType === "other" && selectedPlatform === "android"))
-                          ? "border-[var(--secondary)] bg-[var(--card-bg)] text-[var(--foreground)]"
-                          : "border-[var(--card-border)] bg-[var(--card-bg)]/60 text-[var(--text-muted)]",
-                        deviceType !== "other" ? "cursor-default opacity-90" : "hover:border-[var(--secondary)]/50",
-                      ].join(" ")}
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        <Smartphone size={15} />
-                        Android
-                      </span>
-                      <span className="text-xs font-semibold text-[var(--secondary)]">APK Ready</span>
-                    </button>
-
-                    {/* <button
-                      type="button"
-                      onClick={() => setSelectedPlatform("ios")}
-                      disabled={deviceType !== "other"}
-                      className={[
-                        "flex w-full items-center justify-between rounded-xl border px-3 py-3 text-left text-sm transition",
-                        (deviceType === "ios" || (deviceType === "other" && selectedPlatform === "ios"))
-                          ? "border-[var(--secondary)] bg-[var(--card-bg)] text-[var(--foreground)]"
-                          : "border-[var(--card-border)] bg-[var(--card-bg)]/60 text-[var(--text-muted)]",
-                        deviceType !== "other" ? "cursor-default opacity-90" : "hover:border-[var(--secondary)]/50",
-                      ].join(" ")}
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        <Smartphone size={15} />
-                        iOS
-                      </span>
-                      <span className="text-xs font-semibold text-[var(--text-muted)]">Coming Soon</span>
-                    </button> */}
-                  </div>
-
-                  <p className="mt-3 text-xs text-[var(--text-muted)]">
-                    {deviceType === "android"
-                      ? "Android device detected."
-                      : deviceType === "ios"
-                        ? "iOS device detected."
-                        : ""}
+                  <p className="mt-4 text-xs text-white/45">
+                    After downloading, open the APK and allow installation from this source if your phone asks.
                   </p>
                 </div>
 
-                {feedback ? (
-                  <p className="relative sm:col-span-2 rounded-lg border border-[var(--card-border)] bg-[var(--hover-bg)] px-3 py-2 text-sm text-[var(--text-muted)]">
-                    {feedback}
-                  </p>
-                ) : null}
+                <div className="hidden md:block">
+                  <PhonePreview />
+                </div>
               </div>
             </motion.div>
           </motion.div>

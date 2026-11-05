@@ -1,4 +1,4 @@
-import { SITE_NAME, SITE_URL } from "../../lib/seo";
+import { SITE_LOGO_PATH, SITE_NAME, SITE_URL } from "../../lib/seo";
 
 export default function GlobalStructuredData() {
   const organizationId = `${SITE_URL}/#organization`;
@@ -12,7 +12,7 @@ export default function GlobalStructuredData() {
         "@id": organizationId,
         name: SITE_NAME,
         url: SITE_URL,
-        logo: `${SITE_URL}/logo.png`,
+        logo: `${SITE_URL}${SITE_LOGO_PATH}`,
         contactPoint: [
           {
             "@type": "ContactPoint",

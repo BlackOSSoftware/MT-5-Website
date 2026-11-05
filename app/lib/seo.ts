@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://www.oceanaprofx.com";
 export const SITE_NAME = "oceanaprofx";
-export const SITE_LOGO_PATH = "/logo.png";
-export const SITE_FAVICON_PATH = "/logo.png";
-export const SITE_FAVICON_32_PATH = "/logo.png";
-export const SITE_FAVICON_16_PATH = "/logo.png";
-export const SITE_APPLE_ICON_PATH = "/logo.png";
+/** Wide "Oceana" wordmark (navbar / footer / structured data). */
+export const SITE_LOGO_PATH = "/oceana-logo.png";
+/** Square "O" mark cropped from the wordmark, used for favicons and app icons. */
+export const SITE_ICON_PATH = "/oceana-icon.png";
+export const SITE_FAVICON_PATH = SITE_ICON_PATH;
+export const SITE_FAVICON_32_PATH = "/favicon-32x32.png";
+export const SITE_FAVICON_16_PATH = "/favicon-16x16.png";
+export const SITE_APPLE_ICON_PATH = "/apple-touch-icon.png";
 export const DEFAULT_OG_IMAGE_PATH = "/opengraph-image";
 export const DEFAULT_TWITTER_IMAGE_PATH = "/twitter-image";
 

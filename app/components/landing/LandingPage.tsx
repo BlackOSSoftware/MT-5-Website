@@ -1,44 +1,83 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  BarChart3,
+  Bitcoin,
+  Coins,
+  Gauge,
+  LineChart,
+  MonitorSmartphone,
+  Receipt,
+  ShieldCheck,
+  Wallet,
+} from "lucide-react";
 import HeroSection from "./HeroSection";
+import Reveal from "../ui/Reveal";
+import { Section, SectionHeader } from "../ui/Section";
+import ChartVisual from "../ui/ChartVisual";
+import CtaBand from "../ui/CtaBand";
 
 const markets = [
   {
     name: "Forex",
     href: "/markets/forex",
+    icon: LineChart,
     copy: "Majors and crosses with session-aware depth when London and New York overlap.",
+    tags: ["EUR/USD", "GBP/USD", "USD/JPY"],
   },
   {
     name: "Crypto",
     href: "/markets/crypto",
+    icon: Bitcoin,
     copy: "Round-the-clock pairs for strategies that do not wait for the cash open.",
+    tags: ["BTC/USD", "ETH/USD"],
   },
   {
     name: "Indexes",
     href: "/markets/indexes",
+    icon: BarChart3,
     copy: "Benchmark exposure for directional views and portfolio hedges.",
+    tags: ["US30", "NAS100", "SPX500"],
   },
   {
     name: "Metals",
     href: "/markets/metal",
+    icon: Coins,
     copy: "Gold, silver, and hard-asset instruments with transparent cost structure.",
+    tags: ["XAU/USD", "XAG/USD"],
   },
+] as const;
+
+const tickerSymbols = [
+  "EUR/USD",
+  "GBP/USD",
+  "USD/JPY",
+  "AUD/USD",
+  "XAU/USD",
+  "XAG/USD",
+  "BTC/USD",
+  "ETH/USD",
+  "US30",
+  "NAS100",
+  "SPX500",
+  "USD/CAD",
 ] as const;
 
 const reasons = [
   {
+    icon: Receipt,
     title: "Costs before clicks",
     body: "See how pricing is structured before you size a position. No soft language around spreads.",
   },
   {
+    icon: Gauge,
     title: "Execution under pressure",
     body: "Routing is tuned for the moments depth thins — opens, overlaps, and news windows.",
   },
   {
+    icon: ShieldCheck,
     title: "Risk beside the ticket",
     body: "Controls sit next to the order flow so exposure stays intentional, not accidental.",
   },
@@ -51,72 +90,68 @@ const conditions = [
   { market: "Core crypto", pricing: "Market-linked", hours: "24/7" },
 ] as const;
 
-const steps = [
-  {
-    n: "01",
-    title: "Register",
-    body: "Create your profile and complete a short verification path.",
-  },
-  {
-    n: "02",
-    title: "Fund",
-    body: "Deposit with methods that match how you already move money.",
-  },
-  {
-    n: "03",
-    title: "Trade",
-    body: "Enter live markets from web or mobile with the same balance.",
-  },
+const platformPoints = [
+  { icon: MonitorSmartphone, text: "Same account and balance on web and Android" },
+  { icon: LineChart, text: "Live charts with order entry beside the chart" },
+  { icon: Wallet, text: "Deposits, withdrawals, and transfers from the client portal" },
 ] as const;
 
-const fade = {
-  initial: { opacity: 0, y: 22 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
-  viewport: { once: true, amount: 0.2 },
-};
+const steps = [
+  { n: "01", title: "Register", body: "Create your profile and complete a short verification path." },
+  { n: "02", title: "Fund", body: "Deposit with methods that match how you already move money." },
+  { n: "03", title: "Trade", body: "Enter live markets from web or mobile with the same balance." },
+] as const;
 
 export default function LandingPage() {
-  const reduce = useReducedMotion();
-
   return (
     <main>
       <HeroSection />
 
-      <section className="border-b border-[var(--card-border)] bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <motion.div {...(reduce ? {} : fade)} className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-              Markets
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--foreground)] sm:text-4xl">
-              Four asset classes. One trading account.
-            </h2>
-            <p className="mt-3 text-[var(--text-muted)]">
-              Switch instruments without switching platforms or mental models.
-            </p>
-          </motion.div>
+      <div className="overflow-hidden border-b border-[var(--card-border)] bg-[var(--card-bg)] py-4">
+        <div className="marquee-track flex w-max gap-10">
+          {[...tickerSymbols, ...tickerSymbols].map((s, i) => (
+            <span
+              key={`${s}-${i}`}
+              className="flex items-center gap-2.5 whitespace-nowrap font-display text-sm font-semibold tracking-wide text-[var(--text-muted)]"
+            >
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--brand-gradient)" }} />
+              {s}
+            </span>
+          ))}
+        </div>
+      </div>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-md border border-[var(--card-border)] bg-[var(--card-border)] sm:grid-cols-2">
-            {markets.map((m, i) => (
-              <motion.div
-                key={m.name}
-                initial={reduce ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                viewport={{ once: true }}
-              >
-                <Link
-                  href={m.href}
-                  className="group flex h-full flex-col justify-between bg-[var(--card-bg)] p-6 transition-colors hover:bg-[var(--hover-bg)] sm:p-8"
-                >
-                  <div>
-                    <p className="font-display text-2xl font-bold text-[var(--foreground)]">
-                      {m.name}
-                    </p>
-                    <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">
-                      {m.copy}
-                    </p>
+      <Section>
+        <SectionHeader
+          eyebrow="Markets"
+          title="Four asset classes. One trading account."
+          description="Switch instruments without switching platforms or mental models."
+          action={
+            <Link href="/trading/market-time" className="btn-ghost btn-sm">
+              Market hours <ArrowUpRight size={15} />
+            </Link>
+          }
+        />
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {markets.map((m, i) => {
+            const Icon = m.icon;
+            return (
+              <Reveal key={m.name} delay={i * 0.07}>
+                <Link href={m.href} className="card card-hover group flex h-full flex-col p-6">
+                  <span className="icon-tile">
+                    <Icon size={20} />
+                  </span>
+                  <p className="mt-6 font-display text-2xl font-semibold text-[var(--foreground)]">{m.name}</p>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--text-muted)]">{m.copy}</p>
+                  <div className="mt-6 flex flex-wrap gap-1.5">
+                    {m.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-[var(--card-border)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text-muted)]"
+                      >
+                        {t}
+                      </span>
+                    ))}
                   </div>
                   <span className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-[var(--primary)]">
                     View market
@@ -126,190 +161,147 @@ export default function LandingPage() {
                     />
                   </span>
                 </Link>
-              </motion.div>
-            ))}
+              </Reveal>
+            );
+          })}
+        </div>
+      </Section>
+
+      <Section tone="deep">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <SectionHeader
+              eyebrow="Why Oceana"
+              title="Built for traders who prefer signal over noise."
+              description="Every part of the stack is designed to keep costs visible, execution steady, and risk under your control."
+            />
+            <Reveal delay={0.1} className="mt-8">
+              <Link href="/why-choose-us" className="btn-primary">
+                Why traders choose us
+              </Link>
+            </Reveal>
+          </div>
+          <div className="grid gap-5">
+            {reasons.map((r, i) => {
+              const Icon = r.icon;
+              return (
+                <Reveal key={r.title} from="right" delay={i * 0.08}>
+                  <article className="card card-hover flex gap-5 p-6 sm:p-8">
+                    <span className="icon-tile shrink-0">
+                      <Icon size={20} />
+                    </span>
+                    <div>
+                      <h3 className="font-display text-xl font-semibold text-[var(--foreground)]">{r.title}</h3>
+                      <p className="mt-2 leading-relaxed text-[var(--text-muted)]">{r.body}</p>
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
-      </section>
+      </Section>
 
-      <section className="border-b border-[var(--card-border)] bg-[var(--background-deep)]">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 md:grid-cols-[0.85fr_1.15fr] md:gap-16 md:px-6 md:py-24">
-          <motion.div
-            {...(reduce ? {} : fade)}
-            className="md:sticky md:top-28 md:self-start"
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-              Why oceanaprofx
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--foreground)] sm:text-4xl">
-              Built for traders who prefer signal over noise.
-            </h2>
-          </motion.div>
-          <div className="space-y-10">
-            {reasons.map((r, i) => (
-              <motion.article
-                key={r.title}
-                initial={reduce ? false : { opacity: 0, x: 16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.45, delay: i * 0.07 }}
-                viewport={{ once: true }}
-                className="border-l-2 border-[var(--primary)] pl-5"
-              >
-                <h3 className="font-display text-xl font-semibold text-[var(--foreground)]">
-                  {r.title}
-                </h3>
-                <p className="mt-2 leading-relaxed text-[var(--text-muted)]">
-                  {r.body}
-                </p>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-b border-[var(--card-border)] bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <motion.div {...(reduce ? {} : fade)} className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-              Conditions
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--foreground)] sm:text-4xl">
-              Straight answers on pricing and access.
-            </h2>
-          </motion.div>
-
-          <div className="mt-10 overflow-x-auto">
+      <Section>
+        <SectionHeader
+          eyebrow="Conditions"
+          title="Straight answers on pricing and access."
+          action={
+            <Link href="/trading/condition" className="btn-ghost btn-sm">
+              Full trading conditions <ArrowUpRight size={15} />
+            </Link>
+          }
+        />
+        <Reveal className="card mt-12 overflow-hidden">
+          <div className="overflow-x-auto">
             <table className="w-full min-w-[520px] text-left text-sm">
               <thead>
-                <tr className="border-b border-[var(--card-border)] text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                  <th className="pb-3 pr-4 font-medium">Market</th>
-                  <th className="pb-3 pr-4 font-medium">Pricing</th>
-                  <th className="pb-3 font-medium">Access</th>
+                <tr className="bg-[var(--background-deep)] text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                  <th className="px-6 py-4 font-semibold">Market</th>
+                  <th className="px-6 py-4 font-semibold">Pricing</th>
+                  <th className="px-6 py-4 font-semibold">Access</th>
                 </tr>
               </thead>
               <tbody>
                 {conditions.map((row) => (
                   <tr
                     key={row.market}
-                    className="border-b border-[var(--card-border)]"
+                    className="border-t border-[var(--card-border)] transition-colors hover:bg-[var(--hover-bg)]"
                   >
-                    <td className="py-4 pr-4 font-semibold text-[var(--foreground)]">
-                      {row.market}
+                    <td className="px-6 py-5 font-semibold text-[var(--foreground)]">{row.market}</td>
+                    <td className="px-6 py-5 text-[var(--text-muted)]">{row.pricing}</td>
+                    <td className="px-6 py-5">
+                      <span className="rounded-full bg-[var(--primary)]/10 px-3 py-1 text-xs font-semibold text-[var(--primary)]">
+                        {row.hours}
+                      </span>
                     </td>
-                    <td className="py-4 pr-4 text-[var(--text-muted)]">
-                      {row.pricing}
-                    </td>
-                    <td className="py-4 text-[var(--text-muted)]">{row.hours}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <Link
-            href="/trading/condition"
-            className="mt-8 inline-flex items-center gap-1 text-sm font-semibold text-[var(--primary)] hover:underline"
-          >
-            Full trading conditions <ArrowUpRight size={15} />
-          </Link>
-        </div>
-      </section>
+        </Reveal>
+      </Section>
 
-      <section className="border-b border-[var(--card-border)] bg-[var(--background-deep)]">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:gap-14 md:px-6 md:py-24">
-          <motion.div {...(reduce ? {} : fade)}>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-              Platform
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--foreground)] sm:text-4xl">
-              One workspace at the desk and in your pocket.
-            </h2>
-            <p className="mt-4 leading-relaxed text-[var(--text-muted)]">
-              Charts, tickets, balances, and funding stay aligned — whether you
-              are managing risk on a monitor or checking exposure on the move.
-            </p>
-            <Link href="/trading/platform" className="btn-primary mt-8">
-              Explore the platform
-            </Link>
-          </motion.div>
-          <motion.div
-            initial={reduce ? false : { opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="relative aspect-[4/3] overflow-hidden rounded-md"
-          >
-            <Image
-              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80"
-              alt="Trading analytics on screen"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
+      <Section tone="ink">
+        <div className="grid items-center gap-14 lg:grid-cols-2">
+          <div>
+            <SectionHeader
+              dark
+              eyebrow="Platform"
+              title="One workspace at the desk and in your pocket."
+              description="Charts, tickets, balances, and funding stay aligned — whether you are managing risk on a monitor or checking exposure on the move."
             />
-          </motion.div>
+            <ul className="mt-8 grid gap-4">
+              {platformPoints.map((p, i) => {
+                const Icon = p.icon;
+                return (
+                  <Reveal as="li" key={p.text} from="left" delay={0.1 + i * 0.08} className="flex items-center gap-4">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[0.06] text-[var(--accent-soft)]">
+                      <Icon size={18} />
+                    </span>
+                    <span className="text-white/80">{p.text}</span>
+                  </Reveal>
+                );
+              })}
+            </ul>
+            <Reveal delay={0.3} className="mt-10">
+              <Link href="/trading/platform" className="btn-primary">
+                Explore the platform
+              </Link>
+            </Reveal>
+          </div>
+          <Reveal from="right" className="relative">
+            <div className="absolute -inset-10 -z-10 rounded-full bg-[radial-gradient(circle,rgba(18,194,233,0.25),transparent_65%)] blur-2xl" />
+            <ChartVisual />
+          </Reveal>
         </div>
-      </section>
+      </Section>
 
-      <section className="border-b border-[var(--card-border)] bg-[var(--background)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <motion.div {...(reduce ? {} : fade)}>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-              Get started
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[var(--foreground)] sm:text-4xl">
-              Three steps from registration to live.
-            </h2>
-          </motion.div>
-          <div className="mt-12 grid gap-10 sm:grid-cols-3">
-            {steps.map((s, i) => (
-              <motion.div
-                key={s.n}
-                initial={reduce ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                viewport={{ once: true }}
+      <Section>
+        <SectionHeader eyebrow="Get started" title="Three steps from registration to live." align="center" />
+        <div className="relative mt-16 grid gap-6 md:grid-cols-3">
+          <div
+            className="absolute left-[16%] right-[16%] top-7 hidden h-px md:block"
+            style={{ background: "linear-gradient(90deg, transparent, var(--card-border) 15%, var(--card-border) 85%, transparent)" }}
+            aria-hidden
+          />
+          {steps.map((s, i) => (
+            <Reveal key={s.n} delay={i * 0.1} className="relative text-center">
+              <span
+                className="relative mx-auto grid h-14 w-14 place-items-center rounded-2xl font-display text-lg font-semibold text-white shadow-[0_14px_30px_-12px_rgba(47,91,255,0.6)]"
+                style={{ background: "var(--brand-gradient)" }}
               >
-                <p className="font-display text-4xl font-bold text-[var(--primary)]/20">
-                  {s.n}
-                </p>
-                <h3 className="mt-2 font-display text-xl font-semibold text-[var(--foreground)]">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
-                  {s.body}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+                {s.n}
+              </span>
+              <h3 className="mt-6 font-display text-xl font-semibold text-[var(--foreground)]">{s.title}</h3>
+              <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-[var(--text-muted)]">{s.body}</p>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      <section className="bg-[#0b1220] text-white">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-20 md:flex-row md:items-end md:justify-between md:px-6 md:py-24">
-          <div className="max-w-lg">
-            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
-              Ready when the market is.
-            </h2>
-            <p className="mt-3 text-white/65">
-              Open a live account and trade with the same focused stack we built
-              for disciplined desks.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="https://user.oceanaprofx.com/signup"
-              className="btn-accent"
-            >
-              Open account
-            </Link>
-            <Link
-              href="/contact"
-              className="btn-ghost border-white/30 text-white hover:bg-white/10"
-            >
-              Contact support
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CtaBand />
     </main>
   );
 }

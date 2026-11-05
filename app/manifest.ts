@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import {
   SITE_APPLE_ICON_PATH,
   SITE_FAVICON_32_PATH,
-  SITE_LOGO_PATH,
+  SITE_ICON_PATH,
   SITE_NAME,
 } from "./lib/seo";
 
@@ -18,8 +18,8 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#1b4dff",
     icons: [
       {
-        src: SITE_LOGO_PATH,
-        sizes: "1024x1024",
+        src: SITE_ICON_PATH,
+        sizes: "512x512",
         type: "image/png",
       },
       {

@@ -30,8 +30,6 @@ export default function Page() {
         title="Currency markets, explained without the noise."
         subtitle="Trade 45+ pairs across Asia, London, and New York with readable pricing and steady order handling."
         intro="FX runs around the clock on weekdays. oceanaprofx gives you access to major, minor, and selected cross pairs so you can express macro views, manage currency exposure, and work within the session windows that match your strategy."
-        heroImageSrc="https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=2400&q=80"
-        heroImageAlt="Fan of US dollar banknotes"
         symbolsTitle="Major and cross pairs"
         symbols={[
           { symbol: "EUR/USD", name: "Euro vs US Dollar", note: "Most liquid major pair" },

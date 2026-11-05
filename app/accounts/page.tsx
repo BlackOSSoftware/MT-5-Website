@@ -30,8 +30,8 @@ export default function AccountsPage() {
         description="Compare Core, Prime, and Elite structures — then open the account that matches your frequency and risk posture."
         primaryLabel="View account details"
         primaryHref="/trading/account"
-        imageSrc="https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1800&q=80"
-        imageAlt="Currency notes"
+        eyebrow="Accounts"
+        points={["Core — standard pricing, up to 1:200", "Prime — active pricing, up to 1:300", "Elite — tailored structure"]}
       />
     </>
   );

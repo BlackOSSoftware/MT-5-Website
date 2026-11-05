@@ -1,26 +1,19 @@
 "use client";
 
 import PageHero from "../ui/PageHero";
-
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=80";
+import { SIGNUP_URL } from "../ui/CtaBand";
 
 export default function HeroSection() {
   return (
     <PageHero
-      eyebrow="oceanaprofx"
+      eyebrow="Oceana"
       title="Markets move fast. Your platform should feel calm."
       description="Trade forex, crypto, indexes, and metals from one account — with pricing you can read and execution built for busy sessions."
-      imageSrc={HERO_IMAGE}
-      imageAlt="City skyline representing global markets"
       ctas={[
-        {
-          label: "Open account",
-          href: "https://user.oceanaprofx.com/signup",
-          variant: "accent",
-        },
+        { label: "Open account", href: SIGNUP_URL, variant: "primary" },
         { label: "Explore markets", href: "/markets/forex", variant: "ghost" },
       ]}
+      highlights={["Four asset classes, one balance", "Web and Android", "Transparent pricing"]}
     />
   );
 }

@@ -29,8 +29,6 @@ export default function Page() {
         title="Digital markets with structure, not noise."
         subtitle="Trade leading crypto pairs with transparent conditions and tools built for high-volatility sessions."
         intro="Crypto moves on liquidity, sentiment, and catalysts — often outside traditional market hours. oceanaprofx gives you access to active large-cap pairs with clear execution feedback and risk controls you can actually use when volatility rises."
-        heroImageSrc="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=2400&q=80"
-        heroImageAlt="Trader using a laptop"
         symbolsTitle="Active crypto pairs"
         symbols={[
           { symbol: "BTC/USD", name: "Bitcoin vs US Dollar", note: "Institutional crypto benchmark" },

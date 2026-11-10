@@ -18,14 +18,14 @@ function apiOrigin(): string {
 }
 
 /**
- * Same APK the client portal ships: env override → backend /downloads/MetaTrader5.apk.
+ * Same APK the client portal ships: env override → backend /downloads/OceanaProFx .apk.
  * The admin-managed release URL (if any) replaces this once /app-update/info loads.
  */
 function fallbackApkUrl(): string {
   const fromEnv = String(process.env.NEXT_PUBLIC_ANDROID_APK_URL || "").trim();
   if (fromEnv) return fromEnv;
   const origin = apiOrigin();
-  return origin ? `${origin}/downloads/MetaTrader5.apk` : "";
+  return origin ? `${origin}/downloads/OceanaProFx%20.apk` : "";
 }
 
 function absolutize(url: string): string {

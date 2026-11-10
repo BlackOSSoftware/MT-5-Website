@@ -269,7 +269,7 @@ export default function Navbar() {
             <motion.button
               type="button"
               aria-label="Close menu"
-              className="fixed inset-0 top-[72px] z-40 bg-black/50 lg:hidden"
+              className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-72px)] bg-black/50 lg:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -281,7 +281,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed bottom-0 right-0 top-[72px] z-50 flex w-full max-w-sm flex-col overflow-y-auto border-l border-white/10 bg-[var(--ink-900)] px-4 pb-8 pt-4 lg:hidden"
+              className="absolute bottom-0 right-0 top-full z-50 flex h-[calc(100dvh-72px)] w-full max-w-sm flex-col overflow-y-auto border-l border-white/10 bg-[var(--ink-900)] px-4 pb-8 pt-4 lg:hidden"
             >
               <div className="space-y-1">
                 {NAV_ITEMS.map((item) => {

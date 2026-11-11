@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import LandingPage from "./components/landing/LandingPage";
 import PageStructuredData from "./components/seo/PageStructuredData";
 import { buildPageMetadata } from "./lib/seo";
@@ -6,7 +6,7 @@ import { buildPageMetadata } from "./lib/seo";
 const PAGE_SEO = {
   title: "oceanaprofx | Multi-asset trading, built for clarity",
   description:
-    "Trade forex, crypto, indexes, and metals with oceanaprofx — clear pricing, disciplined execution, and a calmer trading stack.",
+    "Trade forex, crypto, indices, and metals with oceanaprofx â€” clear pricing, disciplined execution, and a calmer trading stack.",
   path: "/",
   pageKeywords: [
     "oceanaprofx",

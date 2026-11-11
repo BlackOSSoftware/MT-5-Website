@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { Mail } from "lucide-react";
 
@@ -8,7 +8,7 @@ const columns = [
     links: [
       { label: "Forex", href: "/markets/forex" },
       { label: "Crypto", href: "/markets/crypto" },
-      { label: "Indexes", href: "/markets/indexes" },
+      { label: "indices", href: "/markets/indices" },
       { label: "Metals", href: "/markets/metal" },
     ],
   },
@@ -29,7 +29,6 @@ const columns = [
       { label: "About", href: "/about" },
       { label: "Why Oceana", href: "/why-choose-us" },
       { label: "Reviews", href: "/reviews" },
-      { label: "Regulation", href: "/regulation" },
       { label: "Partners", href: "/partners" },
       { label: "Contact", href: "/contact" },
     ],
@@ -74,7 +73,7 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="container-x flex flex-col gap-3 py-6 text-xs text-white/45 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} Oceana. All rights reserved.</p>
+          <p>Â© {new Date().getFullYear()} Oceana. All rights reserved.</p>
           <p className="max-w-xl md:text-right">
             Trading leveraged products involves significant risk. Capital is at risk.
           </p>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -38,7 +38,7 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { label: "Forex", href: "/markets/forex", description: "Majors, minors and crosses, 24/5", icon: DollarSign },
       { label: "Crypto", href: "/markets/crypto", description: "Digital pairs around the clock", icon: Bitcoin },
-      { label: "Indexes", href: "/markets/indexes", description: "Benchmark exposure and hedges", icon: LineChart },
+      { label: "indices", href: "/markets/indices", description: "Benchmark exposure and hedges", icon: LineChart },
       { label: "Metals", href: "/markets/metal", description: "Gold, silver and hard assets", icon: Gem },
     ],
   },
@@ -59,7 +59,6 @@ const NAV_ITEMS: NavItem[] = [
       { label: "About", href: "/about", description: "Who we are and how we work", icon: Building2 },
       { label: "Why Oceana", href: "/why-choose-us", description: "What we optimize for", icon: Award },
       { label: "Reviews", href: "/reviews", description: "Real feedback, no invented quotes", icon: BadgeCheck },
-      { label: "Regulation", href: "/regulation", description: "Verification and governance", icon: ScrollText },
     ],
   },
   { label: "Contact", href: "/contact" },
@@ -248,7 +247,7 @@ export default function Navbar() {
             Log in
           </Link>
           <Link href={SIGNUP_URL} className="btn-primary btn-sm hidden sm:inline-flex">
-            Open account
+            Try Demo Account
           </Link>
           <button
             type="button"
@@ -346,7 +345,7 @@ export default function Navbar() {
 
               <div className="mt-auto grid gap-2 pt-8">
                 <Link href={SIGNUP_URL} className="btn-primary w-full">
-                  Open account
+                  Try Demo Account
                 </Link>
                 <Link href={LOGIN_URL} className="btn-glass w-full">
                   Log in

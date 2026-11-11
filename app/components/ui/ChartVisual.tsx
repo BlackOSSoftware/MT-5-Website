@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Illustrative market chart drawn in SVG (no remote images, no live data).
  * Used as the hero visual so pages load fast and stay on-brand.
  */
@@ -89,7 +89,7 @@ export default function ChartVisual({
       </svg>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
-        {["Forex", "Metals", "Indexes"].map((m) => (
+        {["Forex", "Metals", "indices"].map((m) => (
           <div key={m} className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2">
             <p className="text-[10px] uppercase tracking-wider text-white/45">Market</p>
             <p className="text-sm font-semibold text-white">{m}</p>

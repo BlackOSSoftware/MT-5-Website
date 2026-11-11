@@ -1,20 +1,20 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import MarketShowcase from "../../components/markets/MarketShowcase";
 import PageStructuredData from "../../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../../lib/seo";
 
 const PAGE_SEO = {
-  title: "Indexes | Global benchmarks on oceanaprofx",
+  title: "indices | Global benchmarks on oceanaprofx",
   description:
-    "Trade major US, European, and Asian equity indexes on oceanaprofx — broad market exposure without stock-by-stock complexity.",
-  path: "/markets/indexes",
+    "Trade major US, European, and Asian equity indices on oceanaprofx â€” broad market exposure without stock-by-stock complexity.",
+  path: "/markets/indices",
   pageKeywords: [
-    "indexes",
+    "indices",
     "US30",
     "NAS100",
     "SPX500",
-    "equity indexes",
-    "oceanaprofx indexes",
+    "equity indices",
+    "oceanaprofx indices",
   ],
 } as const;
 
@@ -25,8 +25,8 @@ export default function Page() {
     <>
       <PageStructuredData title={PAGE_SEO.title} description={PAGE_SEO.description} path={PAGE_SEO.path} />
       <MarketShowcase
-        variant="indexes"
-        badge="Indexes"
+        variant="indices"
+        badge="indices"
         title="Broad market views in a single instrument."
         subtitle="Take directional exposure to major economies without building a stock-by-stock book."
         intro="Index products compress regional equity behavior into tradable instruments. oceanaprofx covers key US, European, and Asian benchmarks so you can express macro views, hedge equity risk, or trade session momentum with clear pricing."

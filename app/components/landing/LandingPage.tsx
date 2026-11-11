@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import {
@@ -35,8 +35,8 @@ const markets = [
     tags: ["BTC/USD", "ETH/USD"],
   },
   {
-    name: "Indexes",
-    href: "/markets/indexes",
+    name: "indices",
+    href: "/markets/indices",
     icon: BarChart3,
     copy: "Benchmark exposure for directional views and portfolio hedges.",
     tags: ["US30", "NAS100", "SPX500"],
@@ -74,7 +74,7 @@ const reasons = [
   {
     icon: Gauge,
     title: "Execution under pressure",
-    body: "Routing is tuned for the moments depth thins — opens, overlaps, and news windows.",
+    body: "Routing is tuned for the moments depth thins â€” opens, overlaps, and news windows.",
   },
   {
     icon: ShieldCheck,
@@ -86,7 +86,7 @@ const reasons = [
 const conditions = [
   { market: "Forex majors", pricing: "Session-aware", hours: "24/5" },
   { market: "Gold (XAU/USD)", pricing: "Depth-led", hours: "Extended" },
-  { market: "US indexes", pricing: "Benchmark-aligned", hours: "Cash session" },
+  { market: "US indices", pricing: "Benchmark-aligned", hours: "Cash session" },
   { market: "Core crypto", pricing: "Market-linked", hours: "24/7" },
 ] as const;
 
@@ -250,7 +250,7 @@ export default function LandingPage() {
               dark
               eyebrow="Platform"
               title="One workspace at the desk and in your pocket."
-              description="Charts, tickets, balances, and funding stay aligned — whether you are managing risk on a monitor or checking exposure on the move."
+              description="Charts, tickets, balances, and funding stay aligned â€” whether you are managing risk on a monitor or checking exposure on the move."
             />
             <ul className="mt-8 grid gap-4">
               {platformPoints.map((p, i) => {

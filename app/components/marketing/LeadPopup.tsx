@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -68,7 +68,7 @@ export default function LeadPopup() {
                 Open your account in minutes.
               </h3>
               <p className="mt-3 text-sm text-[var(--text-muted)] sm:text-base">
-                Get access to forex, crypto, indexes, and metals with transparent pricing and execution discipline.
+                Get access to forex, crypto, indices, and metals with transparent pricing and execution discipline.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -78,7 +78,7 @@ export default function LeadPopup() {
                   rel="noopener noreferrer"
                   className="rounded-xl bg-[linear-gradient(90deg,var(--secondary),var(--primary))] px-6 py-3 text-sm font-semibold text-[var(--card-bg)]"
                 >
-                  Open Account
+                  Try Demo Account
                 </Link>
                 <Link
                   href="/contact"

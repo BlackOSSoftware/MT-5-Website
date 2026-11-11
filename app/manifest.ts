@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 import {
   SITE_APPLE_ICON_PATH,
   SITE_FAVICON_32_PATH,
@@ -11,7 +11,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: SITE_NAME,
     short_name: SITE_NAME,
     description:
-      "Multi-asset trading across forex, crypto, indexes, and metals.",
+      "Multi-asset trading across forex, crypto, indices, and metals.",
     start_url: "/",
     display: "standalone",
     background_color: "#0b1220",

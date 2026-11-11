@@ -1,4 +1,4 @@
-import { ImageResponse } from "next/og";
+﻿import { ImageResponse } from "next/og";
 import { SITE_NAME } from "./lib/seo";
 
 export const runtime = "edge";
@@ -60,7 +60,7 @@ export default function OpenGraphImage() {
             lineHeight: 1.4,
           }}
         >
-          Forex, crypto, indexes, and metals — clear pricing and steady
+          Forex, crypto, indices, and metals â€” clear pricing and steady
           execution.
         </div>
         <div

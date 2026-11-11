@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
 
@@ -8,8 +8,8 @@ export const LOGIN_URL = "https://user.oceanaprofx.com/login";
 /** Closing call-to-action used at the bottom of every marketing page. */
 export default function CtaBand({
   title = "Ready when the market is.",
-  description = "Open a live account in minutes and trade forex, crypto, indexes, and metals from one balance.",
-  primary = { label: "Open account", href: SIGNUP_URL },
+  description = "Open a live account in minutes and trade forex, crypto, indices, and metals from one balance.",
+  primary = { label: "Try Demo Account", href: SIGNUP_URL },
   secondary = { label: "Talk to us", href: "/contact" },
 }: {
   title?: string;

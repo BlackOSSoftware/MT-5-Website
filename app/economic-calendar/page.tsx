@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import PageStructuredData from "../components/seo/PageStructuredData";
@@ -23,9 +23,9 @@ const PAGE_SEO = {
 export const metadata: Metadata = buildPageMetadata(PAGE_SEO);
 
 const TIPS = [
-  "High-impact events can move majors and indexes quickly.",
+  "High-impact events can move majors and indices quickly.",
   "Compare actual vs forecast for surprise direction.",
-  "Plan risk before the release — not during the spike.",
+  "Plan risk before the release â€” not during the spike.",
 ];
 
 export default function EconomicCalendarPage() {
@@ -80,7 +80,7 @@ export default function EconomicCalendarPage() {
               <Reveal from="right" delay={0.08} className="ink-surface rounded-[var(--radius-lg)] p-6">
                 <p className="font-display text-lg font-semibold text-white">Trade the release</p>
                 <p className="mt-2 text-sm text-white/60">
-                  Majors and indexes react first. See what you can trade.
+                  Majors and indices react first. See what you can trade.
                 </p>
                 <Link href="/markets/forex" className="btn-primary btn-sm mt-5">
                   Browse forex markets

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState, type FormEvent, type ReactNode } from "react";
@@ -9,8 +9,6 @@ import {
   Check,
   Clock3,
   Compass,
-  Eye,
-  FileCheck2,
   Gauge,
   Globe2,
   Headphones,
@@ -153,9 +151,9 @@ export function TradingAccountPageView() {
       <PageHero
         eyebrow="Trading accounts"
         title="Account structures that match how you actually trade."
-        description="Pick a tier aligned with your frequency, size, and risk posture — then fund and go live."
+        description="Pick a tier aligned with your frequency, size, and risk posture â€” then fund and go live."
         ctas={[
-          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
           { label: "View conditions", href: "/trading/condition", variant: "ghost" },
         ]}
       />
@@ -232,9 +230,9 @@ export function TradingPlatformPageView() {
       <PageHero
         eyebrow="Platform"
         title="A workspace that stays out of your way."
-        description="Charts, tickets, balances, and funding stay aligned across web and mobile — so your attention stays on the market."
+        description="Charts, tickets, balances, and funding stay aligned across web and mobile â€” so your attention stays on the market."
         ctas={[
-          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
           { label: "Launch portal", href: LOGIN_URL, variant: "ghost" },
         ]}
       />
@@ -283,7 +281,7 @@ export function TradingConditionPageView() {
   const rows = [
     ["Forex majors", "Session-aware pricing", "Low-latency routing"],
     ["Gold (XAU/USD)", "Depth-led pricing", "Extended hours"],
-    ["US indexes", "Benchmark-aligned", "Cash session focus"],
+    ["US indices", "Benchmark-aligned", "Cash session focus"],
     ["Core crypto", "Market-linked", "24/7 access"],
   ];
 
@@ -292,9 +290,9 @@ export function TradingConditionPageView() {
       <PageHero
         eyebrow="Trading conditions"
         title="Know the rules of the book before you size up."
-        description="Pricing posture, access windows, and risk controls — written for clarity, not brochure gloss."
+        description="Pricing posture, access windows, and risk controls â€” written for clarity, not brochure gloss."
         ctas={[
-          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
           { label: "Contact desk", href: "/contact", variant: "ghost" },
         ]}
       />
@@ -336,7 +334,7 @@ export function TradingMarketTimePageView() {
   const sessions = [
     { name: "Asia", window: "Tokyo-led hours", focus: "JPY crosses, regional risk" },
     { name: "London", window: "European cash open", focus: "EUR, GBP, metals liquidity" },
-    { name: "New York", window: "US cash + overlap", focus: "USD majors, indexes" },
+    { name: "New York", window: "US cash + overlap", focus: "USD majors, indices" },
     { name: "Crypto", window: "Continuous", focus: "Digital pairs around the clock" },
   ];
 
@@ -345,10 +343,10 @@ export function TradingMarketTimePageView() {
       <PageHero
         eyebrow="Market hours"
         title="Trade when your market is awake."
-        description="Map sessions to your strategy — from Tokyo open through the New York close, plus continuous crypto."
+        description="Map sessions to your strategy â€” from Tokyo open through the New York close, plus continuous crypto."
         ctas={[
           { label: "Economic calendar", href: "/economic-calendar", variant: "primary" },
-          { label: "Open account", href: SIGNUP_URL, variant: "ghost" },
+          { label: "Try Demo Account", href: SIGNUP_URL, variant: "ghost" },
         ]}
       />
 
@@ -412,7 +410,7 @@ export function TradingDepositWithdrawalPageView() {
         title="Move money in and out with a clear process."
         description="Deposit to trade. Withdraw when you are ready. Both paths are designed for verification, auditability, and straightforward status updates."
         ctas={[
-          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
           { label: "Ask about funding", href: "/contact", variant: "ghost" },
         ]}
       />
@@ -446,7 +444,7 @@ export function TradingDepositWithdrawalPageView() {
 
 export function AboutPageView() {
   const pillars: IconCard[] = [
-    { icon: Compass, title: "Focus", body: "Forex, crypto, indexes, and metals in one account — without forcing you through noise." },
+    { icon: Compass, title: "Focus", body: "Forex, crypto, indices, and metals in one account â€” without forcing you through noise." },
     { icon: Scale, title: "Standard", body: "Transparent cost language, steady execution priorities, and operational discipline." },
     { icon: BadgeCheck, title: "Promise", body: "We would rather under-claim than invent guarantees. Ask us directly when you need specifics." },
   ];
@@ -456,7 +454,7 @@ export function AboutPageView() {
       <PageHero
         eyebrow="About"
         title="A trading company built around clarity, not clutter."
-        description="Oceana exists to give multi-asset traders a calmer path from market idea to live order — with pricing you can read and support that routes to the right desk."
+        description="Oceana exists to give multi-asset traders a calmer path from market idea to live order â€” with pricing you can read and support that routes to the right desk."
         ctas={[
           { label: "Why choose us", href: "/why-choose-us", variant: "primary" },
           { label: "Contact", href: "/contact", variant: "ghost" },
@@ -494,7 +492,7 @@ export function AboutPageView() {
             dark
             eyebrow="Our approach"
             title="Built for traders who want fewer surprises."
-            description="We focus on the fundamentals — visible costs, steady execution, and a support path that leads somewhere."
+            description="We focus on the fundamentals â€” visible costs, steady execution, and a support path that leads somewhere."
           />
         </SplitPanel>
       </Section>
@@ -506,8 +504,8 @@ export function AboutPageView() {
 
 export function WhyChooseUsPageView() {
   const items: IconCard[] = [
-    { icon: Receipt, title: "Readable pricing", body: "Cost structure is explained before you commit size — not buried after the fact." },
-    { icon: Globe2, title: "Multi-asset access", body: "Move between forex, crypto, indexes, and metals without changing platforms." },
+    { icon: Receipt, title: "Readable pricing", body: "Cost structure is explained before you commit size â€” not buried after the fact." },
+    { icon: Globe2, title: "Multi-asset access", body: "Move between forex, crypto, indices, and metals without changing platforms." },
     { icon: Gauge, title: "Session-aware design", body: "Workflows respect when liquidity is deep and when it is thin." },
     { icon: Headphones, title: "Human support path", body: "Inquiries route to the relevant desk instead of a generic queue." },
   ];
@@ -516,10 +514,10 @@ export function WhyChooseUsPageView() {
     <main>
       <PageHero
         eyebrow="Why Oceana"
-        title="What we optimize for — and what we do not."
+        title="What we optimize for â€” and what we do not."
         description="We optimize for clarity, execution discipline, and usable risk controls. We do not optimize for hype, fake urgency, or invented awards."
         ctas={[
-          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
           { label: "About the company", href: "/about", variant: "ghost" },
         ]}
       />
@@ -545,11 +543,11 @@ export function ReviewsPageView() {
     <main>
       <PageHero
         eyebrow="Reviews"
-        title="Feedback from real traders — not invented quotes."
+        title="Feedback from real traders â€” not invented quotes."
         description="We do not publish fabricated testimonials. If you trade with Oceana and want to share experience, contact support and tell us what worked and what did not."
         ctas={[
           { label: "Share feedback", href: "/contact", variant: "primary" },
-          { label: "Open account", href: SIGNUP_URL, variant: "ghost" },
+          { label: "Try Demo Account", href: SIGNUP_URL, variant: "ghost" },
         ]}
       />
 
@@ -562,41 +560,7 @@ export function ReviewsPageView() {
         title="Trading with us? Tell us how it went."
         description="Your feedback goes straight to the team that can act on it."
         primary={{ label: "Share feedback", href: "/contact" }}
-        secondary={{ label: "Open account", href: SIGNUP_URL }}
-      />
-    </main>
-  );
-}
-
-export function RegulationPageView() {
-  const items: IconCard[] = [
-    { icon: FileCheck2, title: "Verification", body: "Identity and account checks before higher limits and withdrawals." },
-    { icon: SlidersHorizontal, title: "Operational controls", body: "Internal review paths for funding, risk, and support escalations." },
-    { icon: Eye, title: "Transparency", body: "We state what we can substantiate. Regional licensing details are confirmed on request." },
-  ];
-
-  return (
-    <main>
-      <PageHero
-        eyebrow="Regulation & governance"
-        title="Compliance is process — not a slogan."
-        description="Account verification, fund handling, and internal controls exist to protect operational integrity. Ask us for the current regulatory and entity details that apply to your region."
-        ctas={[
-          { label: "Contact compliance", href: "/contact", variant: "primary" },
-          { label: "About Oceana", href: "/about", variant: "ghost" },
-        ]}
-      />
-
-      <Section>
-        <SectionHeader eyebrow="Governance" title="How we protect operational integrity." />
-        <IconCardGrid items={items} />
-      </Section>
-
-      <CtaBand
-        title="Need entity or licensing details?"
-        description="Ask our compliance desk for the information that applies to your region."
-        primary={{ label: "Contact compliance", href: "/contact" }}
-        secondary={{ label: "Open account", href: SIGNUP_URL }}
+        secondary={{ label: "Try Demo Account", href: SIGNUP_URL }}
       />
     </main>
   );
@@ -647,7 +611,7 @@ export function ContactPageView() {
         compact
         eyebrow="Contact"
         title="Reach the desk that can actually help."
-        description="Send a clear request. We route it to the relevant team and reply with next steps — not a generic autoresponder."
+        description="Send a clear request. We route it to the relevant team and reply with next steps â€” not a generic autoresponder."
       />
 
       <Section tone="deep" className="-mt-px">
@@ -736,7 +700,7 @@ export function ContactPageView() {
                 disabled={createInquiryMutation.isPending}
                 className="btn-primary mt-7 w-full disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
               >
-                {createInquiryMutation.isPending ? "Submitting…" : "Submit request"}
+                {createInquiryMutation.isPending ? "Submittingâ€¦" : "Submit request"}
               </button>
             </form>
           </Reveal>

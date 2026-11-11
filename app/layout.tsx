@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import NavbarFooterWrapper from "./layout/NavbarFooterWrapper";
@@ -22,7 +22,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 // Source Sans 3 is loaded via a stylesheet <link>: next/font/google under Turbopack
-// (Next 16.0.x) fails on its "/l/font?kit=…&skey=…" file URLs. --font-source-sans is set in globals.css.
+// (Next 16.0.x) fails on its "/l/font?kit=â€¦&skey=â€¦" file URLs. --font-source-sans is set in globals.css.
 const SOURCE_SANS_HREF =
   "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap";
 
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "oceanaprofx gives traders focused access to forex, crypto, indexes, and metals — with clear pricing and disciplined execution.",
+    "oceanaprofx gives traders focused access to forex, crypto, indices, and metals â€” with clear pricing and disciplined execution.",
   applicationName: SITE_NAME,
   keywords: buildKeywordSet([
     "oceanaprofx",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "oceanaprofx | Multi-asset trading, built for clarity",
     description:
-      "Forex, crypto, indexes, and metals — clear pricing, steady execution.",
+      "Forex, crypto, indices, and metals â€” clear pricing, steady execution.",
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "en_US",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "oceanaprofx | Multi-asset trading, built for clarity",
     description:
-      "Forex, crypto, indexes, and metals — clear pricing, steady execution.",
+      "Forex, crypto, indices, and metals â€” clear pricing, steady execution.",
     images: [DEFAULT_OG_IMAGE_PATH],
   },
   robots: {

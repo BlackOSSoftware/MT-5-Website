@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
@@ -7,7 +7,7 @@ import Reveal from "../ui/Reveal";
 import { Section, SectionHeader } from "../ui/Section";
 import CtaBand, { LOGIN_URL, SIGNUP_URL } from "../ui/CtaBand";
 
-type MarketVariant = "forex" | "crypto" | "indexes" | "metal";
+type MarketVariant = "forex" | "crypto" | "indices" | "metal";
 
 type MarketSymbol = { symbol: string; name: string; note: string };
 type Metric = { label: string; value: string; detail: string };
@@ -68,7 +68,7 @@ export default function MarketShowcase(props: MarketShowcaseProps) {
         title={title}
         description={`${subtitle} ${intro}`}
         ctas={[
-          { label: "Open account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
           { label: "Trade now", href: LOGIN_URL, variant: "ghost" },
         ]}
       />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import MarketShowcase from "../../components/markets/MarketShowcase";
 import PageStructuredData from "../../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../../lib/seo";
@@ -61,7 +61,7 @@ export default function Page() {
         edgeCards={[
           {
             title: "Portfolio balance access",
-            description: "Add metals alongside forex, crypto, and indexes in one account structure.",
+            description: "Add metals alongside forex, crypto, and indices in one account structure.",
           },
           {
             title: "Event-session readiness",

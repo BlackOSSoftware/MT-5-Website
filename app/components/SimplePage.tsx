@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ArrowUpRight, Check, CandlestickChart, Headphones, Layers } from "lucide-react";
 import PageHero from "./ui/PageHero";
 import Reveal from "./ui/Reveal";
@@ -19,7 +19,7 @@ type SimplePageProps = {
 };
 
 const NEXT_LINKS = [
-  { icon: CandlestickChart, title: "Explore markets", body: "Forex, crypto, indexes, and metals.", href: "/markets/forex" },
+  { icon: CandlestickChart, title: "Explore markets", body: "Forex, crypto, indices, and metals.", href: "/markets/forex" },
   { icon: Layers, title: "Trading accounts", body: "Compare Core, Prime, and Elite.", href: "/trading/account" },
   { icon: Headphones, title: "Contact support", body: "Reach the desk that can help.", href: "/contact" },
 ] as const;

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import MarketShowcase from "../../components/markets/MarketShowcase";
 import PageStructuredData from "../../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../../lib/seo";
@@ -28,7 +28,7 @@ export default function Page() {
         badge="Crypto"
         title="Digital markets with structure, not noise."
         subtitle="Trade leading crypto pairs with transparent conditions and tools built for high-volatility sessions."
-        intro="Crypto moves on liquidity, sentiment, and catalysts — often outside traditional market hours. oceanaprofx gives you access to active large-cap pairs with clear execution feedback and risk controls you can actually use when volatility rises."
+        intro="Crypto moves on liquidity, sentiment, and catalysts â€” often outside traditional market hours. oceanaprofx gives you access to active large-cap pairs with clear execution feedback and risk controls you can actually use when volatility rises."
         symbolsTitle="Active crypto pairs"
         symbols={[
           { symbol: "BTC/USD", name: "Bitcoin vs US Dollar", note: "Institutional crypto benchmark" },
@@ -45,7 +45,7 @@ export default function Page() {
         features={[
           "Follow momentum with breakout or pullback approaches",
           "Respond to catalysts without leaving the same platform",
-          "Diversify alongside forex, indexes, and metals",
+          "Diversify alongside forex, indices, and metals",
           "Apply position limits when volatility expands",
         ]}
         pulseTitle="Crypto market snapshot"
@@ -68,7 +68,7 @@ export default function Page() {
           },
           {
             title: "Operational reliability",
-            description: "Keep attention on the setup — not on platform interruptions under stress.",
+            description: "Keep attention on the setup â€” not on platform interruptions under stress.",
           },
         ]}
         journeyTitle="Four steps into a crypto workflow"

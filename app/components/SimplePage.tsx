@@ -19,7 +19,7 @@ type SimplePageProps = {
 };
 
 const NEXT_LINKS = [
-  { icon: CandlestickChart, title: "Explore markets", body: "Forex, crypto, indices, and metals.", href: "/markets/forex" },
+  { icon: CandlestickChart, title: "Explore markets", body: "Forex, crypto, Indices, and metals.", href: "/markets/forex" },
   { icon: Layers, title: "Trading accounts", body: "Compare Core, Prime, and Elite.", href: "/trading/account" },
   { icon: Headphones, title: "Contact support", body: "Reach the desk that can help.", href: "/contact" },
 ] as const;
@@ -49,10 +49,7 @@ export default function SimplePage({
               <ul className="mt-6 grid gap-4">
                 {points.map((p) => (
                   <li key={p} className="flex items-start gap-3 text-white/80">
-                    <span
-                      className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-white"
-                      style={{ background: "var(--brand-gradient)" }}
-                    >
+                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[var(--primary)] text-white">
                       <Check size={12} strokeWidth={3} />
                     </span>
                     {p}

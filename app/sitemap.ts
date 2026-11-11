@@ -14,6 +14,7 @@ const ROUTES: Array<{
   { path: "/economic-calendar", changeFrequency: "weekly", priority: 0.75 },
   { path: "/accounts", changeFrequency: "monthly", priority: 0.7 },
   { path: "/partners", changeFrequency: "monthly", priority: 0.65 },
+  { path: "/become-a-partner", changeFrequency: "monthly", priority: 0.7 },
   { path: "/open-account", changeFrequency: "monthly", priority: 0.7 },
   { path: "/login", changeFrequency: "monthly", priority: 0.4 },
   { path: "/markets/forex", changeFrequency: "weekly", priority: 0.85 },

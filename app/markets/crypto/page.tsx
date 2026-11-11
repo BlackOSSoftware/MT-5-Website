@@ -45,7 +45,7 @@ export default function Page() {
         features={[
           "Follow momentum with breakout or pullback approaches",
           "Respond to catalysts without leaving the same platform",
-          "Diversify alongside forex, indices, and metals",
+          "Diversify alongside forex, Indices, and metals",
           "Apply position limits when volatility expands",
         ]}
         pulseTitle="Crypto market snapshot"

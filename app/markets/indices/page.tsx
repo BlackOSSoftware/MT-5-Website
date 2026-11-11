@@ -4,9 +4,9 @@ import PageStructuredData from "../../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../../lib/seo";
 
 const PAGE_SEO = {
-  title: "indices | Global benchmarks on oceanaprofx",
+  title: "Indices | Global benchmarks on oceanaprofx",
   description:
-    "Trade major US, European, and Asian equity indices on oceanaprofx â€” broad market exposure without stock-by-stock complexity.",
+    "Trade major US, European, and Asian equity Indices on oceanaprofx â€” broad market exposure without stock-by-stock complexity.",
   path: "/markets/indices",
   pageKeywords: [
     "indices",
@@ -26,7 +26,7 @@ export default function Page() {
       <PageStructuredData title={PAGE_SEO.title} description={PAGE_SEO.description} path={PAGE_SEO.path} />
       <MarketShowcase
         variant="indices"
-        badge="indices"
+        badge="Indices"
         title="Broad market views in a single instrument."
         subtitle="Take directional exposure to major economies without building a stock-by-stock book."
         intro="Index products compress regional equity behavior into tradable instruments. oceanaprofx covers key US, European, and Asian benchmarks so you can express macro views, hedge equity risk, or trade session momentum with clear pricing."

@@ -23,7 +23,7 @@ const PAGE_SEO = {
 export const metadata: Metadata = buildPageMetadata(PAGE_SEO);
 
 const TIPS = [
-  "High-impact events can move majors and indices quickly.",
+  "High-impact events can move majors and Indices quickly.",
   "Compare actual vs forecast for surprise direction.",
   "Plan risk before the release â€” not during the spike.",
 ];
@@ -66,10 +66,7 @@ export default function EconomicCalendarPage() {
                 <ul className="mt-5 grid gap-4">
                   {TIPS.map((tip) => (
                     <li key={tip} className="flex items-start gap-3 text-sm text-[var(--text-muted)]">
-                      <span
-                        className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-white"
-                        style={{ background: "var(--brand-gradient)" }}
-                      >
+                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[var(--primary)] text-white">
                         <Check size={12} strokeWidth={3} />
                       </span>
                       {tip}
@@ -80,7 +77,7 @@ export default function EconomicCalendarPage() {
               <Reveal from="right" delay={0.08} className="ink-surface rounded-[var(--radius-lg)] p-6">
                 <p className="font-display text-lg font-semibold text-white">Trade the release</p>
                 <p className="mt-2 text-sm text-white/60">
-                  Majors and indices react first. See what you can trade.
+                  Majors and Indices react first. See what you can trade.
                 </p>
                 <Link href="/markets/forex" className="btn-primary btn-sm mt-5">
                   Browse forex markets

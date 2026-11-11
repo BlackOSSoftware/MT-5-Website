@@ -61,7 +61,7 @@ export default function Page() {
         edgeCards={[
           {
             title: "Portfolio balance access",
-            description: "Add metals alongside forex, crypto, and indices in one account structure.",
+            description: "Add metals alongside forex, crypto, and Indices in one account structure.",
           },
           {
             title: "Event-session readiness",

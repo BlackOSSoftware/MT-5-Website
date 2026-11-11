@@ -8,7 +8,7 @@ export const LOGIN_URL = "https://user.oceanaprofx.com/login";
 /** Closing call-to-action used at the bottom of every marketing page. */
 export default function CtaBand({
   title = "Ready when the market is.",
-  description = "Open a live account in minutes and trade forex, crypto, indices, and metals from one balance.",
+  description = "Open a live account in minutes and trade forex, crypto, Indices, and metals from one balance.",
   primary = { label: "Try Demo Account", href: SIGNUP_URL },
   secondary = { label: "Talk to us", href: "/contact" },
 }: {
@@ -21,7 +21,7 @@ export default function CtaBand({
   return (
     <section className="bg-[var(--background)] pb-20 md:pb-28">
       <div className="container-x">
-        <Reveal className="ink-surface overflow-hidden rounded-[28px] px-6 py-14 sm:px-12 md:py-16">
+        <Reveal className="ink-surface overflow-hidden rounded-2xl px-6 py-14 sm:px-12 md:py-16">
           <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div className="max-w-xl">
               <h2 className="font-display text-3xl font-semibold leading-tight text-white sm:text-4xl">{title}</h2>

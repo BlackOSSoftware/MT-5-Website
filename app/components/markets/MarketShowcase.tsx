@@ -81,10 +81,7 @@ export default function MarketShowcase(props: MarketShowcaseProps) {
             <ul className="mt-6 grid gap-4">
               {features.map((f) => (
                 <li key={f} className="flex items-start gap-3 text-[var(--text-muted)]">
-                  <span
-                    className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-white"
-                    style={{ background: "var(--brand-gradient)" }}
-                  >
+                  <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[var(--primary)] text-white">
                     <Check size={12} strokeWidth={3} />
                   </span>
                   <span className="leading-relaxed">{f}</span>
@@ -164,10 +161,7 @@ export default function MarketShowcase(props: MarketShowcaseProps) {
           {journeySteps.map((step, idx) => (
             <Reveal key={step.title} from="left" delay={idx * 0.08} className="relative">
               <div className="card h-full p-6">
-                <span
-                  className="grid h-11 w-11 place-items-center rounded-xl font-display text-sm font-semibold text-white"
-                  style={{ background: "var(--brand-gradient)" }}
-                >
+                <span className="grid h-10 w-10 place-items-center rounded-lg bg-[var(--primary)] font-display text-sm font-semibold text-white">
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-5 font-display text-lg font-semibold text-[var(--foreground)]">{step.title}</h3>

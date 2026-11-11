@@ -6,7 +6,7 @@ import { buildPageMetadata } from "./lib/seo";
 const PAGE_SEO = {
   title: "oceanaprofx | Multi-asset trading, built for clarity",
   description:
-    "Trade forex, crypto, indices, and metals with oceanaprofx â€” clear pricing, disciplined execution, and a calmer trading stack.",
+    "Trade forex, crypto, Indices, and metals with oceanaprofx â€” clear pricing, disciplined execution, and a calmer trading stack.",
   path: "/",
   pageKeywords: [
     "oceanaprofx",

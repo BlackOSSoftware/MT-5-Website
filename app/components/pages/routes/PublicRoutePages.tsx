@@ -61,10 +61,7 @@ function CheckList({ items, dark = false }: { items: string[]; dark?: boolean })
     <ul className="grid gap-4">
       {items.map((item, i) => (
         <Reveal as="li" key={item} from="left" delay={i * 0.06} className="flex items-start gap-3">
-          <span
-            className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-white"
-            style={{ background: "var(--brand-gradient)" }}
-          >
+          <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[var(--primary)] text-white">
             <Check size={12} strokeWidth={3} />
           </span>
           <span className={`leading-relaxed ${dark ? "text-white/75" : "text-[var(--text-muted)]"}`}>{item}</span>
@@ -80,10 +77,7 @@ function NumberedSteps({ steps }: { steps: string[] }) {
       {steps.map((step, idx) => (
         <Reveal as="li" key={step} delay={idx * 0.07}>
           <div className="card h-full p-5">
-            <span
-              className="grid h-10 w-10 place-items-center rounded-xl font-display text-sm font-semibold text-white"
-              style={{ background: "var(--brand-gradient)" }}
-            >
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-[var(--primary)] font-display text-sm font-semibold text-white">
               {String(idx + 1).padStart(2, "0")}
             </span>
             <p className="mt-4 font-display font-semibold text-[var(--foreground)]">{step}</p>
@@ -170,8 +164,7 @@ export function TradingAccountPageView() {
               >
                 {plan.featured ? (
                   <span
-                    className="absolute right-6 top-6 rounded-full px-3 py-1 text-[11px] font-semibold text-white"
-                    style={{ background: "var(--brand-gradient)" }}
+                    className="absolute right-6 top-6 rounded-full bg-[var(--primary)] px-3 py-1 text-[11px] font-semibold text-white"
                   >
                     Popular
                   </span>
@@ -281,7 +274,7 @@ export function TradingConditionPageView() {
   const rows = [
     ["Forex majors", "Session-aware pricing", "Low-latency routing"],
     ["Gold (XAU/USD)", "Depth-led pricing", "Extended hours"],
-    ["US indices", "Benchmark-aligned", "Cash session focus"],
+    ["US Indices", "Benchmark-aligned", "Cash session focus"],
     ["Core crypto", "Market-linked", "24/7 access"],
   ];
 
@@ -334,7 +327,7 @@ export function TradingMarketTimePageView() {
   const sessions = [
     { name: "Asia", window: "Tokyo-led hours", focus: "JPY crosses, regional risk" },
     { name: "London", window: "European cash open", focus: "EUR, GBP, metals liquidity" },
-    { name: "New York", window: "US cash + overlap", focus: "USD majors, indices" },
+    { name: "New York", window: "US cash + overlap", focus: "USD majors, Indices" },
     { name: "Crypto", window: "Continuous", focus: "Digital pairs around the clock" },
   ];
 
@@ -444,7 +437,7 @@ export function TradingDepositWithdrawalPageView() {
 
 export function AboutPageView() {
   const pillars: IconCard[] = [
-    { icon: Compass, title: "Focus", body: "Forex, crypto, indices, and metals in one account â€” without forcing you through noise." },
+    { icon: Compass, title: "Focus", body: "Forex, crypto, Indices, and metals in one account â€” without forcing you through noise." },
     { icon: Scale, title: "Standard", body: "Transparent cost language, steady execution priorities, and operational discipline." },
     { icon: BadgeCheck, title: "Promise", body: "We would rather under-claim than invent guarantees. Ask us directly when you need specifics." },
   ];
@@ -505,7 +498,7 @@ export function AboutPageView() {
 export function WhyChooseUsPageView() {
   const items: IconCard[] = [
     { icon: Receipt, title: "Readable pricing", body: "Cost structure is explained before you commit size â€” not buried after the fact." },
-    { icon: Globe2, title: "Multi-asset access", body: "Move between forex, crypto, indices, and metals without changing platforms." },
+    { icon: Globe2, title: "Multi-asset access", body: "Move between forex, crypto, Indices, and metals without changing platforms." },
     { icon: Gauge, title: "Session-aware design", body: "Workflows respect when liquidity is deep and when it is thin." },
     { icon: Headphones, title: "Human support path", body: "Inquiries route to the relevant desk instead of a generic queue." },
   ];
@@ -741,6 +734,275 @@ export function ContactPageView() {
           </div>
         </div>
       </Section>
+    </main>
+  );
+}
+
+const PARTNER_TOPIC = "Become a Partner";
+
+const PARTNERSHIP_TYPES = [
+  "Introducing Broker (IB)",
+  "Affiliate Partner",
+  "Business Partner",
+  "Technology Partner",
+  "Strategic Partnership",
+  "Other",
+] as const;
+
+const PARTNER_PERKS: IconCard[] = [
+  {
+    icon: Globe2,
+    title: "Global reach",
+    body: "Introduce clients across forex, crypto, Indices, and metals markets.",
+  },
+  {
+    icon: Receipt,
+    title: "Transparent economics",
+    body: "Clear partnership terms and reporting you can actually audit.",
+  },
+  {
+    icon: Headphones,
+    title: "Dedicated support",
+    body: "A direct line to the team that handles partner operations.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Regulated-grade trust",
+    body: "Build on a platform designed for disciplined, professional trading.",
+  },
+];
+
+export function BecomeAPartnerPageView() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [company, setCompany] = useState("");
+  const [country, setCountry] = useState("");
+  const [partnershipType, setPartnershipType] = useState<string>(PARTNERSHIP_TYPES[0]);
+  const [message, setMessage] = useState("");
+  const [formError, setFormError] = useState<string | null>(null);
+
+  const createInquiryMutation = useCreateInquiry();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormError(null);
+
+    const payload = {
+      name: fullName.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      // Topic is fixed — never read from user-editable state.
+      title: PARTNER_TOPIC,
+      description: [
+        `Partnership Type: ${partnershipType}`,
+        `Company / Organization: ${company.trim()}`,
+        `Country: ${country.trim()}`,
+        "",
+        message.trim(),
+      ].join("\n"),
+    };
+
+    if (
+      !payload.name ||
+      !payload.email ||
+      !payload.phone ||
+      !company.trim() ||
+      !country.trim() ||
+      !message.trim()
+    ) {
+      setFormError("Please fill all required fields.");
+      return;
+    }
+
+    try {
+      await createInquiryMutation.mutateAsync(payload);
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setCompany("");
+      setCountry("");
+      setPartnershipType(PARTNERSHIP_TYPES[0]);
+      setMessage("");
+    } catch {
+      // surfaced via mutation error state
+    }
+  };
+
+  return (
+    <main>
+      <PageHero
+        compact
+        eyebrow="Partnerships"
+        title="Become a Partner"
+        description="Whether you are an individual, business, broker, or organization — collaborate with oceanaprofx and grow alongside a multi-asset trading platform built for clarity."
+      />
+
+      <Section tone="deep" className="-mt-px">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+          {/* LEFT — partnership intro */}
+          <div>
+            <Reveal from="left">
+              <h2 className="font-display text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
+                Build with a platform traders trust.
+              </h2>
+              <p className="mt-4 leading-relaxed text-[var(--text-muted)]">
+                We work with introducing brokers, affiliates, technology
+                providers, and strategic partners who share our standard for
+                transparent pricing and disciplined execution. Tell us about
+                your audience and goals — we will route your inquiry to the
+                right partnership desk.
+              </p>
+            </Reveal>
+
+            <div className="mt-10 grid gap-5 sm:grid-cols-2">
+              {PARTNER_PERKS.map((perk, i) => {
+                const Icon = perk.icon;
+                return (
+                  <Reveal key={perk.title} delay={0.08 + i * 0.06}>
+                    <article className="card card-hover h-full p-5">
+                      <span className="icon-tile">
+                        <Icon size={18} />
+                      </span>
+                      <h3 className="mt-4 font-display text-base font-semibold text-[var(--foreground)]">
+                        {perk.title}
+                      </h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-[var(--text-muted)]">
+                        {perk.body}
+                      </p>
+                    </article>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* RIGHT — partnership inquiry form */}
+          <Reveal from="right">
+            <form className="card p-6 sm:p-9" onSubmit={handleSubmit} noValidate>
+              <h2 className="font-display text-2xl font-semibold text-[var(--foreground)]">
+                Partnership inquiry
+              </h2>
+              <p className="mt-2 text-sm text-[var(--text-muted)]">
+                All fields are required. We typically respond within one business day.
+              </p>
+
+              <div className="mt-8 grid gap-5 sm:grid-cols-2">
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Full name
+                  <input
+                    className="field"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    autoComplete="name"
+                    required
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Email address
+                  <input
+                    type="email"
+                    className="field"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    required
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Phone number
+                  <input
+                    className="field"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    autoComplete="tel"
+                    required
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Company / Organization name
+                  <input
+                    className="field"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    autoComplete="organization"
+                    required
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Country
+                  <input
+                    className="field"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    autoComplete="country-name"
+                    required
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)]">
+                  Partnership type
+                  <select
+                    className="field"
+                    value={partnershipType}
+                    onChange={(e) => setPartnershipType(e.target.value)}
+                    required
+                  >
+                    {PARTNERSHIP_TYPES.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-[var(--foreground)] sm:col-span-2">
+                  Message
+                  <textarea
+                    className="field min-h-[150px] resize-y"
+                    rows={5}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Tell us about your audience, goals, and how you would like to collaborate."
+                    required
+                  />
+                </label>
+              </div>
+
+              {formError ? (
+                <p className="mt-5 rounded-[var(--radius)] bg-[var(--danger)]/10 px-4 py-3 text-sm text-[var(--danger)]" role="alert">
+                  {formError}
+                </p>
+              ) : null}
+              {createInquiryMutation.isSuccess ? (
+                <p className="mt-5 rounded-[var(--radius)] bg-[var(--success)]/10 px-4 py-3 text-sm text-[var(--success)]" role="status">
+                  Partnership inquiry submitted successfully. Our partnerships team will get back to you soon.
+                </p>
+              ) : null}
+              {createInquiryMutation.isError ? (
+                <p className="mt-5 rounded-[var(--radius)] bg-[var(--danger)]/10 px-4 py-3 text-sm text-[var(--danger)]" role="alert">
+                  {createInquiryMutation.error instanceof Error
+                    ? createInquiryMutation.error.message
+                    : "Failed to submit inquiry."}
+                </p>
+              ) : null}
+
+              <button
+                type="submit"
+                disabled={createInquiryMutation.isPending}
+                className="btn-primary mt-7 w-full disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+              >
+                {createInquiryMutation.isPending ? "Submitting…" : "Submit partnership inquiry"}
+              </button>
+            </form>
+          </Reveal>
+        </div>
+      </Section>
+
+      <CtaBand
+        title="Prefer to talk first?"
+        description="Reach the partnerships desk directly and we will walk you through the options."
+        primary={{ label: "Contact us", href: "/contact" }}
+        secondary={{ label: "Try Demo Account", href: SIGNUP_URL }}
+      />
     </main>
   );
 }

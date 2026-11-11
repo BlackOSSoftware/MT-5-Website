@@ -38,7 +38,7 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { label: "Forex", href: "/markets/forex", description: "Majors, minors and crosses, 24/5", icon: DollarSign },
       { label: "Crypto", href: "/markets/crypto", description: "Digital pairs around the clock", icon: Bitcoin },
-      { label: "indices", href: "/markets/indices", description: "Benchmark exposure and hedges", icon: LineChart },
+      { label: "Indices", href: "/markets/indices", description: "Benchmark exposure and hedges", icon: LineChart },
       { label: "Metals", href: "/markets/metal", description: "Gold, silver and hard assets", icon: Gem },
     ],
   },
@@ -61,6 +61,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Reviews", href: "/reviews", description: "Real feedback, no invented quotes", icon: BadgeCheck },
     ],
   },
+  { label: "Become a Partner", href: "/become-a-partner" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -196,7 +197,7 @@ export default function Navbar() {
                       className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
                     >
                       <div
-                        className={`grid gap-1 rounded-2xl border border-white/10 bg-[rgba(9,15,32,0.96)] p-2 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl ${
+                        className={`grid gap-1 rounded-xl border border-white/10 bg-[rgba(9,15,32,0.96)] p-2 shadow-[0_24px_48px_-28px_rgba(0,0,0,0.9)] backdrop-blur-xl ${
                           item.children.length > 4 ? "w-[560px] grid-cols-2" : "w-[300px]"
                         }`}
                       >
@@ -207,7 +208,7 @@ export default function Navbar() {
                             <Link
                               key={child.href}
                               href={child.href}
-                              className={`group flex items-start gap-3 rounded-xl p-3 transition-colors ${
+                              className={`group flex items-start gap-3 rounded-lg p-3 transition-colors ${
                                 here ? "bg-white/[0.07]" : "hover:bg-white/[0.06]"
                               }`}
                             >

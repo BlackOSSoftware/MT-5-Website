@@ -8,7 +8,7 @@ const columns = [
     links: [
       { label: "Forex", href: "/markets/forex" },
       { label: "Crypto", href: "/markets/crypto" },
-      { label: "indices", href: "/markets/indices" },
+      { label: "Indices", href: "/markets/indices" },
       { label: "Metals", href: "/markets/metal" },
     ],
   },
@@ -48,7 +48,7 @@ export default function Footer() {
           </p>
           <a
             href="mailto:info@oceanaprofx.com"
-            className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white/80 transition hover:border-white/30 hover:text-white"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/12 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white/80 transition hover:border-white/30 hover:text-white"
           >
             <Mail size={15} className="text-[var(--accent-soft)]" />
             info@oceanaprofx.com

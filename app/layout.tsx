@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "oceanaprofx gives traders focused access to forex, crypto, indices, and metals â€” with clear pricing and disciplined execution.",
+    "oceanaprofx gives traders focused access to forex, crypto, Indices, and metals â€” with clear pricing and disciplined execution.",
   applicationName: SITE_NAME,
   keywords: buildKeywordSet([
     "oceanaprofx",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "oceanaprofx | Multi-asset trading, built for clarity",
     description:
-      "Forex, crypto, indices, and metals â€” clear pricing, steady execution.",
+      "Forex, crypto, Indices, and metals â€” clear pricing, steady execution.",
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "en_US",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "oceanaprofx | Multi-asset trading, built for clarity",
     description:
-      "Forex, crypto, indices, and metals â€” clear pricing, steady execution.",
+      "Forex, crypto, Indices, and metals â€” clear pricing, steady execution.",
     images: [DEFAULT_OG_IMAGE_PATH],
   },
   robots: {

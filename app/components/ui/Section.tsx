@@ -55,7 +55,7 @@ export function SectionHeader({
           <p className={`eyebrow ${dark ? "!text-[var(--accent-soft)]" : ""}`}>{eyebrow}</p>
         ) : null}
         <h2
-          className={`mt-4 font-display text-3xl font-semibold leading-[1.1] sm:text-4xl md:text-[2.75rem] ${
+          className={`mt-4 font-display text-2xl font-semibold leading-[1.15] sm:text-3xl md:text-[2.25rem] ${
             dark ? "text-white" : "text-[var(--foreground)]"
           }`}
         >

@@ -55,12 +55,8 @@ export default function ChartVisual({
       <svg viewBox={`0 0 ${w} ${h}`} className="mt-4 h-auto w-full">
         <defs>
           <linearGradient id="cv-area" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#3d7bff" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#3d7bff" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="cv-line" x1="0" x2="1">
-            <stop offset="0%" stopColor="#2f5bff" />
-            <stop offset="100%" stopColor="#12c2e9" />
+            <stop offset="0%" stopColor="#2f5bff" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="#2f5bff" stopOpacity="0" />
           </linearGradient>
         </defs>
         {[0.25, 0.5, 0.75].map((r) => (
@@ -85,12 +81,12 @@ export default function ChartVisual({
           );
         })}
         <path d={area} fill="url(#cv-area)" />
-        <path d={line} fill="none" stroke="url(#cv-line)" strokeWidth="3" strokeLinecap="round" className="draw-line" />
+        <path d={line} fill="none" stroke="#2f5bff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
-        {["Forex", "Metals", "indices"].map((m) => (
-          <div key={m} className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2">
+        {["Forex", "Metals", "Indices"].map((m) => (
+          <div key={m} className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
             <p className="text-[10px] uppercase tracking-wider text-white/45">Market</p>
             <p className="text-sm font-semibold text-white">{m}</p>
           </div>

@@ -57,7 +57,7 @@ export default function PageHero({
           </motion.p>
           <motion.h1
             {...enter(0.08)}
-            className="mt-5 font-display text-4xl font-semibold leading-[1.04] text-white sm:text-5xl lg:text-[3.6rem]"
+            className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white sm:text-5xl lg:text-[3.25rem]"
           >
             {title}
           </motion.h1>
@@ -114,8 +114,8 @@ export default function PageHero({
                 })}
             className="relative hidden lg:block"
           >
-            <div className="absolute -inset-10 -z-10 rounded-full bg-[radial-gradient(circle,rgba(47,91,255,0.35),transparent_65%)] blur-2xl" />
-            <div className="float-y">{visual ?? <ChartVisual />}</div>
+            <div className="absolute -inset-10 -z-10 rounded-full bg-[radial-gradient(circle,rgba(47,91,255,0.22),transparent_65%)] blur-2xl" />
+            {visual ?? <ChartVisual />}
           </motion.div>
         ) : null}
       </div>

@@ -68,7 +68,7 @@ export default function LeadPopup() {
                 Open your account in minutes.
               </h3>
               <p className="mt-3 text-sm text-[var(--text-muted)] sm:text-base">
-                Get access to forex, crypto, indices, and metals with transparent pricing and execution discipline.
+                Get access to forex, crypto, Indices, and metals with transparent pricing and execution discipline.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">

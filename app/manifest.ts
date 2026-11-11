@@ -11,7 +11,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: SITE_NAME,
     short_name: SITE_NAME,
     description:
-      "Multi-asset trading across forex, crypto, indices, and metals.",
+      "Multi-asset trading across forex, crypto, Indices, and metals.",
     start_url: "/",
     display: "standalone",
     background_color: "#0b1220",

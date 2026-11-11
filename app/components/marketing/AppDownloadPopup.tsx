@@ -151,8 +151,7 @@ export default function AppDownloadPopup() {
         className="group fixed bottom-5 right-5 z-[90] inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-[rgba(7,13,29,0.92)] py-2 pl-2 pr-4 text-white shadow-[0_20px_45px_-18px_rgba(47,91,255,0.75)] backdrop-blur-xl sm:bottom-7 sm:right-7"
         aria-label="Download the Oceana app"
       >
-        <span className="relative grid h-10 w-10 place-items-center rounded-full" style={{ background: "var(--brand-gradient)" }}>
-          <span className="ring-pulse absolute inset-0 rounded-full" style={{ background: "var(--brand-gradient)" }} />
+        <span className="relative grid h-10 w-10 place-items-center rounded-full bg-[var(--primary)]">
           <Download size={18} className="relative" />
         </span>
         <span className="text-left leading-tight">
@@ -185,7 +184,7 @@ export default function AppDownloadPopup() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 30, scale: 0.98 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="ink-surface relative max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-[28px] border border-white/10 shadow-[0_50px_100px_-40px_rgba(0,0,0,0.9)]"
+              className="ink-surface relative max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-white/10 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.85)]"
             >
               <button
                 type="button"
@@ -264,8 +263,7 @@ export default function AppDownloadPopup() {
                       <a
                         href={release.apkUrl}
                         download
-                        className="flex items-center gap-3 rounded-2xl px-4 py-3 text-white shadow-[0_14px_30px_-14px_rgba(47,91,255,0.8)] transition hover:brightness-110"
-                        style={{ background: "var(--brand-gradient)" }}
+                        className="flex items-center gap-3 rounded-xl bg-[var(--primary)] px-4 py-3 text-white shadow-[0_12px_26px_-14px_rgba(47,91,255,0.7)] transition hover:bg-[var(--primary-dark)]"
                       >
                         <span className="grid h-6 w-6 place-items-center">
                           <Download size={20} />

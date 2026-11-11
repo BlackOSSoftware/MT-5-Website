@@ -35,7 +35,7 @@ const markets = [
     tags: ["BTC/USD", "ETH/USD"],
   },
   {
-    name: "indices",
+    name: "Indices",
     href: "/markets/indices",
     icon: BarChart3,
     copy: "Benchmark exposure for directional views and portfolio hedges.",
@@ -86,7 +86,7 @@ const reasons = [
 const conditions = [
   { market: "Forex majors", pricing: "Session-aware", hours: "24/5" },
   { market: "Gold (XAU/USD)", pricing: "Depth-led", hours: "Extended" },
-  { market: "US indices", pricing: "Benchmark-aligned", hours: "Cash session" },
+  { market: "US Indices", pricing: "Benchmark-aligned", hours: "Cash session" },
   { market: "Core crypto", pricing: "Market-linked", hours: "24/7" },
 ] as const;
 
@@ -108,7 +108,7 @@ export default function LandingPage() {
       <HeroSection />
 
       <div className="overflow-hidden border-b border-[var(--card-border)] bg-[var(--card-bg)] py-4">
-        <div className="marquee-track flex w-max gap-10">
+        <div className="marquee-track flex w-max gap-10 opacity-70">
           {[...tickerSymbols, ...tickerSymbols].map((s, i) => (
             <span
               key={`${s}-${i}`}
@@ -288,10 +288,7 @@ export default function LandingPage() {
           />
           {steps.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.1} className="relative text-center">
-              <span
-                className="relative mx-auto grid h-14 w-14 place-items-center rounded-2xl font-display text-lg font-semibold text-white shadow-[0_14px_30px_-12px_rgba(47,91,255,0.6)]"
-                style={{ background: "var(--brand-gradient)" }}
-              >
+              <span className="relative mx-auto grid h-12 w-12 place-items-center rounded-xl bg-[var(--primary)] font-display text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(47,91,255,0.6)]">
                 {s.n}
               </span>
               <h3 className="mt-6 font-display text-xl font-semibold text-[var(--foreground)]">{s.title}</h3>

@@ -60,7 +60,7 @@ export default function OpenGraphImage() {
             lineHeight: 1.4,
           }}
         >
-          Forex, crypto, indices, and metals â€” clear pricing and steady
+          Forex, crypto, Indices, and metals â€” clear pricing and steady
           execution.
         </div>
         <div

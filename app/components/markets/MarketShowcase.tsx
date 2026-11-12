@@ -5,7 +5,7 @@ import { ArrowUpRight, Check } from "lucide-react";
 import PageHero from "../ui/PageHero";
 import Reveal from "../ui/Reveal";
 import { Section, SectionHeader } from "../ui/Section";
-import CtaBand, { LOGIN_URL, SIGNUP_URL } from "../ui/CtaBand";
+import CtaBand, { LOGIN_URL } from "../ui/CtaBand";
 
 type MarketVariant = "forex" | "crypto" | "indices" | "metal";
 
@@ -68,7 +68,7 @@ export default function MarketShowcase(props: MarketShowcaseProps) {
         title={title}
         description={`${subtitle} ${intro}`}
         ctas={[
-          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Open Account", href: "/open-account", variant: "primary" },
           { label: "Trade now", href: LOGIN_URL, variant: "ghost" },
         ]}
       />
@@ -106,9 +106,7 @@ export default function MarketShowcase(props: MarketShowcaseProps) {
           {symbols.map((item, idx) => (
             <Reveal key={item.symbol} delay={(idx % 3) * 0.06}>
               <Link
-                href={SIGNUP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/open-account"
                 className="card card-hover group flex h-full items-start justify-between gap-4 p-5"
               >
                 <div className="min-w-0">

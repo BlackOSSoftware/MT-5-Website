@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, MonitorSmartphone, ShieldCheck, Wallet } from "lucide-react";
-import { SIGNUP_URL } from "../ui/CtaBand";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -144,12 +143,10 @@ export default function HeroSection() {
               />
             </Link>
             <Link
-              href={SIGNUP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/open-account"
               className="btn-primary group"
             >
-              Get Started
+              Open Account
               <ArrowRight
                 size={16}
                 className="transition-transform group-hover:translate-x-0.5"

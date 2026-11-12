@@ -30,7 +30,7 @@ import { useCreateInquiry } from "../../../hooks/useCreateInquiry";
 import PageHero from "../../ui/PageHero";
 import Reveal from "../../ui/Reveal";
 import { Section, SectionHeader } from "../../ui/Section";
-import CtaBand, { LOGIN_URL, SIGNUP_URL } from "../../ui/CtaBand";
+import CtaBand, { LOGIN_URL } from "../../ui/CtaBand";
 
 type IconCard = { icon: LucideIcon; title: string; body: string };
 
@@ -147,7 +147,7 @@ export function TradingAccountPageView() {
         title="Account structures that match how you actually trade."
         description="Pick a tier aligned with your frequency, size, and risk posture â€” then fund and go live."
         ctas={[
-          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Open Account", href: "/open-account", variant: "primary" },
           { label: "View conditions", href: "/trading/condition", variant: "ghost" },
         ]}
       />
@@ -188,9 +188,7 @@ export function TradingAccountPageView() {
                   ))}
                 </dl>
                 <Link
-                  href={SIGNUP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/open-account"
                   className={`mt-6 w-full ${plan.featured ? "btn-primary" : "btn-ghost"}`}
                 >
                   Open {plan.name}
@@ -225,7 +223,7 @@ export function TradingPlatformPageView() {
         title="A workspace that stays out of your way."
         description="Charts, tickets, balances, and funding stay aligned across web and mobile â€” so your attention stays on the market."
         ctas={[
-          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Open Account", href: "/open-account", variant: "primary" },
           { label: "Launch portal", href: LOGIN_URL, variant: "ghost" },
         ]}
       />
@@ -285,7 +283,7 @@ export function TradingConditionPageView() {
         title="Know the rules of the book before you size up."
         description="Pricing posture, access windows, and risk controls â€” written for clarity, not brochure gloss."
         ctas={[
-          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Open Account", href: "/open-account", variant: "primary" },
           { label: "Contact desk", href: "/contact", variant: "ghost" },
         ]}
       />
@@ -339,7 +337,7 @@ export function TradingMarketTimePageView() {
         description="Map sessions to your strategy â€” from Tokyo open through the New York close, plus continuous crypto."
         ctas={[
           { label: "Economic calendar", href: "/economic-calendar", variant: "primary" },
-          { label: "Try Demo Account", href: SIGNUP_URL, variant: "ghost" },
+          { label: "Open Account", href: "/open-account", variant: "ghost" },
         ]}
       />
 
@@ -403,7 +401,7 @@ export function TradingDepositWithdrawalPageView() {
         title="Move money in and out with a clear process."
         description="Deposit to trade. Withdraw when you are ready. Both paths are designed for verification, auditability, and straightforward status updates."
         ctas={[
-          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Open Account", href: "/open-account", variant: "primary" },
           { label: "Ask about funding", href: "/contact", variant: "ghost" },
         ]}
       />
@@ -510,7 +508,7 @@ export function WhyChooseUsPageView() {
         title="What we optimize for â€” and what we do not."
         description="We optimize for clarity, execution discipline, and usable risk controls. We do not optimize for hype, fake urgency, or invented awards."
         ctas={[
-          { label: "Try Demo Account", href: SIGNUP_URL, variant: "primary" },
+          { label: "Open Account", href: "/open-account", variant: "primary" },
           { label: "About the company", href: "/about", variant: "ghost" },
         ]}
       />
@@ -540,7 +538,7 @@ export function ReviewsPageView() {
         description="We do not publish fabricated testimonials. If you trade with Oceana and want to share experience, contact support and tell us what worked and what did not."
         ctas={[
           { label: "Share feedback", href: "/contact", variant: "primary" },
-          { label: "Try Demo Account", href: SIGNUP_URL, variant: "ghost" },
+          { label: "Open Account", href: "/open-account", variant: "ghost" },
         ]}
       />
 
@@ -553,7 +551,7 @@ export function ReviewsPageView() {
         title="Trading with us? Tell us how it went."
         description="Your feedback goes straight to the team that can act on it."
         primary={{ label: "Share feedback", href: "/contact" }}
-        secondary={{ label: "Try Demo Account", href: SIGNUP_URL }}
+        secondary={{ label: "Open Account", href: "/open-account" }}
       />
     </main>
   );
@@ -1001,7 +999,7 @@ export function BecomeAPartnerPageView() {
         title="Prefer to talk first?"
         description="Reach the partnerships desk directly and we will walk you through the options."
         primary={{ label: "Contact us", href: "/contact" }}
-        secondary={{ label: "Try Demo Account", href: SIGNUP_URL }}
+        secondary={{ label: "Open Account", href: "/open-account" }}
       />
     </main>
   );

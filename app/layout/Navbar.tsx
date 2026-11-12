@@ -26,7 +26,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { LOGIN_URL, SIGNUP_URL } from "../components/ui/CtaBand";
+import { LOGIN_URL } from "../components/ui/CtaBand";
 
 type NavChild = { label: string; href: string; description: string; icon: LucideIcon };
 type NavItem = { label: string; href?: string; children?: NavChild[] };
@@ -247,8 +247,8 @@ export default function Navbar() {
           >
             Log in
           </Link>
-          <Link href={SIGNUP_URL} className="btn-primary btn-sm hidden sm:inline-flex">
-            Try Demo Account
+          <Link href="/open-account" className="btn-primary btn-sm hidden sm:inline-flex">
+            Open Account
           </Link>
           <button
             type="button"
@@ -345,8 +345,8 @@ export default function Navbar() {
               </div>
 
               <div className="mt-auto grid gap-2 pt-8">
-                <Link href={SIGNUP_URL} className="btn-primary w-full">
-                  Try Demo Account
+                <Link href="/open-account" className="btn-primary w-full">
+                  Open Account
                 </Link>
                 <Link href={LOGIN_URL} className="btn-glass w-full">
                   Log in

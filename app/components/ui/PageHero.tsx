@@ -12,9 +12,11 @@ type PageHeroProps = {
   eyebrow?: string;
   title: string;
   description: string;
-  /** Kept for API compatibility; heroes now use a built-in visual instead of remote photos. */
+  /** Optional right-hand photo; used when `visual` is not provided. */
   imageSrc?: string;
   imageAlt?: string;
+  /** contain = fit UI frame; cover = fill box (default). */
+  imageFit?: "cover" | "contain";
   ctas?: Cta[];
   compact?: boolean;
   /** Optional right-hand visual; defaults to the illustrative chart on full heroes. */
@@ -28,6 +30,9 @@ export default function PageHero({
   eyebrow = "Oceana",
   title,
   description,
+  imageSrc,
+  imageAlt = "",
+  imageFit = "cover",
   ctas = [],
   compact = false,
   visual,
@@ -112,10 +117,32 @@ export default function PageHero({
                   animate: { opacity: 1, x: 0 },
                   transition: { duration: 0.8, delay: 0.2, ease },
                 })}
-            className="relative hidden lg:block"
+            className={`relative ${imageSrc || visual ? "block" : "hidden lg:block"}`}
           >
             <div className="absolute -inset-10 -z-10 rounded-full bg-[radial-gradient(circle,rgba(47,91,255,0.22),transparent_65%)] blur-2xl" />
-            {visual ?? <ChartVisual />}
+            {visual ??
+              (imageSrc ? (
+                <div
+                  className={
+                    imageFit === "contain"
+                      ? "relative mx-auto flex max-h-[min(560px,70vh)] max-w-md items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#07101f]/80 p-3 shadow-[0_28px_60px_-28px_rgba(0,0,0,0.7)] sm:max-w-lg sm:p-4"
+                      : "relative overflow-hidden rounded-2xl border border-white/10 bg-white shadow-[0_28px_60px_-28px_rgba(0,0,0,0.7)]"
+                  }
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={imageSrc}
+                    alt={imageAlt}
+                    className={
+                      imageFit === "contain"
+                        ? "mx-auto h-auto max-h-[min(520px,66vh)] w-auto max-w-full object-contain"
+                        : "h-auto w-full object-cover"
+                    }
+                  />
+                </div>
+              ) : (
+                <ChartVisual />
+              ))}
           </motion.div>
         ) : null}
       </div>

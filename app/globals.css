@@ -143,6 +143,16 @@ body {
   letter-spacing: -0.03em;
 }
 
+html.lang-ar,
+html.lang-ar body {
+  font-family: "Noto Sans Arabic", var(--font-body);
+}
+
+html.lang-ar .font-display {
+  font-family: "Noto Sans Arabic", var(--font-display);
+  letter-spacing: 0;
+}
+
 .site-shell {
   background: var(--background);
 }

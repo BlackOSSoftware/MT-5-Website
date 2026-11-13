@@ -25,6 +25,8 @@ const spaceGrotesk = Space_Grotesk({
 // (Next 16.0.x) fails on its "/l/font?kit=â€¦&skey=â€¦" file URLs. --font-source-sans is set in globals.css.
 const SOURCE_SANS_HREF =
   "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap";
+const ARABIC_FONT_HREF =
+  "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -93,12 +95,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href={SOURCE_SANS_HREF} />
+        <link rel="stylesheet" href={ARABIC_FONT_HREF} />
       </head>
       <body className={`${spaceGrotesk.variable} antialiased site-shell`}>
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var t=localStorage.theme;if(t==='dark'){document.documentElement.classList.add('dark');}else if(t==='light'){document.documentElement.classList.remove('dark');}}catch(e){}})();",
+              "(function(){try{var t=localStorage.theme;if(t==='dark'){document.documentElement.classList.add('dark');}else if(t==='light'){document.documentElement.classList.remove('dark');}var l=localStorage.locale;document.documentElement.dir='ltr';if(l==='ar'){document.documentElement.lang='ar';document.documentElement.classList.add('lang-ar');}else{document.documentElement.lang='en';document.documentElement.classList.remove('lang-ar');}}catch(e){}})();",
           }}
         />
         <GlobalStructuredData />

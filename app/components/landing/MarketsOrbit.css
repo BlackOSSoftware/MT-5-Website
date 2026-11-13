@@ -1,0 +1,133 @@
+.marketsOrbit {
+  width: 100%;
+  min-height: 340px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  contain: layout paint;
+  content-visibility: auto;
+}
+
+.marketsOrbitInner {
+  --w: 110px;
+  --h: 156px;
+  --translateZ: 260px;
+  --rotateX: -12deg;
+  --perspective: 960px;
+  --quantity: 8;
+  position: absolute;
+  width: var(--w);
+  height: var(--h);
+  top: 28%;
+  left: calc(50% - (var(--w) / 2));
+  z-index: 2;
+  transform-style: preserve-3d;
+  transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(-20deg);
+  animation: marketsOrbitSpin 28s linear infinite;
+  animation-play-state: paused;
+}
+
+.marketsOrbit.is-active .marketsOrbitInner {
+  animation-play-state: running;
+}
+
+@keyframes marketsOrbitSpin {
+  from {
+    transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0deg);
+  }
+  to {
+    transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(360deg);
+  }
+}
+
+.marketsOrbitCard {
+  --index: 0;
+  --color-card: 47, 91, 255;
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(var(--color-card), 0.75);
+  border-radius: 14px;
+  overflow: hidden;
+  transform: rotateY(calc((360deg / var(--quantity)) * var(--index)))
+    translateZ(var(--translateZ));
+  backface-visibility: hidden;
+  background: rgba(6, 12, 24, 0.92);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.marketsOrbitFace {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 8px;
+  text-align: center;
+  background: radial-gradient(
+    circle at 50% 28%,
+    rgba(var(--color-card), 0.28) 0%,
+    rgba(8, 14, 28, 0.95) 100%
+  );
+}
+
+.marketsOrbitIcon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(var(--color-card), 0.4);
+  background: rgba(var(--color-card), 0.12);
+  color: rgb(var(--color-card));
+}
+
+.marketsOrbitName {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.marketsOrbitTag {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (min-width: 1024px) {
+  .marketsOrbit {
+    min-height: 400px;
+  }
+
+  .marketsOrbitInner {
+    --w: 118px;
+    --h: 168px;
+    --translateZ: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .marketsOrbit {
+    min-height: 280px;
+  }
+
+  .marketsOrbitInner {
+    --w: 86px;
+    --h: 124px;
+    --translateZ: 200px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketsOrbitInner,
+  .marketsOrbit.is-active .marketsOrbitInner {
+    animation: none;
+  }
+}

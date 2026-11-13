@@ -4,15 +4,15 @@ import PageStructuredData from "../../components/seo/PageStructuredData";
 import { buildPageMetadata } from "../../lib/seo";
 
 const PAGE_SEO = {
-  title: "Trading Platform | oceanaprofx",
+  title: "Web Platform | oceanaprofx",
   description:
-    "Explore the oceanaprofx trading platform with multi-device access, execution tools, charting capabilities and risk controls.",
+    "Trade on the Oceana web platform in your browser — live charts, tickets, watchlists, balances, and funding on laptop and tablet.",
   path: "/trading/platform",
   pageKeywords: [
-    "trading platform",
-    "forex trading software",
     "web trading platform",
-    "mobile trading app",
+    "browser trading terminal",
+    "forex web platform",
+    "oceanaprofx portal",
     "multi device trading",
     "advanced charting platform",
   ],

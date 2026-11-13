@@ -16,6 +16,7 @@ import {
   Mail,
   MessageSquareText,
   MonitorSmartphone,
+  PieChart,
   Receipt,
   Scale,
   Shield,
@@ -23,6 +24,7 @@ import {
   SlidersHorizontal,
   Smartphone,
   Sparkles,
+  Users,
   Wallet,
   type LucideIcon,
 } from "lucide-react";
@@ -30,7 +32,25 @@ import { useCreateInquiry } from "../../../hooks/useCreateInquiry";
 import PageHero from "../../ui/PageHero";
 import Reveal from "../../ui/Reveal";
 import { Section, SectionHeader } from "../../ui/Section";
-import CtaBand, { LOGIN_URL } from "../../ui/CtaBand";
+import CtaBand, { LOGIN_URL, SIGNUP_URL } from "../../ui/CtaBand";
+
+const PLAY_STORE_URL = String(process.env.NEXT_PUBLIC_PLAY_STORE_URL || "").trim();
+const ANDROID_APK_URL = String(process.env.NEXT_PUBLIC_ANDROID_APK_URL || "").trim();
+const API_BASE = String(process.env.NEXT_PUBLIC_API_BASE_URL || "").trim();
+
+function apiOrigin(): string {
+  try {
+    return API_BASE ? new URL(API_BASE).origin : "";
+  } catch {
+    return "";
+  }
+}
+
+/** Play Store → explicit APK env → backend /downloads fallback (same as AppDownloadPopup). */
+const MOBILE_DOWNLOAD_URL =
+  PLAY_STORE_URL ||
+  ANDROID_APK_URL ||
+  (apiOrigin() ? `${apiOrigin()}/downloads/OceanaProFx%20.apk` : "");
 
 type IconCard = { icon: LucideIcon; title: string; body: string };
 
@@ -211,55 +231,366 @@ export function TradingAccountPageView() {
 
 export function TradingPlatformPageView() {
   const tools: IconCard[] = [
-    { icon: CandlestickChart, title: "Web trading", body: "Browser-based charts and tickets for focused desktop sessions." },
-    { icon: Smartphone, title: "Mobile access", body: "Monitor positions and react when you are away from the desk." },
-    { icon: SlidersHorizontal, title: "Account controls", body: "Funding, reporting, and access settings in one operational layer." },
+    { icon: CandlestickChart, title: "Live charts & tickets", body: "Order entry sits beside the chart so you can size, stop, and send without leaving the workspace." },
+    { icon: MonitorSmartphone, title: "Multi-device sync", body: "Same account, balance, and positions on web — continue on mobile when you leave the desk." },
+    { icon: SlidersHorizontal, title: "Risk beside the ticket", body: "Stops, limits, margin visibility, and account controls stay where decisions are made." },
+    { icon: Wallet, title: "Funding in-portal", body: "Deposits, withdrawals, and transfers happen inside the same client portal you trade from." },
   ];
 
   return (
     <main>
       <PageHero
-        eyebrow="Platform"
-        title="A workspace that stays out of your way."
-        description="Charts, tickets, balances, and funding stay aligned across web and mobile â€” so your attention stays on the market."
+        eyebrow="Web platform"
+        title="Trade from the browser with a full desk workspace."
+        description="Oceana web platform brings charts, tickets, watchlists, balances, and funding into one browser session — built for focus on laptop and tablet."
+        imageSrc="/images/web-dashboard-mockup.png"
+        imageAlt="Oceana trading dashboard on laptop"
         ctas={[
-          { label: "Open Account", href: "/open-account", variant: "primary" },
-          { label: "Launch portal", href: LOGIN_URL, variant: "ghost" },
+          { label: "Launch web portal", href: LOGIN_URL, variant: "primary" },
+          { label: "Try demo", href: SIGNUP_URL, variant: "ghost" },
         ]}
       />
 
       <Section>
-        <SectionHeader eyebrow="Tools" title="Everything you need, nothing you don't." />
-        <IconCardGrid items={tools} />
+        <SectionHeader
+          eyebrow="Why web"
+          title="A serious terminal without installing software."
+          description="Open the portal, pick your account, and work the market with the same tools you expect at the desk."
+        />
+        <IconCardGrid items={tools} cols={2} />
       </Section>
 
       <Section tone="ink">
         <SplitPanel
           aside={
-            <div className="glass-card p-7 sm:p-8">
-              <CheckList
-                dark
-                items={[
-                  "Live charts with order entry beside the chart",
-                  "Market and pending orders with stop loss and take profit",
-                  "Positions, pending orders, and history in one view",
-                  "Switch between your trading accounts without signing out",
-                ]}
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-white shadow-[0_28px_60px_-28px_rgba(0,0,0,0.7)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/web-dashboard-mockup.png"
+                alt="Oceana trading dashboard on laptop"
+                className="h-auto w-full object-cover"
               />
             </div>
           }
         >
           <SectionHeader
             dark
-            eyebrow="One workspace"
-            title="Desk and pocket, in sync."
-            description="Open the trading terminal from the client portal on desktop, or download the Android app to manage the same account on the move."
+            eyebrow="Inside the portal"
+            title="Everything aligned in one session."
+            description="From first login to live order flow, the web platform keeps markets, risk, and money movement in the same operational layer."
           />
+          <div className="mt-8">
+            <CheckList
+              dark
+              items={[
+                "Watchlists, charts, and depth for forex, crypto, Indices, and metals",
+                "Market and pending orders with stop loss and take profit",
+                "Open positions, history, and multi-account switching",
+                "Deposit, withdraw, and transfer without leaving the portal",
+              ]}
+            />
+          </div>
           <Reveal delay={0.15} className="mt-8 flex flex-wrap gap-3">
             <Link href={LOGIN_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              Launch portal
+              Open web platform
+            </Link>
+            <Link href="/trading/mobile-app" className="btn-glass">
+              Get the mobile app
+            </Link>
+            <Link href={SIGNUP_URL} target="_blank" rel="noopener noreferrer" className="btn-glass">
+              Create demo account
             </Link>
           </Reveal>
+        </SplitPanel>
+      </Section>
+
+      <Section>
+        <SectionHeader
+          eyebrow="Start here"
+          title="Three clicks from idea to order."
+          align="center"
+        />
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {[
+            { step: "01", title: "Sign in", body: "Use your Oceana client portal login on any modern browser.", href: LOGIN_URL, label: "Go to login" },
+            { step: "02", title: "Choose account", body: "Switch live or demo accounts without signing out.", href: "/trading/account", label: "View accounts" },
+            { step: "03", title: "Trade", body: "Open charts, set risk, and send orders from one workspace.", href: LOGIN_URL, label: "Launch portal" },
+          ].map((s) => (
+            <Reveal key={s.step}>
+              <article className="card card-hover h-full p-6 sm:p-7">
+                <p className="text-xs font-bold tracking-[0.18em] text-[var(--accent)]">{s.step}</p>
+                <h3 className="mt-3 font-display text-xl font-semibold text-[var(--foreground)]">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{s.body}</p>
+                <Link
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="mt-5 inline-flex text-sm font-semibold text-[var(--primary)] hover:underline"
+                >
+                  {s.label} →
+                </Link>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <CtaBand
+        title="Ready for the web desk?"
+        description="Launch the Oceana portal in your browser, or open a demo account first to learn the workspace."
+        primary={{ label: "Launch web portal", href: LOGIN_URL }}
+        secondary={{ label: "Mobile app", href: "/trading/mobile-app" }}
+      />
+    </main>
+  );
+}
+
+export function TradingMobileAppPageView() {
+  const tools: IconCard[] = [
+    { icon: Smartphone, title: "Watchlist & quotes", body: "Track majors, crosses, indices, and crypto with live bid/ask on a clean mobile watchlist." },
+    { icon: CandlestickChart, title: "Charts & trade", body: "Move from quote to chart to ticket without losing context when the market moves." },
+    { icon: Wallet, title: "Same account", body: "Balances, positions, and funding stay synced with the web portal — one Oceana login." },
+    { icon: ShieldCheck, title: "Secure access", body: "Sign in through the same protected client stack you use on desktop." },
+  ];
+
+  return (
+    <main>
+      <PageHero
+        eyebrow="Mobile app"
+        title="Your watchlist and tickets, in your pocket."
+        description="The Oceana Android app keeps quotes, charts, positions, and account tools with you — so exposure stays visible when you leave the desk."
+        imageSrc="/images/mobile-trading-banner.png"
+        imageAlt="Oceana Fx Pro mobile trading"
+        imageFit="contain"
+        ctas={[
+          {
+            label: "Download Android app",
+            href: MOBILE_DOWNLOAD_URL || SIGNUP_URL,
+            variant: "primary",
+          },
+          { label: "Try demo", href: SIGNUP_URL, variant: "ghost" },
+        ]}
+      />
+
+      <Section>
+        <SectionHeader
+          eyebrow="On mobile"
+          title="Built for decisions away from the monitor."
+          description="React to moves, check exposure, and manage the same live account you trade on web."
+        />
+        <IconCardGrid items={tools} cols={2} />
+      </Section>
+
+      <Section tone="ink">
+        <SplitPanel
+          aside={
+            <div className="mx-auto flex max-w-[280px] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#0a2744] p-3 shadow-[0_28px_60px_-28px_rgba(0,0,0,0.7)] sm:max-w-[320px] sm:p-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/mobile-watchlist-phone.png"
+                alt="Oceana floating watchlist smartphone"
+                className="mx-auto h-auto max-h-[520px] w-auto max-w-full object-contain"
+              />
+            </div>
+          }
+        >
+          <SectionHeader
+            dark
+            eyebrow="Android"
+            title="Download once. Stay aligned."
+            description="Install the Oceana app, sign in with your portal credentials, and keep trading tools available when you are on the move."
+          />
+          <div className="mt-8">
+            <CheckList
+              dark
+              items={[
+                "Live watchlist with bid/ask for key instruments",
+                "Charts, trade ticket, and account dashboard",
+                "Same balance and positions as the web platform",
+                "Demo or live — switch without losing your place",
+              ]}
+            />
+          </div>
+          <Reveal delay={0.15} className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href={MOBILE_DOWNLOAD_URL || SIGNUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Download Android app
+            </Link>
+            <Link href={SIGNUP_URL} target="_blank" rel="noopener noreferrer" className="btn-glass">
+              Create demo account
+            </Link>
+            <Link href={LOGIN_URL} target="_blank" rel="noopener noreferrer" className="btn-glass">
+              Sign in to portal
+            </Link>
+          </Reveal>
+        </SplitPanel>
+      </Section>
+
+      <Section>
+        <SectionHeader eyebrow="How to start" title="From install to first quote." align="center" />
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {[
+            {
+              step: "01",
+              title: "Create account",
+              body: "Register a demo or live profile in the Oceana client portal.",
+              href: SIGNUP_URL,
+              label: "Sign up",
+            },
+            {
+              step: "02",
+              title: "Install app",
+              body: "Download the Android build and install with your device settings.",
+              href: MOBILE_DOWNLOAD_URL || SIGNUP_URL,
+              label: "Download now",
+            },
+            {
+              step: "03",
+              title: "Trade",
+              body: "Sign in, open the watchlist, and manage the same account as on web.",
+              href: LOGIN_URL,
+              label: "Go to login",
+            },
+          ].map((s) => (
+            <Reveal key={s.step}>
+              <article className="card card-hover h-full p-6 sm:p-7">
+                <p className="text-xs font-bold tracking-[0.18em] text-[var(--accent)]">{s.step}</p>
+                <h3 className="mt-3 font-display text-xl font-semibold text-[var(--foreground)]">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{s.body}</p>
+                <Link
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="mt-5 inline-flex text-sm font-semibold text-[var(--primary)] hover:underline"
+                >
+                  {s.label} →
+                </Link>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <CtaBand
+        title="Take Oceana with you."
+        description="Create an account, install the Android app, and keep the same trading book in your pocket."
+        primary={{
+          label: "Download Android app",
+          href: MOBILE_DOWNLOAD_URL || SIGNUP_URL,
+        }}
+        secondary={{ label: "Try demo", href: SIGNUP_URL }}
+      />
+    </main>
+  );
+}
+
+export function TradingSocialPageView() {
+  const tools: IconCard[] = [
+    { icon: Users, title: "Follow strategies", body: "Browse provider performance and risk posture before you allocate attention." },
+    { icon: SlidersHorizontal, title: "Copy with control", body: "Set size, risk limits, and stop rules so copied trades stay inside your plan." },
+    { icon: Gauge, title: "Transparent stats", body: "Track drawdown, returns, and activity so you can judge fit — not marketing claims." },
+  ];
+
+  return (
+    <main>
+      <PageHero
+        eyebrow="Social trading"
+        title="Learn from the book, keep ownership of risk."
+        description="Social trading on Oceana is built to help you follow strategies with clear stats and deliberate copy controls."
+        ctas={[
+          { label: "Open Account", href: "/open-account", variant: "primary" },
+          { label: "Talk to us", href: "/contact", variant: "ghost" },
+        ]}
+      />
+
+      <Section>
+        <SectionHeader eyebrow="How it works" title="Copy what fits — not everything that moves." />
+        <IconCardGrid items={tools} />
+      </Section>
+
+      <Section tone="deep">
+        <SectionHeader
+          eyebrow="Discipline"
+          title="Social does not mean unsupervised."
+          description="You stay responsible for sizing, stops, and account risk. Providers show activity; you decide what enters your book."
+        />
+        <div className="mt-10">
+          <CheckList
+            items={[
+              "Provider profiles with readable performance history",
+              "Configurable copy ratios and risk caps",
+              "Pause or stop copying without closing your account",
+              "Support path for onboarding and eligibility questions",
+            ]}
+          />
+        </div>
+      </Section>
+
+      <CtaBand />
+    </main>
+  );
+}
+
+export function TradingPammPageView() {
+  const tools: IconCard[] = [
+    { icon: PieChart, title: "Managed allocation", body: "Allocate capital to a money manager while keeping account ownership clear." },
+    { icon: Scale, title: "Shared results", body: "Performance is attributed proportionally so outcomes stay transparent." },
+    { icon: Shield, title: "Governed access", body: "Eligibility, reporting, and risk boundaries are defined before capital is committed." },
+  ];
+
+  return (
+    <main>
+      <PageHero
+        eyebrow="PAMM"
+        title="Put capital with managers — keep the structure visible."
+        description="PAMM on Oceana is designed for investors who want managed strategies with clear allocation, reporting, and risk boundaries."
+        imageSrc="/images/pamm-growth-banner.png"
+        imageAlt="Oceana Fx Pro PAMM — trade together, grow together"
+        ctas={[
+          { label: "Open Account", href: "/open-account", variant: "primary" },
+          { label: "Contact desk", href: "/contact", variant: "ghost" },
+        ]}
+      />
+
+      <Section>
+        <SectionHeader eyebrow="Structure" title="Allocation without losing clarity." />
+        <IconCardGrid items={tools} />
+      </Section>
+
+      <Section tone="ink">
+        <SplitPanel
+          aside={
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-white shadow-[0_28px_60px_-28px_rgba(0,0,0,0.7)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/pamm-growth-banner.png"
+                alt="Oceana PAMM growth banner"
+                className="h-auto w-full object-cover"
+              />
+            </div>
+          }
+        >
+          <SectionHeader
+            dark
+            eyebrow="For investors"
+            title="Know the mandate before you fund."
+            description="PAMM is not a shortcut around risk. Review manager history, understand fees and drawdown behaviour, then allocate only what fits your plan."
+          />
+          <div className="mt-8">
+            <CheckList
+              dark
+              items={[
+                "Investor and manager roles defined upfront",
+                "Proportional profit and loss attribution",
+                "Reporting on performance and exposure",
+                "Onboarding support for PAMM eligibility",
+              ]}
+            />
+          </div>
         </SplitPanel>
       </Section>
 
@@ -830,10 +1161,15 @@ export function BecomeAPartnerPageView() {
   return (
     <main>
       <PageHero
-        compact
         eyebrow="Partnerships"
         title="Become a Partner"
         description="Whether you are an individual, business, broker, or organization — collaborate with oceanaprofx and grow alongside a multi-asset trading platform built for clarity."
+        imageSrc="/images/partner-handshake.png"
+        imageAlt="Professional partnership handshake"
+        ctas={[
+          { label: "Submit inquiry", href: "#partner-form", variant: "primary" },
+          { label: "Contact us", href: "/contact", variant: "ghost" },
+        ]}
       />
 
       <Section tone="deep" className="-mt-px">
@@ -877,7 +1213,7 @@ export function BecomeAPartnerPageView() {
 
           {/* RIGHT — partnership inquiry form */}
           <Reveal from="right">
-            <form className="card p-6 sm:p-9" onSubmit={handleSubmit} noValidate>
+            <form id="partner-form" className="card scroll-mt-28 p-6 sm:p-9" onSubmit={handleSubmit} noValidate>
               <h2 className="font-display text-2xl font-semibold text-[var(--foreground)]">
                 Partnership inquiry
               </h2>

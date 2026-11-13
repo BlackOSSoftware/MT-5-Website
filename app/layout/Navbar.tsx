@@ -10,63 +10,111 @@ import {
   Bitcoin,
   Building2,
   CalendarDays,
+  CandlestickChart,
   ChevronDown,
   Clock3,
   Coins,
   DollarSign,
   Gem,
+  Handshake,
+  Home,
   LineChart,
+  LogIn,
+  Mail,
   Menu,
   Monitor,
   Moon,
+  PieChart,
   ScrollText,
+  Smartphone,
   Sun,
+  TrendingUp,
+  UserPlus,
+  Users,
   Wallet,
   X,
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { LOGIN_URL } from "../components/ui/CtaBand";
+import { setAppLocale, type AppLocale } from "../lib/i18n/I18nProvider";
 
-type NavChild = { label: string; href: string; description: string; icon: LucideIcon };
-type NavItem = { label: string; href?: string; children?: NavChild[] };
+type NavChild = { labelKey: string; descKey?: string; href: string; icon: LucideIcon };
+type NavItem = { labelKey: string; href?: string; icon: LucideIcon; children?: NavChild[] };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
+  { labelKey: "home", href: "/", icon: Home },
   {
-    label: "Markets",
+    labelKey: "markets",
+    icon: TrendingUp,
     children: [
-      { label: "Forex", href: "/markets/forex", description: "Majors, minors and crosses, 24/5", icon: DollarSign },
-      { label: "Crypto", href: "/markets/crypto", description: "Digital pairs around the clock", icon: Bitcoin },
-      { label: "Indices", href: "/markets/indices", description: "Benchmark exposure and hedges", icon: LineChart },
-      { label: "Metals", href: "/markets/metal", description: "Gold, silver and hard assets", icon: Gem },
+      { labelKey: "forex", descKey: "forexDesc", href: "/markets/forex", icon: DollarSign },
+      { labelKey: "crypto", descKey: "cryptoDesc", href: "/markets/crypto", icon: Bitcoin },
+      { labelKey: "indices", descKey: "indicesDesc", href: "/markets/indices", icon: LineChart },
+      { labelKey: "metals", descKey: "metalsDesc", href: "/markets/metal", icon: Gem },
     ],
   },
   {
-    label: "Trading",
+    labelKey: "trading",
+    icon: CandlestickChart,
     children: [
-      { label: "Accounts", href: "/trading/account", description: "Core, Prime and Elite tiers", icon: Wallet },
-      { label: "Platform", href: "/trading/platform", description: "Web and mobile workspace", icon: Monitor },
-      { label: "Conditions", href: "/trading/condition", description: "Pricing posture and access", icon: ScrollText },
-      { label: "Market hours", href: "/trading/market-time", description: "Sessions mapped to markets", icon: Clock3 },
-      { label: "Funding", href: "/trading/deposit-withdrawal", description: "Deposits and withdrawals", icon: Coins },
-      { label: "Economic calendar", href: "/economic-calendar", description: "Macro releases and forecasts", icon: CalendarDays },
+      { labelKey: "mobileApp", descKey: "mobileAppDesc", href: "/trading/mobile-app", icon: Smartphone },
+      { labelKey: "webPlatform", descKey: "webPlatformDesc", href: "/trading/platform", icon: Monitor },
+      { labelKey: "socialTrading", descKey: "socialTradingDesc", href: "/trading/social-trading", icon: Users },
+      { labelKey: "pamm", descKey: "pammDesc", href: "/trading/pamm", icon: PieChart },
+      { labelKey: "accounts", descKey: "accountsDesc", href: "/trading/account", icon: Wallet },
+      { labelKey: "conditions", descKey: "conditionsDesc", href: "/trading/condition", icon: ScrollText },
+      { labelKey: "marketHours", descKey: "marketHoursDesc", href: "/trading/market-time", icon: Clock3 },
+      { labelKey: "funding", descKey: "fundingDesc", href: "/trading/deposit-withdrawal", icon: Coins },
+      { labelKey: "economicCalendar", descKey: "economicCalendarDesc", href: "/economic-calendar", icon: CalendarDays },
     ],
   },
   {
-    label: "Company",
+    labelKey: "company",
+    icon: Building2,
     children: [
-      { label: "About", href: "/about", description: "Who we are and how we work", icon: Building2 },
-      { label: "Why Oceana", href: "/why-choose-us", description: "What we optimize for", icon: Award },
-      { label: "Reviews", href: "/reviews", description: "Real feedback, no invented quotes", icon: BadgeCheck },
+      { labelKey: "about", descKey: "aboutDesc", href: "/about", icon: Building2 },
+      { labelKey: "whyOceana", descKey: "whyOceanaDesc", href: "/why-choose-us", icon: Award },
+      { labelKey: "reviews", descKey: "reviewsDesc", href: "/reviews", icon: BadgeCheck },
     ],
   },
-  { label: "Become a Partner", href: "/become-a-partner" },
-  { label: "Contact", href: "/contact" },
+  { labelKey: "partner", href: "/become-a-partner", icon: Handshake },
+  { labelKey: "contact", href: "/contact", icon: Mail },
 ];
+
+function LanguageToggle() {
+  const { i18n, t } = useTranslation();
+  const locale = (i18n.language?.startsWith("ar") ? "ar" : "en") as AppLocale;
+
+  return (
+    <div
+      className="inline-flex shrink-0 items-center rounded-full border border-white/15 p-0.5"
+      role="group"
+      aria-label={t("common.language")}
+    >
+      {(["en", "ar"] as AppLocale[]).map((code) => (
+        <button
+          key={code}
+          type="button"
+          onClick={() => setAppLocale(code)}
+          className={`rounded-full px-2 py-1 text-[10px] font-semibold tracking-wide transition sm:text-[11px] ${
+            locale === code
+              ? "bg-[var(--primary)] text-white"
+              : "text-white/60 hover:text-white"
+          }`}
+          aria-pressed={locale === code}
+        >
+          {code === "en" ? "EN" : "AR"}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
   const [desktopGroup, setDesktopGroup] = useState<string | null>(null);
@@ -85,7 +133,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close menus on navigation.
   const [lastPath, setLastPath] = useState(pathname);
   if (lastPath !== pathname) {
     setLastPath(pathname);
@@ -107,9 +154,9 @@ export default function Navbar() {
     localStorage.setItem("theme", nextIsDark ? "dark" : "light");
   };
 
-  const openGroup = (label: string) => {
+  const openGroup = (key: string) => {
     if (closeTimer.current) window.clearTimeout(closeTimer.current);
-    setDesktopGroup(label);
+    setDesktopGroup(key);
   };
   const scheduleClose = () => {
     closeTimer.current = window.setTimeout(() => setDesktopGroup(null), 120);
@@ -117,6 +164,8 @@ export default function Navbar() {
 
   const isActive = (item: NavItem) =>
     item.href ? pathname === item.href : Boolean(item.children?.some((c) => pathname === c.href));
+
+  const navLabel = (key: string) => t(`nav.${key}`);
 
   return (
     <header
@@ -126,8 +175,12 @@ export default function Navbar() {
           : "border-b border-transparent bg-[rgba(5,9,20,0.35)] backdrop-blur-md"
       }`}
     >
-      <div className="container-x flex h-[72px] items-center justify-between gap-4">
-        <Link href="/" className="flex shrink-0 items-center rounded-xl bg-white px-3 py-1.5 shadow-sm" aria-label="Oceana home">
+      <div className="container-x grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-3 lg:gap-4">
+        <Link
+          href="/"
+          className="relative z-10 flex shrink-0 items-center rounded-xl bg-white px-2.5 py-1.5 shadow-sm sm:px-3"
+          aria-label="Oceana home"
+        >
           <Image
             src="/oceana-logo.png"
             alt="Oceana"
@@ -138,22 +191,28 @@ export default function Navbar() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav
+          className="hidden min-w-0 items-center justify-center gap-0.5 lg:flex xl:gap-1"
+          aria-label="Primary"
+        >
           {NAV_ITEMS.map((item) => {
             const active = isActive(item);
+            const ItemIcon = item.icon;
+            const itemLabel = navLabel(item.labelKey);
+            const linkCls = `relative inline-flex max-w-full items-center gap-1 whitespace-nowrap rounded-full px-2 py-2 text-[12.5px] font-medium transition-colors xl:gap-1.5 xl:px-3 xl:text-sm ${
+              active || desktopGroup === item.labelKey
+                ? "text-white"
+                : "text-white/65 hover:text-white"
+            }`;
+
             if (!item.children) {
               return (
-                <Link
-                  key={item.label}
-                  href={item.href!}
-                  className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                    active ? "text-white" : "text-white/65 hover:text-white"
-                  }`}
-                >
-                  {item.label}
+                <Link key={item.labelKey} href={item.href!} className={linkCls}>
+                  <ItemIcon size={14} className="hidden shrink-0 opacity-80 xl:inline" />
+                  <span className="truncate">{itemLabel}</span>
                   {active ? (
                     <span
-                      className="absolute inset-x-3 -bottom-0.5 h-[2px] rounded-full"
+                      className="absolute inset-x-2 -bottom-0.5 h-[2px] rounded-full"
                       style={{ background: "var(--brand-gradient)" }}
                     />
                   ) : null}
@@ -161,27 +220,29 @@ export default function Navbar() {
               );
             }
 
-            const open = desktopGroup === item.label;
+            const open = desktopGroup === item.labelKey;
             return (
               <div
-                key={item.label}
+                key={item.labelKey}
                 className="relative"
-                onMouseEnter={() => openGroup(item.label)}
+                onMouseEnter={() => openGroup(item.labelKey)}
                 onMouseLeave={scheduleClose}
               >
                 <button
                   type="button"
                   aria-expanded={open}
-                  onClick={() => setDesktopGroup(open ? null : item.label)}
-                  className={`relative inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                    active || open ? "text-white" : "text-white/65 hover:text-white"
-                  }`}
+                  onClick={() => setDesktopGroup(open ? null : item.labelKey)}
+                  className={linkCls}
                 >
-                  {item.label}
-                  <ChevronDown size={14} className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+                  <ItemIcon size={14} className="hidden shrink-0 opacity-80 xl:inline" />
+                  <span className="truncate">{itemLabel}</span>
+                  <ChevronDown
+                    size={13}
+                    className={`shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+                  />
                   {active ? (
                     <span
-                      className="absolute inset-x-3 -bottom-0.5 h-[2px] rounded-full"
+                      className="absolute inset-x-2 -bottom-0.5 h-[2px] rounded-full"
                       style={{ background: "var(--brand-gradient)" }}
                     />
                   ) : null}
@@ -194,11 +255,11 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 6 }}
                       transition={{ duration: 0.18, ease: "easeOut" }}
-                      className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
+                      className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3"
                     >
                       <div
                         className={`grid gap-1 rounded-xl border border-white/10 bg-[rgba(9,15,32,0.96)] p-2 shadow-[0_24px_48px_-28px_rgba(0,0,0,0.9)] backdrop-blur-xl ${
-                          item.children.length > 4 ? "w-[560px] grid-cols-2" : "w-[300px]"
+                          item.children.length > 4 ? "w-[min(560px,90vw)] grid-cols-2" : "w-[280px]"
                         }`}
                       >
                         {item.children.map((child) => {
@@ -208,16 +269,22 @@ export default function Navbar() {
                             <Link
                               key={child.href}
                               href={child.href}
-                              className={`group flex items-start gap-3 rounded-lg p-3 transition-colors ${
+                              className={`group flex items-start gap-3 rounded-lg p-3 text-left transition-colors ${
                                 here ? "bg-white/[0.07]" : "hover:bg-white/[0.06]"
                               }`}
                             >
-                              <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/10 bg-white/[0.05] text-[var(--accent-soft)] transition-colors group-hover:border-[var(--accent)]/40">
+                              <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/10 bg-white/[0.05] text-[var(--accent-soft)]">
                                 <Icon size={16} />
                               </span>
-                              <span>
-                                <span className="block text-sm font-semibold text-white">{child.label}</span>
-                                <span className="block text-xs leading-snug text-white/50">{child.description}</span>
+                              <span className="min-w-0">
+                                <span className="block text-sm font-semibold text-white">
+                                  {navLabel(child.labelKey)}
+                                </span>
+                                {child.descKey ? (
+                                  <span className="mt-0.5 block text-xs leading-snug text-white/50">
+                                    {navLabel(child.descKey)}
+                                  </span>
+                                ) : null}
                               </span>
                             </Link>
                           );
@@ -231,11 +298,12 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="relative z-10 flex shrink-0 items-center justify-end gap-1.5 sm:gap-2">
+          <LanguageToggle />
           <button
             type="button"
             onClick={toggleTheme}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-white/35 hover:text-white"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-white/35 hover:text-white sm:h-10 sm:w-10"
             aria-label="Toggle color theme"
           >
             <Sun size={16} className="theme-icon-sun" />
@@ -243,16 +311,21 @@ export default function Navbar() {
           </button>
           <Link
             href={LOGIN_URL}
-            className="hidden rounded-full px-3 py-2 text-sm font-medium text-white/75 transition hover:text-white sm:inline-flex"
+            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-medium text-white/75 transition hover:text-white xl:inline-flex"
           >
-            Log in
+            <LogIn size={15} className="opacity-80" />
+            {t("common.login")}
           </Link>
-          <Link href="/open-account" className="btn-primary btn-sm hidden sm:inline-flex">
-            Open Account
+          <Link
+            href="/open-account"
+            className="btn-primary btn-sm hidden items-center gap-1.5 whitespace-nowrap xl:inline-flex"
+          >
+            <UserPlus size={15} />
+            {t("common.openAccount")}
           </Link>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white lg:hidden"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-white sm:h-10 sm:w-10 lg:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
@@ -262,7 +335,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE DRAWER */}
       <AnimatePresence>
         {menuOpen ? (
           <>
@@ -285,29 +357,35 @@ export default function Navbar() {
             >
               <div className="space-y-1">
                 {NAV_ITEMS.map((item) => {
+                  const ItemIcon = item.icon;
+                  const itemLabel = navLabel(item.labelKey);
                   if (!item.children) {
                     return (
                       <Link
-                        key={item.label}
+                        key={item.labelKey}
                         href={item.href!}
-                        className={`block rounded-xl px-4 py-3 text-[15px] font-medium ${
+                        className={`flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium ${
                           pathname === item.href ? "bg-white/[0.07] text-white" : "text-white/80 hover:bg-white/[0.05]"
                         }`}
                       >
-                        {item.label}
+                        <ItemIcon size={17} className="text-[var(--accent-soft)]" />
+                        {itemLabel}
                       </Link>
                     );
                   }
-                  const open = mobileGroup === item.label;
+                  const open = mobileGroup === item.labelKey;
                   return (
-                    <div key={item.label} className="rounded-xl">
+                    <div key={item.labelKey} className="rounded-xl">
                       <button
                         type="button"
                         className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-[15px] font-medium text-white/85 hover:bg-white/[0.05]"
-                        onClick={() => setMobileGroup(open ? null : item.label)}
+                        onClick={() => setMobileGroup(open ? null : item.labelKey)}
                         aria-expanded={open}
                       >
-                        {item.label}
+                        <span className="inline-flex items-center gap-3">
+                          <ItemIcon size={17} className="text-[var(--accent-soft)]" />
+                          {itemLabel}
+                        </span>
                         <ChevronDown size={16} className={`transition-transform ${open ? "rotate-180" : ""}`} />
                       </button>
                       <AnimatePresence initial={false}>
@@ -331,7 +409,7 @@ export default function Navbar() {
                                     }`}
                                   >
                                     <Icon size={15} className="text-[var(--accent-soft)]" />
-                                    {child.label}
+                                    {navLabel(child.labelKey)}
                                   </Link>
                                 );
                               })}
@@ -345,11 +423,13 @@ export default function Navbar() {
               </div>
 
               <div className="mt-auto grid gap-2 pt-8">
-                <Link href="/open-account" className="btn-primary w-full">
-                  Open Account
+                <Link href="/open-account" className="btn-primary inline-flex w-full items-center justify-center gap-2">
+                  <UserPlus size={16} />
+                  {t("common.openAccount")}
                 </Link>
-                <Link href={LOGIN_URL} className="btn-glass w-full">
-                  Log in
+                <Link href={LOGIN_URL} className="btn-glass inline-flex w-full items-center justify-center gap-2">
+                  <LogIn size={16} />
+                  {t("common.login")}
                 </Link>
               </div>
             </motion.nav>

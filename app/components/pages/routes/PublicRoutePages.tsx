@@ -360,7 +360,7 @@ export function TradingMobileAppPageView() {
         title="Your watchlist and tickets, in your pocket."
         description="The Oceana Android app keeps quotes, charts, positions, and account tools with you — so exposure stays visible when you leave the desk."
         imageSrc="/images/mobile-trading-banner.png"
-        imageAlt="Oceana Fx Pro mobile trading"
+        imageAlt="Oceana Pro Fx mobile trading"
         imageFit="contain"
         ctas={[
           {
@@ -549,7 +549,7 @@ export function TradingPammPageView() {
         title="Put capital with managers — keep the structure visible."
         description="PAMM on Oceana is designed for investors who want managed strategies with clear allocation, reporting, and risk boundaries."
         imageSrc="/images/pamm-growth-banner.png"
-        imageAlt="Oceana Fx Pro PAMM — trade together, grow together"
+        imageAlt="Oceana Pro Fx PAMM — trade together, grow together"
         ctas={[
           { label: "Open Account", href: "/open-account", variant: "primary" },
           { label: "Contact desk", href: "/contact", variant: "ghost" },

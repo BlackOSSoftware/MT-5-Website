@@ -312,7 +312,7 @@ export default function LandingPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/oceana-fx-pro-platform.png"
-              alt="Oceana Fx Pro trading platform"
+              alt="Oceana Pro Fx trading platform"
               className="relative z-10 h-auto w-full rounded-2xl border border-white/10 bg-white shadow-[0_28px_60px_-28px_rgba(0,0,0,0.7)]"
             />
           </div>

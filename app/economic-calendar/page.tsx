@@ -54,7 +54,6 @@ export default function EconomicCalendarPage() {
                 width="100%"
                 height="720"
                 frameBorder="0"
-                allowTransparency
                 loading="lazy"
                 className="block min-h-[540px] w-full bg-white"
               />

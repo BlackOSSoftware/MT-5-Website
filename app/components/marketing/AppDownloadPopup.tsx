@@ -83,7 +83,7 @@ function PhonePreview() {
           <div className="px-4 pb-5 pt-4">
             <div className="flex items-center justify-between">
               <div className="rounded-md bg-white px-1.5 py-0.5">
-                <Image src="/oceana-logo.png" alt="" width={2172} height={724} className="h-3.5 w-auto" />
+                <Image src="/logo-wave.png" alt="" width={2172} height={724} className="h-5 w-auto" />
               </div>
               <span className="rounded-full bg-[#34d399]/15 px-2 py-0.5 text-[9px] font-semibold text-[#34d399]">
                 LIVE

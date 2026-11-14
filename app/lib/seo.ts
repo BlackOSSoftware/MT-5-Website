@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const SITE_URL = "https://www.oceanaprofx.com";
 export const SITE_NAME = "oceanaprofx";
 /** Wide "Oceana" wordmark (navbar / footer / structured data). */
-export const SITE_LOGO_PATH = "/oceana-logo.png";
+export const SITE_LOGO_PATH = "/logo-wave.png";
 /** Square "O" mark cropped from the wordmark, used for favicons and app icons. */
 export const SITE_ICON_PATH = "/oceana-icon.png";
 export const SITE_FAVICON_PATH = SITE_ICON_PATH;

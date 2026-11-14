@@ -78,7 +78,7 @@ export default function Footer() {
       <div className="container-x grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:py-20">
         <div className="space-y-5">
           <Link href="/" className="inline-flex items-center rounded-xl bg-white px-3 py-1.5" aria-label="Oceana home">
-            <Image src="/oceana-logo.png" alt="Oceana" width={2172} height={724} className="h-8 w-auto object-contain" />
+            <Image src="/logo-wave.png" alt="Oceana" width={2172} height={724} className="h-10 w-auto object-contain" />
           </Link>
           <p className="max-w-xs text-sm leading-relaxed text-white/60">{t("footer.tagline")}</p>
           <a

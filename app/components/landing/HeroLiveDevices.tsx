@@ -259,7 +259,7 @@ export default function HeroLiveDevices() {
               <div className="hd-topbar">
                 <div className="hd-brand">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/oceana-logo.png" alt="Oceana" />
+                  <img src="/logo-wave.png" alt="Oceana" />
                 </div>
                 <div className="hd-top-links">
                   <span>Markets</span>
@@ -390,7 +390,7 @@ export default function HeroLiveDevices() {
             <div className="hd-mobile-header">
               <div className="hd-mobile-brand">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/oceana-logo.png" alt="Oceana" />
+                <img src="/logo-wave.png" alt="Oceana" />
               </div>
               <div className="hd-mobile-avatar" />
             </div>

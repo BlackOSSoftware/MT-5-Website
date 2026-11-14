@@ -182,11 +182,11 @@ export default function Navbar() {
           aria-label="Oceana home"
         >
           <Image
-            src="/oceana-logo.png"
+            src="/logo-wave.png"
             alt="Oceana"
             width={2172}
             height={724}
-            className="h-7 w-auto object-contain sm:h-8"
+            className="h-9 w-auto object-contain sm:h-10"
             priority
           />
         </Link>

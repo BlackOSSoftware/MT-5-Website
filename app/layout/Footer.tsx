@@ -77,8 +77,8 @@ export default function Footer() {
     <footer className="ink-surface border-t border-white/10">
       <div className="container-x grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:py-20">
         <div className="space-y-5">
-          <Link href="/" className="inline-flex items-center rounded-xl bg-white px-3 py-1.5" aria-label="Oceana home">
-            <Image src="/logo-wave.png" alt="Oceana" width={2172} height={724} className="h-10 w-auto object-contain" />
+          <Link href="/" className="inline-flex items-center px-1 py-1" aria-label="Oceana home">
+            <Image src="/logo-wave.png" alt="Oceana" width={2172} height={724} className="h-12 w-auto object-contain brightness-110 contrast-105 drop-shadow-[0_6px_24px_rgba(47,91,255,0.45)]" />
           </Link>
           <p className="max-w-xs text-sm leading-relaxed text-white/60">{t("footer.tagline")}</p>
           <a

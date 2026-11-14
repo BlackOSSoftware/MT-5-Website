@@ -178,7 +178,7 @@ export default function Navbar() {
       <div className="container-x grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-3 lg:gap-4">
         <Link
           href="/"
-          className="relative z-10 flex shrink-0 items-center rounded-xl bg-white px-2.5 py-1.5 shadow-sm sm:px-3"
+          className="relative z-10 flex shrink-0 items-center px-1 py-1"
           aria-label="Oceana home"
         >
           <Image
@@ -186,7 +186,7 @@ export default function Navbar() {
             alt="Oceana"
             width={2172}
             height={724}
-            className="h-9 w-auto object-contain sm:h-10"
+            className="h-10 w-auto object-contain brightness-110 contrast-105 drop-shadow-[0_6px_24px_rgba(47,91,255,0.45)] sm:h-12"
             priority
           />
         </Link>

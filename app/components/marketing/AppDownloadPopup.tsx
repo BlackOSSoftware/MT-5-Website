@@ -82,9 +82,7 @@ function PhonePreview() {
           <div className="mx-auto mt-2 h-1.5 w-16 rounded-full bg-white/10" />
           <div className="px-4 pb-5 pt-4">
             <div className="flex items-center justify-between">
-              <div className="rounded-md bg-white px-1.5 py-0.5">
-                <Image src="/logo-wave.png" alt="" width={2172} height={724} className="h-5 w-auto" />
-              </div>
+              <Image src="/logo-wave.png" alt="" width={2172} height={724} className="h-5 w-auto drop-shadow-[0_2px_8px_rgba(61,123,255,0.4)]" />
               <span className="rounded-full bg-[#34d399]/15 px-2 py-0.5 text-[9px] font-semibold text-[#34d399]">
                 LIVE
               </span>
